@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/aeronautical_propulsion/',
+  base: process.env.NODE_ENV === 'production' ? '/aeronautical_propulsion/' : '/',
 })
