@@ -1,0 +1,271 @@
+import { useState, useEffect } from "react";
+import katex from "katex";
+import "katex/dist/katex.min.css";
+
+function K({ children, display = false, color }) {
+  const html = katex.renderToString(children, {
+    displayMode: display, throwOnError: false, trust: true,
+    macros: { "\\d": "\\mathrm{d}" },
+  });
+  return <span style={{ color: color || "inherit" }} dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
+// Shared dark card components
+const Card = ({ children, accent = "#6366f1", style = {} }) => (
+  <div style={{
+    background: "#0d1117", borderRadius: 10, padding: "16px 18px",
+    border: `1px solid ${accent}22`, ...style
+  }}>{children}</div>
+);
+const Label = ({ children, color = "#6366f1" }) => (
+  <div style={{ color, fontFamily: "monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>{children}</div>
+);
+const EqBox = ({ children, color = "#6366f1" }) => (
+  <div style={{ background: "#161b22", borderRadius: 8, padding: "12px 16px", border: `1px solid ${color}33`, textAlign: "center", margin: "8px 0" }}>
+    {children}
+  </div>
+);
+
+const ACCENT = "#6366f1"; // indigo
+
+const slides = [
+  {
+    type: "title",
+    title: "Thermodynamics\nFundamentals",
+    subtitle: "ME 3470 · Lecture 2.1",
+    tag: "First & Second Laws · Entropy",
+  },
+  {
+    title: "First Law of Thermodynamics",
+    subtitle: "Energy Conservation in Systems",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <Card accent={ACCENT}>
+          <Label color={ACCENT}>Fundamental Equation</Label>
+          <EqBox color={ACCENT}>
+            <K display color={ACCENT}>{String.raw`\delta q + \delta w = \mathrm{d}e`}</K>
+          </EqBox>
+          <p style={{ color: "#8b949e", fontSize: 13, textAlign: "center", margin: "8px 0 0" }}>
+            Heat added + Work done = Change in internal energy
+          </p>
+        </Card>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            [String.raw`\delta q`, "Heat added to the system"],
+            [String.raw`\delta w`, "Work done on the system"],
+            [String.raw`\mathrm{d}e`, "Change in internal energy (state variable)"],
+          ].map(([sym, desc]) => (
+            <div key={sym} style={{ display: "flex", gap: 14, alignItems: "center", background: "#0d1117", borderRadius: 8, padding: "10px 14px", borderLeft: `3px solid ${ACCENT}` }}>
+              <span style={{ minWidth: 56, color: ACCENT, fontSize: 15 }}><K color={ACCENT}>{sym}</K></span>
+              <span style={{ color: "#8b949e", fontSize: 13 }}>{desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: "The Thermodynamic System",
+    subtitle: "Defining Boundaries",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <Card accent={ACCENT}>
+          <Label color={ACCENT}>System Boundary Diagram</Label>
+          <svg viewBox="0 0 300 220" style={{ width: "100%", maxWidth: 340, display: "block", margin: "0 auto" }}>
+            <rect x="10" y="10" width="280" height="200" fill="#161b22" rx="16" stroke="#30363d" strokeWidth="1" />
+            <text x="265" y="32" textAnchor="end" fontSize="11" fill="#8b949e" fontFamily="monospace">Surroundings</text>
+            <ellipse cx="150" cy="115" rx="85" ry="72" fill="none" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="8,4" />
+            <text x="150" y="110" textAnchor="middle" fontSize="14" fill="#f0f6fc" fontFamily="monospace" fontWeight="bold">System</text>
+            <text x="150" y="128" textAnchor="middle" fontSize="11" fill="#8b949e" fontFamily="monospace">(Fixed Mass)</text>
+            <defs>
+              <marker id="th-arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 z" fill="#6366f1" />
+              </marker>
+            </defs>
+            <path d="M 248 65 Q 205 50 175 92" fill="none" stroke="#6366f1" strokeWidth="2" markerEnd="url(#th-arr)" />
+            <text x="252" y="58" fontSize="13" fill="#6366f1" fontFamily="monospace"><tspan fontStyle="italic">δq</tspan></text>
+            <path d="M 55 65 Q 98 50 125 92" fill="none" stroke="#a78bfa" strokeWidth="2" markerEnd="url(#th-arr)" />
+            <text x="38" y="58" fontSize="13" fill="#a78bfa" fontFamily="monospace"><tspan fontStyle="italic">δw</tspan></text>
+          </svg>
+        </Card>
+        <Card accent={ACCENT} style={{ borderLeft: `3px solid ${ACCENT}` }}>
+          <p style={{ color: "#8b949e", fontSize: 13, lineHeight: 1.6, margin: 0 }}>
+            The <span style={{ color: "#f0f6fc" }}>boundary</span> separates the system from its surroundings.
+            Heat and work cross this boundary; the internal energy <K color={ACCENT}>e</K> is a state variable that changes as a result.
+          </p>
+        </Card>
+      </div>
+    ),
+  },
+  {
+    title: "Practical Example: Air Reservoir",
+    subtitle: "Charging a High-Pressure Tank",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <Card accent="#10b981">
+          <Label color="#10b981">Problem Setup</Label>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            {[
+              ["Volume", "30 m³"], ["Flow rate", "1 kg/s"],
+              ["Temperature", "300 K (const.)", ], ["Initial pressure", "10 atm"],
+            ].map(([k, v]) => (
+              <div key={k} style={{ background: "#161b22", borderRadius: 8, padding: "10px 12px" }}>
+                <div style={{ color: "#8b949e", fontSize: 11, marginBottom: 4 }}>{k}</div>
+                <div style={{ color: "#f0f6fc", fontFamily: "monospace", fontSize: 15, fontWeight: 700 }}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+        <Card accent="#ff6b35">
+          <Label color="#ff6b35">Rate of Pressure Change</Label>
+          <EqBox color="#ff6b35">
+            <K display color="#ff6b35">{String.raw`\frac{\mathrm{d}p}{\mathrm{d}t} = 2867.13\ \mathrm{N/m^2 \cdot s}`}</K>
+          </EqBox>
+        </Card>
+        <Card accent="#00d4ff" style={{ borderLeft: "3px solid #00d4ff" }}>
+          <p style={{ color: "#8b949e", fontSize: 13, margin: 0 }}>
+            Time to pressurize from 10 → 20 atm: <span style={{ color: "#f0f6fc", fontFamily: "monospace", fontSize: 15 }}>5.87 minutes</span>
+          </p>
+        </Card>
+      </div>
+    ),
+  },
+  {
+    title: "Second Law & Entropy",
+    subtitle: "The Direction of Natural Processes",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <Card accent="#f43f5e">
+            <Label color="#f43f5e">Entropy Change</Label>
+            <EqBox color="#f43f5e">
+              <K display color="#f43f5e">{String.raw`\mathrm{d}s \geq \frac{\delta q}{T}`}</K>
+            </EqBox>
+          </Card>
+          <Card accent="#f43f5e">
+            <Label color="#f43f5e">Adiabatic Process</Label>
+            <EqBox color="#f43f5e">
+              <K display color="#f43f5e">{String.raw`\mathrm{d}s \geq 0`}</K>
+            </EqBox>
+          </Card>
+        </div>
+        <Card accent="#f43f5e" style={{ borderLeft: "3px solid #f43f5e" }}>
+          <p style={{ color: "#8b949e", fontSize: 13, lineHeight: 1.7, margin: 0 }}>
+            <span style={{ color: "#f0f6fc" }}>The Second Law:</span> Entropy of an isolated system always increases or stays constant.
+            This explains why ice melts on hot steel — but hot steel never spontaneously freezes ice.
+            Nature has a preferred direction.
+          </p>
+        </Card>
+      </div>
+    ),
+  },
+  {
+    title: "Three Important Processes",
+    subtitle: "Adiabatic, Reversible & Isentropic",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {[
+          { num: "1", name: "Adiabatic Process", body: "No heat transfer (δq = 0). System is thermally isolated.", color: "#00d4ff" },
+          { num: "2", name: "Reversible Process", body: "No dissipative phenomena — viscosity, thermal conduction, and diffusion are absent.", color: "#a78bfa" },
+          { num: "3", name: "Isentropic Process", body: "Both adiabatic AND reversible. Entropy remains constant (ds = 0).", color: "#ff6b35" },
+        ].map(p => (
+          <div key={p.num} style={{ display: "flex", gap: 16, alignItems: "flex-start", background: "#0d1117", borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${p.color}` }}>
+            <div style={{ fontFamily: "monospace", fontSize: 24, color: p.color, minWidth: 28, opacity: 0.7, lineHeight: 1 }}>{p.num}</div>
+            <div>
+              <div style={{ color: p.color, fontFamily: "monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", marginBottom: 4 }}>{p.name}</div>
+              <div style={{ color: "#8b949e", fontSize: 13, lineHeight: 1.5 }}>{p.body}</div>
+            </div>
+          </div>
+        ))}
+        <Card accent="#a8ff3e">
+          <Label color="#a8ff3e">Key Relation</Label>
+          <EqBox color="#a8ff3e">
+            <K display color="#a8ff3e">{String.raw`T\,\mathrm{d}s = \mathrm{d}h - v\,\mathrm{d}p`}</K>
+          </EqBox>
+          <p style={{ color: "#8b949e", fontSize: 12, textAlign: "center", margin: "6px 0 0" }}>Essential for calculating entropy changes in perfect gases</p>
+        </Card>
+      </div>
+    ),
+  },
+];
+
+export default function ThermodynamicsPresentation() {
+  const [current, setCurrent] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const total = slides.length;
+
+  const goTo = (idx) => {
+    if (idx < 0 || idx >= total) return;
+    setVisible(false);
+    setTimeout(() => { setCurrent(idx); setVisible(true); }, 140);
+  };
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") goTo(current + 1);
+      if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   goTo(current - 1);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [current]);
+
+
+  const renderSlide = (s) => {
+    if (s.type === "title") return (
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center", gap: 20 }}>
+        <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, letterSpacing: 4, color: "#6366f1", textTransform: "uppercase", marginBottom: 8 }}>{s.tag}</div>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(38px, 5.5vw, 64px)", fontWeight: 900, lineHeight: 1.1, color: "#f0f6fc", whiteSpace: "pre-line", margin: 0, textShadow: `0 0 60px #6366f144` }}>{s.title}</h1>
+        <div style={{ width: 80, height: 3, background: `linear-gradient(90deg, #6366f1, #00d4ff)`, borderRadius: 2, margin: "8px 0" }} />
+        <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: "#8b949e", letterSpacing: 2 }}>{s.subtitle}</p>
+        <div style={{ position: "absolute", bottom: 40, right: 60, opacity: 0.12 }}>
+          <svg width="180" height="180" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#6366f1" strokeWidth="1" strokeDasharray="4 8" />
+            <circle cx="100" cy="100" r="50" fill="none" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 8" />
+            <circle cx="100" cy="100" r="6" fill="#6366f1" />
+            <circle cx="180" cy="100" r="4" fill="#00d4ff" />
+          </svg>
+        </div>
+      </div>
+    );
+    return s.content;
+  };
+
+  return (
+    <div style={{
+      minHeight: "100vh", background: "#010409", display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "center", padding: "20px 16px", color: "#f0f6fc",
+      backgroundImage: "radial-gradient(ellipse at 15% 10%, #6366f115 0%, transparent 55%)",
+    }}>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&display=swap" />
+      <div style={{
+        width: "100%", maxWidth: 820,
+        background: "linear-gradient(135deg, #0d1117 0%, #161b22 100%)",
+        border: "1px solid #21262d", borderRadius: 16, padding: "32px 36px", minHeight: 520,
+        display: "flex", flexDirection: "column", justifyContent: "flex-start",
+        boxShadow: "0 24px 80px rgba(0,0,0,0.5)",
+        opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(10px)",
+        transition: "opacity 0.14s ease, transform 0.14s ease", position: "relative", overflow: "hidden",
+      }}>
+        <div style={{ position: "absolute", inset: 0, opacity: 0.025, backgroundImage: "linear-gradient(#f0f6fc 1px,transparent 1px),linear-gradient(90deg,#f0f6fc 1px,transparent 1px)", backgroundSize: "40px 40px", pointerEvents: "none" }} />
+        {slides[current].type !== 'title' && <div style={{ marginBottom: 20 }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: "#f0f6fc", margin: "0 0 4px" }}>{slides[current].title}</h2>
+          <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: ACCENT, letterSpacing: 2, textTransform: "uppercase", margin: 0 }}>{slides[current].subtitle}</p>
+        </div>}
+        {renderSlide(slides[current])}
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 20 }}>
+        <button onClick={() => goTo(current - 1)} disabled={current === 0}
+          style={{ background: "transparent", border: "1px solid #30363d", color: current === 0 ? "#30363d" : "#8b949e", width: 40, height: 40, borderRadius: "50%", cursor: current === 0 ? "default" : "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>←</button>
+        <div style={{ display: "flex", gap: 6 }}>
+          {slides.map((_, i) => (
+            <button key={i} onClick={() => goTo(i)} style={{ width: i === current ? 20 : 8, height: 8, borderRadius: 4, border: "none", background: i === current ? ACCENT : "#30363d", cursor: "pointer", transition: "all 0.3s", padding: 0 }} />
+          ))}
+        </div>
+        <button onClick={() => goTo(current + 1)} disabled={current === total - 1}
+          style={{ background: "transparent", border: "1px solid #30363d", color: current === total - 1 ? "#30363d" : "#8b949e", width: 40, height: 40, borderRadius: "50%", cursor: current === total - 1 ? "default" : "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>→</button>
+      </div>
+      <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#30363d", marginTop: 10, letterSpacing: 1 }}>{current + 1} / {total} · arrow keys to navigate</p>
+    </div>
+  );
+}
