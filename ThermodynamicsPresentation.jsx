@@ -279,6 +279,50 @@ const slides = [
   {
     type: '__entropy',  // custom renderer flag
   },
+
+  // ── WORKED EXAMPLE: ENTROPY CHANGE (Anderson MCF Ex. 2 — Part d) ─────────────
+  {
+    type: 'example',
+    sectionNumber: 'Part 3 — Worked Example',
+    heading: 'Entropy Change: Constant-Volume Heating',
+    scenario:
+      'Same vessel (V = 10 m³, <strong>m = 234.6 kg</strong>) is heated from '
+      + '<strong>T₁ = 300 K → T₂ = 600 K</strong> at fixed volume. '
+      + 'Find the specific entropy change Δs and the total ΔS.',
+    steps: [
+      {
+        label: 'Two forms of the Gibbs equation — pick the right one',
+        note: 'Form 1: ds = c<sub>p</sub> dT/T &minus; R dp/p &emsp;'
+          + 'Form 2: ds = c<sub>v</sub> dT/T + R dv/v. '
+          + 'Fixed volume (sealed vessel) → dv = 0 → Form 2 collapses to one term. '
+          + 'We can also use Form 1 if we first find p₂/p₁.',
+        question: 'Could we use Form 2 directly (ds = c<sub>v</sub> dT/T, dv = 0)? '
+          + 'Try it and compare the answer.',
+      },
+      {
+        label: 'Find the pressure ratio using IDG + fixed ρ',
+        eq: '\\frac{p_2}{p_1} = \\frac{\\rho R T_2}{\\rho R T_1} = \\frac{T_2}{T_1} = \\frac{600}{300} = 2',
+        question: 'Why is ρ constant here? (Hint: fixed volume V and fixed mass m.)',
+      },
+      {
+        label: 'Compute c<sub>p</sub>',
+        eq: 'c_p = c_v + R = 717.5 + 287 = 1004.5\\;\\mathrm{J/(kg\\cdot K)}',
+      },
+      {
+        label: 'Apply Form 1 of the Gibbs equation',
+        eq: '\\Delta s = c_p \\ln\\!\\frac{T_2}{T_1} - R\\ln\\!\\frac{p_2}{p_1} '
+          + '= 1004.5\\ln 2 - 287\\ln 2',
+        result: '\\Delta s = (1004.5 - 287)\\ln 2 = 717.5\\ln 2 = 497.3\\;\\mathrm{J/(kg\\cdot K)}',
+        question: 'Note: (c<sub>p</sub> − R) = c<sub>v</sub>. So Δs = c<sub>v</sub> ln(T₂/T₁) — '
+          + 'exactly what Form 2 gives with dv = 0. Consistent?',
+      },
+      {
+        label: 'Total entropy change',
+        eq: '\\Delta S = m\\,\\Delta s = (234.6)(497.3)',
+        result: '\\Delta S = 1.167\\times 10^5\\;\\mathrm{J/K}',
+      },
+    ],
+  },
 ]
 
 // ─── Step counts ──────────────────────────────────────────────────────────────
@@ -291,7 +335,49 @@ function totalSteps(slide) {
   }
   if (slide.type === '__path')    return 5  // 2 path-dep + 3 state vars
   if (slide.type === '__entropy') return 5
+  if (slide.type === 'example')   return slide.steps?.length || 0
   return 0
+}
+
+// ─── Example slide (wind-tunnel worked examples) ─────────────────────────────
+
+function ExampleSlide({ slide, revealed }) {
+  return (
+    <div className="slide-inner">
+      {slide.sectionNumber && (
+        <div className="section-number">{slide.sectionNumber}</div>
+      )}
+      <h2 className="slide-heading anim-in">{slide.heading}</h2>
+      <div className="heading-rule anim-in" />
+
+      <div className="ex-scenario anim-in">
+        <span className="ex-scenario-lbl">Given</span>
+        <HTML>{slide.scenario}</HTML>
+      </div>
+
+      <div className="ex-steps">
+        {(slide.steps || []).map((step, i) => (
+          <div key={i} className={`ex-step${i < revealed ? ' revealed' : ''}`}>
+            <div className="ex-step-hd">
+              <span className="ex-step-num">{i + 1}</span>
+              <span className="ex-step-lbl"><HTML>{step.label}</HTML></span>
+            </div>
+            {step.eq && <div className="ex-eq"><Equation latex={step.eq} /></div>}
+            {step.result && (
+              <div className="ex-result"><Equation latex={step.result} /></div>
+            )}
+            {step.note && <div className="ex-note"><HTML>{step.note}</HTML></div>}
+            {step.question && (
+              <div className="ex-question">
+                <span className="ex-q-mark">?</span>
+                <HTML>{step.question}</HTML>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 // ─── Main component ───────────────────────────────────────────────────────────
@@ -352,6 +438,7 @@ export default function Presentation() {
       case 'twocol':     return <TwoColSlide slide={slide} revealed={revealed} key={key} />
       case '__path':     return <PathDependenceSlide revealed={revealed} key={key} />
       case '__entropy':  return <EntropySlide revealed={revealed} key={key} />
+      case 'example':    return <ExampleSlide slide={slide} revealed={revealed} key={key} />
       default:           return null
     }
   }
@@ -500,6 +587,48 @@ export default function Presentation() {
 
         /* KaTeX */
         .katex { font-size: 1.1em !important; color: #e2e8f0; }
+        /* ── example slides ── */
+        .ex-scenario {
+          background: #0f172a; border: 1px solid #334155;
+          border-left: 3px solid #38bdf8; border-radius: 8px;
+          padding: 0.55rem 0.9rem; margin-bottom: 0.7rem;
+          font-size: 0.8rem; color: #e2e8f0; line-height: 1.5;
+        }
+        .ex-scenario-lbl {
+          font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em;
+          text-transform: uppercase; color: #38bdf8; margin-right: 0.45rem;
+        }
+        .ex-steps { display: flex; flex-direction: column; gap: 0.5rem; }
+        .ex-step {
+          background: #1e293b; border: 1px solid #334155; border-radius: 6px;
+          padding: 0.55rem 0.8rem;
+          opacity: 0; transform: translateY(8px); transition: 0.35s ease;
+        }
+        .ex-step.revealed { opacity: 1; transform: none; }
+        .ex-step-hd { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem; }
+        .ex-step-num {
+          width: 20px; height: 20px; border-radius: 50%;
+          background: #0f172a; border: 1.5px solid #38bdf8;
+          color: #38bdf8; font-size: 0.62rem; font-weight: 700;
+          display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .ex-step-lbl { font-size: 0.8rem; font-weight: 600; color: #f8fafc; }
+        .ex-eq { font-size: 0.8rem; margin: 0.2rem 0 0.3rem; overflow-x: auto; }
+        .ex-result {
+          background: #0f172a; border: 1px solid #38bdf8; border-radius: 5px;
+          padding: 0.2rem 0.8rem; font-size: 0.85rem; color: #e2e8f0; margin: 0.2rem 0;
+          display: inline-block;
+        }
+        .ex-note { font-size: 0.74rem; color: #94a3b8; line-height: 1.45; margin: 0.2rem 0; }
+        .ex-note em { color: #38bdf8; }
+        .ex-question {
+          display: flex; align-items: flex-start; gap: 0.4rem;
+          margin-top: 0.35rem; padding: 0.35rem 0.6rem;
+          background: rgba(251,191,36,.06); border-left: 2px solid #fbbf24;
+          border-radius: 0 4px 4px 0;
+          font-size: 0.72rem; color: #fbbf24; font-style: italic; line-height: 1.4;
+        }
+        .ex-q-mark { flex-shrink: 0; font-weight: 700; font-style: normal; }
       `}</style>
 
       <div className="app">

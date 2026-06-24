@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import ThermodynamicsPresentation from './ThermodynamicsPresentation';
+// ThermodynamicsPresentation merged into Unit2_ME3470 — archived, kept on disk for reference
+// import ThermodynamicsPresentation from './ThermodynamicsPresentation';
 import Quasi1DFlowsPresentation from './Quasi1DFlowsPresentation';
 import TurbojetPresentation from './TurbojetPresentation';
 import PropulsionDeck from './PropulsionDeck';
@@ -15,6 +16,7 @@ import StagnationProperties from './StagnationProperties';
 // Both files remain on disk for reference; re-import here only if you need them.
 // import CompressibleFlowPresentation from './CompressibleFlowPresentation';
 // import Unit2slides from './Unit2slides';
+// ThermodynamicsPresentation.jsx → content merged into Unit2_ME3470 (Sections 2 & 4).
 
 const App = () => {
   const [currentPresentation, setCurrentPresentation] = useState(null);
@@ -41,13 +43,14 @@ const App = () => {
       component: TurbojetPresentation,
       color: 'from-red-700 to-orange-500'
     },
-{
-      id: 'thermodynamics',
-      title: 'Thermodynamics Fundamentals',
-      subtitle: 'First & Second Laws, Entropy',
-      component: ThermodynamicsPresentation,
-      color: 'from-blue-700 to-indigo-400'
-    },
+    // ── ARCHIVED: ThermodynamicsPresentation merged into Unit2_ME3470
+    // {
+    //   id: 'thermodynamics',
+    //   title: 'Thermodynamics Fundamentals',
+    //   subtitle: 'First & Second Laws, Entropy',
+    //   component: ThermodynamicsPresentation,
+    //   color: 'from-blue-700 to-indigo-400'
+    // },
     // ── ARCHIVED: the standalone Compressible Flow deck is superseded by the
     //    consolidated Unit 2 deck below (Section 5 covers speed of sound / Mach).
     // {
@@ -67,7 +70,7 @@ const App = () => {
     {
       id: 'Unit2',
       title: 'Unit 2 — Compressible Flow',
-      subtitle: 'Intro · Energy Storage · Conservation · Speed of Sound',
+      subtitle: 'Thermo Foundations · IDG · Energy · Entropy · Conservation · Speed of Sound',
       component: Unit2_ME3470,
       color: 'from-violet-700 to-purple-500'
     },

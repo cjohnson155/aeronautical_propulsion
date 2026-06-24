@@ -37,6 +37,22 @@ export const meta = {
 
 export const slides = [
 
+  // ── DESIGN TASK HOOK ────────────────────────────────────────────────────────
+  {
+    type: 'hook',
+    scenario:
+      'We are <strong>propulsion engineers</strong>. '
+      + 'Our job: design a supersonic wind tunnel to test our inlet geometries at realistic flight Mach numbers.',
+    spec:
+      'The tunnel needs a large reservoir of compressed air. '
+      + 'We plan to store it at <strong>P&nbsp;=&nbsp;20&nbsp;atm, T&nbsp;=&nbsp;300&nbsp;K</strong> '
+      + 'in a 10&nbsp;m³ pressure vessel.',
+    question: 'How much air can we get into that vessel?',
+    bridge:
+      'That depends on how <strong>compressible</strong> air is. '
+      + 'So first — what is the definition of compressibility?',
+  },
+
   // ── UNIT 2 OUTLINE ──────────────────────────────────────────────────────────
   {
     type: 'outline',
@@ -68,59 +84,78 @@ export const slides = [
     specificVolume: 'v = m^{3}/kg = \\tfrac{1}{\\rho}',
   },
 
-  // ── THRUST × DENSITY: why a density error wrecks thrust ────────────────────
+  // ── SECTION BREAK: THERMODYNAMIC FOUNDATIONS (merged from ThermodynamicsPresentation) ──
   {
-    type: 'thrust',
-    sectionNumber: 'Section 1 — Connection',
-    heading: 'Why Getting Density Wrong Wrecks Thrust',
-    equationLabel: 'Thrust equation — notice there is no <em>ρ</em>',
-    equation: 'T = \\dot{m}\\,(V_e - V_i) + (p_e - p_i)A_e',
-    hiddenLabel: '\\dot{m} = \\rho A V',
+    type: 'section',
+    sectionNumber: 'Section 2',
+    title: 'Thermodynamic Foundations',
+    subtitle: 'Internal energy, enthalpy, specific heats, and entropy.',
+  },
+
+  // ── INTERNAL ENERGY & ENTHALPY EQUATIONS (merged from ThermodynamicsPresentation) ──
+  {
+    type: 'equation',
+    heading: 'Internal Energy &amp; Enthalpy of a Calorically Perfect Gas',
+    equationLabel: 'Key relations — calorically perfect gas (constant c<sub>p</sub>, c<sub>v</sub>)',
+    equation: 'e = c_v T \\qquad h = c_p T \\qquad \\gamma = \\frac{c_p}{c_v} \\qquad c_v = \\frac{R}{\\gamma - 1}',
+    terms: [
+      { symbol: 'e', definition: 'Specific internal energy (J/kg)' },
+      { symbol: 'h = e + pv', definition: 'Specific enthalpy (J/kg)' },
+      { symbol: 'R = 287 J/kg·K', definition: 'Specific gas constant for air' },
+      { symbol: 'γ = 1.4', definition: 'Ratio of specific heats (air, calorically perfect)' },
+      { symbol: 'c<sub>v</sub> = 717.5 J/kg·K', definition: 'From R/(γ−1) = 287/0.4' },
+      { symbol: 'c<sub>p</sub> = c<sub>v</sub> + R', definition: '= 1004.5 J/kg·K' },
+    ],
     items: [
       {
-        title: 'Density is invisible — until you look at ṁ',
-        body:  'There is no ρ written anywhere in the thrust equation, so it is tempting to treat the flow as incompressible and move on. But ṁ = ρAV, so density is smuggled into <strong>every</strong> term through the mass flow rate. Get ρ wrong and ṁ is wrong everywhere at once.',
+        title: 'Worked example — room of air',
+        body: 'ρ = 1.181 kg/m³, V = 5×7×3.3 m = 115.5 m³ → m = 136.4 kg, T ≈ 293 K.<br>'
+          + 'E = c<sub>v</sub>Tm = 717.5 × 293 × 136.4 ≈ <strong>29.2 MJ</strong>'
+          + '&emsp;H = c<sub>p</sub>Tm ≈ <strong>40.8 MJ</strong>.<br>'
+          + 'Check: H/E = c<sub>p</sub>/c<sub>v</sub> = γ = 1.4 ✓',
       },
       {
-        title: 'Treating compressible flow as incompressible double-counts the error',
-        body:  'Assuming ρ is constant mis-sizes ṁ. But ρ also <em>responds</em> to what the flow does — ρ = f(p, T) — so the density we plugged in is not even the density the flow actually has. The predicted thrust drifts away from reality.',
-      },
-      {
-        title: 'Compression steals from the kinetic energy budget',
-        body:  'Work done on the flow is meant to become kinetic energy — that is what raises V<sub>e</sub> and produces thrust. But part of that work goes into <strong>compressing</strong> the gas (raising ρ) instead of accelerating it. Ignore that and we overpredict V<sub>e</sub>, and therefore overpredict thrust.',
-      },
-      {
-        title: 'Bottom line',
-        body:  'A small density error is never small: it propagates through ṁ into the momentum term, and through the energy balance into V<sub>e</sub>. Two coupled errors, one root cause — which is exactly why compressible flows must be tracked as compressible.',
+        title: 'Why does H/E = γ?',
+        body: 'H = c<sub>p</sub>Tm and E = c<sub>v</sub>Tm, so H/E = c<sub>p</sub>/c<sub>v</sub> = γ exactly. A fast sanity check you can always use.',
       },
     ],
   },
 
-  // ── WORKED IDG DENSITY EXAMPLE ──────────────────────────────────────────────
+  // ── WORKED EXAMPLE: WIND TUNNEL RESERVOIR (Anderson MCF Ex. 2 — Parts a, b) ─
   {
-    type: 'idg',
+    type: 'example',
     sectionNumber: 'Section 2 — Worked Example',
-    heading: 'Density from the IDG Law',
-    prompt:
-      'Find the density of air in a 5&nbsp;m&times;7&nbsp;m&times;3.3&nbsp;m room at sea level on a warm day (25&nbsp;&deg;C), then at 30,000&nbsp;ft. Use the ideal-gas (IDG) law.',
-    equation: '\\rho = \\frac{P}{R\\,T}',
-    rconst: 'R_{\\text{air}} = 287\\;\\mathrm{J/(kg\\cdot K)}',
-    cases: [
+    heading: 'Supersonic Wind Tunnel: Reservoir Air',
+    scenario:
+      'Pressure vessel: <strong>V = 10 m³, P = 20 atm, T = 300 K.</strong> '
+      + 'Stores compressed air for a supersonic wind tunnel. '
+      + 'Find <em>(a)</em> the stored mass and <em>(b)</em> the isothermal compressibility.',
+    steps: [
       {
-        label: 'Sea level (warm day)',
-        givens: 'P = 101{,}325\\;\\mathrm{Pa}, \\quad T = 298\\;\\mathrm{K}',
-        result: '\\rho = 1.181\\;\\mathrm{kg/m^3}',
+        label: 'Check IDG validity',
+        note: 'P = 20 atm is elevated but not extreme; T = 300 K is well above condensation. '
+          + 'Intermolecular forces negligible &rarr; treat as an ideal gas.',
+        question: 'At what conditions (very high P or very low T) would we need a real-gas equation of state instead?',
       },
       {
-        label: '30,000 ft',
-        givens: 'P = 30{,}000\\;\\mathrm{Pa}, \\quad T = 228.65\\;\\mathrm{K}',
-        result: '\\rho = 0.459\\;\\mathrm{kg/m^3}',
+        label: 'Write the IDG law in mass form',
+        eq: 'P = \\frac{m}{V}\\,RT \\quad\\Longrightarrow\\quad m = \\frac{PV}{RT}',
+        question: 'R<sub>air</sub> = 287 J/(kg·K). How would R change if the reservoir contained CO₂ or helium?',
+      },
+      {
+        label: 'Convert pressure and solve',
+        eq: 'm = \\frac{(20 \\times 101\\,325)(10)}{(287)(300)}',
+        result: 'm = 234.6\\;\\mathrm{kg}',
+      },
+      {
+        label: 'Isothermal compressibility for an IDG',
+        eq: '\\tau_T = \\frac{1}{\\rho}\\!\\left(\\frac{\\partial\\rho}{\\partial p}\\right)_{\\!T} '
+          + '= \\frac{1}{\\rho}\\cdot\\frac{1}{RT} = \\frac{1}{p}',
+        result: '\\tau_T = 4.93\\times 10^{-7}\\;\\mathrm{m^2/N}',
+        question: 'τ₁ = 1/p: the gas gets <em>less</em> compressible as pressure rises. '
+          + 'What does this imply for the structural design of the vessel as it is charged?',
       },
     ],
-    takeaway:
-      'At altitude the air is roughly <strong>2.5&times; less dense</strong> than at sea level &mdash; the engine has far less mass to work with for the same volume of air.',
-    bridge:
-      'Now seal the room and add 10&nbsp;J of heat through an electric heater &mdash; how much does <em>T</em> change? To answer that we need <strong>c<sub>p</sub></strong> and <strong>c<sub>v</sub></strong>, which depend on <em>how a molecule can store energy</em>.',
   },
 
   // ── ENERGY-STORAGE MODES (animated molecules) ───────────────────────────────
@@ -199,6 +234,43 @@ export const slides = [
       '<strong>State variables.</strong> e and h depend only on the state, not the path &mdash; so you may use c<sub>v</sub> even when volume changes, and c<sub>p</sub> even when pressure is not constant.',
   },
 
+  // ── WORKED EXAMPLE: INTERNAL ENERGY (Anderson MCF Ex. 2 — Part c) ───────────
+  {
+    type: 'example',
+    sectionNumber: 'Section 2 — Worked Example',
+    heading: 'Internal Energy of the Stored Air',
+    scenario:
+      'Same vessel: <strong>m = 234.6 kg, T = 300 K.</strong> '
+      + 'Find the total internal energy E stored in the gas.',
+    steps: [
+      {
+        label: 'Derive c<sub>v</sub> from γ and R',
+        eq: 'c_p = c_v + R,\\quad \\gamma = \\frac{c_p}{c_v} '
+          + '\\;\\Rightarrow\\; c_v = \\frac{R}{\\gamma - 1} = \\frac{287}{1.4 - 1}',
+        result: 'c_v = 717.5\\;\\mathrm{J/(kg\\cdot K)}',
+        question: 'For helium (γ = 5/3, monatomic), what is c<sub>v</sub>? '
+          + 'Does a higher γ give a higher or lower c<sub>v</sub>?',
+      },
+      {
+        label: 'Why c<sub>v</sub> and not c<sub>p</sub>?',
+        note: 'E = mc<sub>v</sub>T counts energy <em>stored inside</em> the gas molecules. '
+          + 'c<sub>p</sub> includes the extra pv work done when a gas expands against its surroundings '
+          + '— irrelevant for a sealed, fixed-volume vessel.',
+        question: 'Compute H = mc<sub>p</sub>T. What is the ratio H/E, and why does it equal exactly γ?',
+      },
+      {
+        label: 'Compute total internal energy',
+        eq: 'E = mc_v T = (234.6)(717.5)(300)',
+        result: 'E = 5.05\\times 10^7\\;\\mathrm{J}',
+      },
+    ],
+  },
+
+  // ── PATH DEPENDENCE vs STATE VARIABLES (merged from ThermodynamicsPresentation) ─
+  {
+    type: '__path',
+  },
+
   // ── NEW · SECTION 4: CONTROL MASS vs CONTROL VOLUME ─────────────────────────
   {
     type: 'conserve',
@@ -258,6 +330,53 @@ export const slides = [
       'These three are the engine of every cycle analysis. Next we ask a different question — not how much mass or momentum crosses, but <em>how fast the gas can pass information to itself</em>.',
   },
 
+  // ── ENTROPY EXAMPLES (merged from ThermodynamicsPresentation) ────────────────
+  {
+    type: '__entropy',
+  },
+
+  // ── WORKED EXAMPLE: ENTROPY CHANGE (Anderson MCF Ex. 2 — Part d) ─────────────
+  {
+    type: 'example',
+    sectionNumber: 'Section 4 — Worked Example',
+    heading: 'Entropy Change: Constant-Volume Heating',
+    scenario:
+      'Same vessel (V = 10 m³, <strong>m = 234.6 kg</strong>) is heated from '
+      + '<strong>T₁ = 300 K → T₂ = 600 K</strong> at fixed volume. '
+      + 'Find the specific entropy change Δs and the total ΔS.',
+    steps: [
+      {
+        label: 'Two forms of the Gibbs equation — pick the right one',
+        note: 'Form 1: ds = c<sub>p</sub> dT/T &minus; R dp/p &emsp;'
+          + 'Form 2: ds = c<sub>v</sub> dT/T + R dv/v. '
+          + 'Fixed volume (sealed vessel) &rarr; dv = 0 &rarr; Form 2 collapses to one term. '
+          + 'We can also use Form 1 if we first find p₂/p₁.',
+        question: 'Try Form 2 directly (ds = c<sub>v</sub> dT/T, dv = 0). Does it give the same answer?',
+      },
+      {
+        label: 'Find the pressure ratio using IDG + fixed ρ',
+        eq: '\\frac{p_2}{p_1} = \\frac{\\rho R T_2}{\\rho R T_1} = \\frac{T_2}{T_1} = \\frac{600}{300} = 2',
+        question: 'Why is ρ constant here? (Hint: fixed volume V and fixed mass m.)',
+      },
+      {
+        label: 'Compute c<sub>p</sub>',
+        eq: 'c_p = c_v + R = 717.5 + 287 = 1004.5\\;\\mathrm{J/(kg\\cdot K)}',
+      },
+      {
+        label: 'Apply Form 1 of the Gibbs equation',
+        eq: '\\Delta s = c_p \\ln\\!\\frac{T_2}{T_1} - R\\ln\\!\\frac{p_2}{p_1} '
+          + '= 1004.5\\ln 2 - 287\\ln 2',
+        result: '\\Delta s = (c_p - R)\\ln 2 = c_v \\ln 2 = 497.3\\;\\mathrm{J/(kg\\cdot K)}',
+        question: 'Note c<sub>p</sub> − R = c<sub>v</sub>: both Gibbs forms give the same result. Why must they?',
+      },
+      {
+        label: 'Total entropy change',
+        eq: '\\Delta S = m\\,\\Delta s = (234.6)(497.3)',
+        result: '\\Delta S = 1.167\\times 10^5\\;\\mathrm{J/K}',
+      },
+    ],
+  },
+
   // ── NEW · SECTION 5: SPEED OF SOUND ─────────────────────────────────────────
   {
     type: 'soundspeed',
@@ -279,6 +398,49 @@ export const slides = [
     ],
     bridge:
       'So <strong>a</strong> sets the speed limit for “get out of the way” messages. What happens when the flow outruns that limit?',
+  },
+
+  // ── WORKED EXAMPLE: ACOUSTIC TRAVERSE (Anderson MCF Ex. 2 — Parts e, f) ─────
+  {
+    type: 'example',
+    sectionNumber: 'Section 5 — Worked Example',
+    heading: 'Acoustic Traverse: Air vs. Helium',
+    scenario:
+      'The vessel (V = 10 m³) has been heated to <strong>T = 600 K.</strong> '
+      + 'Assume spherical geometry. How long does an acoustic wave take to cross it? '
+      + 'How does helium compare to air at the same conditions?',
+    steps: [
+      {
+        label: 'Find vessel diameter (spherical)',
+        eq: 'V = \\tfrac{4}{3}\\pi r^3 '
+          + '\\;\\Rightarrow\\; r = \\!\\left(\\frac{3V}{4\\pi}\\right)^{\\!1/3} '
+          + '= \\!\\left(\\frac{30}{4\\pi}\\right)^{\\!1/3} = 1.337\\;\\mathrm{m}',
+        result: 'D = 2r = 2.673\\;\\mathrm{m}',
+        question: 'The geometry affects the distance, not the wave speed. '
+          + 'Would a cylindrical vessel of the same volume give a longer or shorter traverse?',
+      },
+      {
+        label: 'Speed of sound in air at 600 K',
+        eq: 'a = \\sqrt{\\gamma RT} = \\sqrt{(1.4)(287)(600)}',
+        result: 'a_{\\text{air}} = 491.0\\;\\mathrm{m/s}',
+        question: 'At 300 K: a ≈ 347 m/s. The ratio 491/347 ≈ √2. Why? (a ∝ √T)',
+      },
+      {
+        label: 'Traverse time for air',
+        eq: 't = \\frac{D}{a} = \\frac{2.673}{491.0}',
+        result: 't_{\\text{air}} = 5.44\\times 10^{-3}\\;\\mathrm{s}',
+      },
+      {
+        label: 'Helium at same T — higher γ, much larger R',
+        eq: 'R_{\\text{He}} = \\frac{8314}{4} = 2078.5\\;\\mathrm{J/(kg\\cdot K)}, '
+          + '\\quad \\gamma_{\\text{He}} = \\tfrac{5}{3} = 1.667',
+        note: 'a<sub>He</sub> = &radic;(1.667 &times; 2078.5 &times; 600) = 1442 m/s'
+          + '&emsp;&rarr;&emsp;t<sub>He</sub> = 2.673 / 1442',
+        result: 't_{\\text{He}} = 1.85\\times 10^{-3}\\;\\mathrm{s}',
+        question: 'Helium is ~3× faster. Separate the two effects: '
+          + 'what fraction of the speedup comes from the larger R, and what from the larger γ?',
+      },
+    ],
   },
 
   // ── NEW · SECTION 5: V vs a — SHOCK FORMATION ───────────────────────────────
@@ -787,6 +949,257 @@ function CpCvSlide({ slide, revealed }) {
   )
 }
 
+// ─── Design task hook (opening slide) ────────────────────────────────────────
+function HookSlide({ slide, revealed }) {
+  return (
+    <div className="slide-inner compress-slide">
+      <div className="section-number anim-in">Design Task</div>
+      <h2 className="slide-heading anim-in">Supersonic Wind Tunnel</h2>
+      <div className="heading-rule anim-in" />
+
+      <div className={`reveal-block${revealed > 0 ? ' revealed' : ''}`}>
+        <p className="cf-note cf-note--lead"><HTML>{slide.scenario}</HTML></p>
+      </div>
+
+      <div className={`reveal-block${revealed > 1 ? ' revealed' : ''}`}>
+        <p className="cf-note" style={{ marginTop: '10px' }}><HTML>{slide.spec}</HTML></p>
+      </div>
+
+      <div className={`reveal-block hook-q-wrap${revealed > 2 ? ' revealed' : ''}`}>
+        <div className="hook-q">
+          <span className="hook-q-mark">?</span>
+          <span className="hook-q-text"><HTML>{slide.question}</HTML></span>
+        </div>
+      </div>
+
+      <div className={`reveal-block cf-bridge${revealed > 3 ? ' revealed' : ''}`}>
+        <HTML>{slide.bridge}</HTML>
+      </div>
+    </div>
+  )
+}
+
+// ─── Section title slide (merging from ThermodynamicsPresentation) ───────────
+function SectionSlide({ slide }) {
+  return (
+    <div className="slide-inner section-slide anim-in">
+      {slide.sectionNumber && (
+        <div className="section-number">{slide.sectionNumber}</div>
+      )}
+      <h2 className="section-title"><HTML>{slide.title}</HTML></h2>
+      <div className="section-divider-line" />
+      {slide.subtitle && (
+        <p className="section-sub" dangerouslySetInnerHTML={{ __html: slide.subtitle }} />
+      )}
+    </div>
+  )
+}
+
+// ─── Equation + stepped worked-example slide ─────────────────────────────────
+function EquationSlide({ slide, revealed }) {
+  return (
+    <div className="slide-inner compress-slide">
+      <h2 className="slide-heading anim-in"><HTML>{slide.heading}</HTML></h2>
+      <div className="heading-rule anim-in" />
+      {slide.equationLabel && (
+        <div className="eq-label anim-in"><HTML>{slide.equationLabel}</HTML></div>
+      )}
+      {slide.equation && (
+        <div className="eq-box anim-in"><Equation latex={slide.equation} /></div>
+      )}
+      {slide.terms && slide.terms.length > 0 && (
+        <div className="eq-terms anim-in">
+          {slide.terms.map((t, i) => (
+            <div className="eq-term" key={i}>
+              <span className="sym"><HTML>{t.symbol}</HTML></span>
+              <span className="def"> — <HTML>{t.definition}</HTML></span>
+            </div>
+          ))}
+        </div>
+      )}
+      {slide.items && (
+        <ul className="bullet-list">
+          {slide.items.map((item, i) => (
+            <li key={i} className={`bullet-item${i < revealed ? ' revealed' : ''}`}>
+              <span className="bullet-marker">◆</span>
+              <div className="bullet-text">
+                <strong><HTML>{item.title}</HTML></strong>
+                {item.body && (
+                  <span className="bullet-sub"><HTML>{item.body}</HTML></span>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+// ─── Path-dependence slide (from ThermodynamicsPresentation) ─────────────────
+function PathDependenceSlide({ revealed }) {
+  const items = [
+    {
+      category: 'PATH-DEPENDENT',
+      color: '#f87171',
+      vars: [
+        { sym: 'q', label: 'Heat transfer',
+          body: 'Depends on how slowly or quickly the process occurs, and through what path. '
+            + 'Adding heat isothermally vs. adiabatically gives different q even between the same two states.' },
+        { sym: 'w', label: 'Work',
+          body: 'Boundary work ∫p dV depends on the p–V trajectory. Reversible isothermal expansion does more '
+            + 'work than free (unrestrained) expansion between identical endpoints — same states, different paths, different w.' },
+      ],
+    },
+    {
+      category: 'PATH-INDEPENDENT (State Variables)',
+      color: '#4ade80',
+      vars: [
+        { sym: 'e', label: 'Internal energy',
+          body: 'e = c<sub>v</sub>T for a calorically perfect gas. Its value is fixed once the state (T, p, ρ) '
+            + 'is known — regardless of how you got there.' },
+        { sym: 'h', label: 'Enthalpy',
+          body: 'h = e + pv = c<sub>p</sub>T. Also a state variable; only the endpoints matter when computing Δh.' },
+        { sym: 'S', label: 'Entropy',
+          body: 'S is a state variable. But dS = δq<sub>rev</sub>/T — you must integrate along a reversible '
+            + 'path to evaluate it. The result is still path-independent.' },
+      ],
+    },
+  ]
+
+  let revealCount = 0
+  return (
+    <div className="slide-inner compress-slide">
+      <h2 className="slide-heading anim-in">Path Dependence vs. State Variables</h2>
+      <div className="heading-rule anim-in" />
+      <p className="anim-in cf-note" style={{ marginBottom: '0.8rem' }}>
+        The 1st Law <strong style={{ color: 'var(--accent-2)' }}>de = δq + δw</strong> uses δ (not d)
+        for heat and work — a reminder that they are <em>not</em> exact differentials.
+        Only state variables have exact differentials.
+      </p>
+      <div style={{ display: 'flex', gap: '1.2rem' }}>
+        {items.map((group, gi) => (
+          <div key={gi} style={{ flex: 1 }}>
+            <div style={{
+              fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em',
+              color: group.color, borderBottom: `1px solid ${group.color}40`,
+              paddingBottom: '6px', marginBottom: '10px',
+            }}>
+              {group.category}
+            </div>
+            {group.vars.map((v, vi) => {
+              const idx = revealCount++
+              const show = idx < revealed
+              return (
+                <div key={vi} className={`col-item${show ? ' revealed' : ''}`}
+                  style={{ borderLeft: `2px solid ${group.color}60`, paddingLeft: '10px', marginBottom: '8px' }}>
+                  <strong style={{ color: group.color, fontSize: '16px', fontStyle: 'italic' }}>{v.sym}</strong>
+                  <span style={{ color: 'var(--ink)', fontWeight: 600, fontSize: '13px', marginLeft: '6px' }}>{v.label}</span>
+                  <span className="bullet-sub" style={{ display: 'block', marginTop: '3px' }}><HTML>{v.body}</HTML></span>
+                </div>
+              )
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Entropy examples slide (from ThermodynamicsPresentation) ────────────────
+function EntropySlide({ revealed }) {
+  const examples = [
+    {
+      icon: '🔥', title: 'Heat addition (combustor)',
+      body: 'Adding heat δq to a gas at temperature T increases entropy by dS = δq/T. In a real combustor, '
+        + 'additional irreversibilities (viscous dissipation, mixing) raise entropy further — hence stagnation '
+        + 'pressure is always lost across the burner.',
+    },
+    {
+      icon: '🌊', title: 'Normal shock',
+      body: 'Across a shock, T₀ is conserved but p₀ drops. Since Δs = c<sub>p</sub> ln(T₀₂/T₀₁) − R ln(p₀₂/p₀₁), '
+        + 'the p₀ loss directly increases entropy. This is why inlets that swallow shocks pay a pressure-recovery penalty.',
+    },
+    {
+      icon: '💨', title: 'Unrestrained (free) expansion',
+      body: 'Gas expands into a vacuum: no work done, no heat transfer, yet ΔS &gt; 0. The same particles now '
+        + 'have more volume to occupy — more microstates, higher entropy.',
+    },
+    {
+      icon: '🔀', title: 'Irreversible mixing',
+      body: 'Mixing two streams at different temperatures is irreversible. Even if total energy is conserved, '
+        + 'the process cannot be undone without external work — ΔS<sub>universe</sub> &gt; 0.',
+    },
+    {
+      icon: '⚙️', title: 'Viscous friction in ducts',
+      body: 'In Fanno flow, friction converts ordered kinetic energy to thermal energy, raising entropy '
+        + 'monotonically along the duct in both subsonic and supersonic branches — Mach → 1 is the entropy maximum.',
+    },
+  ]
+  return (
+    <div className="slide-inner compress-slide">
+      <h2 className="slide-heading anim-in">Entropy: Ways It Increases</h2>
+      <div className="heading-rule anim-in" />
+      <p className="cf-note anim-in" style={{ marginBottom: '14px' }}>
+        <strong style={{ color: 'var(--accent-2)' }}>dS ≥ δq/T</strong>&nbsp;(2nd Law).
+        Equality holds for reversible processes; strict inequality for all real ones.
+        S is a <em>state variable</em> — but what actually drives it up?
+      </p>
+      <ul className="bullet-list">
+        {examples.map((ex, i) => (
+          <li key={i} className={`bullet-item${i < revealed ? ' revealed' : ''}`}>
+            <span className="bullet-marker" style={{ fontSize: '1rem' }}>{ex.icon}</span>
+            <div className="bullet-text">
+              <strong>{ex.title}</strong>
+              <span className="bullet-sub"><HTML>{ex.body}</HTML></span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// ─── Example slide (wind-tunnel worked examples) ─────────────────────────────
+function ExampleSlide({ slide, revealed }) {
+  return (
+    <div className="slide-inner compress-slide">
+      <div className="section-number anim-in">{slide.sectionNumber}</div>
+      <h2 className="slide-heading anim-in"><HTML>{slide.heading}</HTML></h2>
+      <div className="heading-rule anim-in" />
+
+      <div className="ex-scenario anim-in">
+        <span className="ex-scenario-lbl">Given</span>
+        <HTML>{slide.scenario}</HTML>
+      </div>
+
+      <div className="ex-steps">
+        {(slide.steps || []).map((step, i) => (
+          <div key={i} className={`ex-step${i < revealed ? ' revealed' : ''}`}>
+            <div className="ex-step-hd">
+              <span className="ex-step-num">{i + 1}</span>
+              <span className="ex-step-lbl"><HTML>{step.label}</HTML></span>
+            </div>
+            {step.eq && <div className="ex-eq"><Equation latex={step.eq} /></div>}
+            {step.result && (
+              <div className="ex-result">
+                <Equation latex={step.result} display={false} />
+              </div>
+            )}
+            {step.note && <div className="ex-note"><HTML>{step.note}</HTML></div>}
+            {step.question && (
+              <div className="ex-question">
+                <span className="ex-q-mark">?</span>
+                <HTML>{step.question}</HTML>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // ─── Section 1 renderers (ported from Unit2slides) ───────────────────────────
 function OutlineSlide({ slide, revealed }) {
   return (
@@ -1047,10 +1460,16 @@ function ShockFormSlide({ slide, revealed }) {
 // ─── How many "steps" does each slide have? ──────────────────────────────────
 function totalSteps(slide) {
   switch (slide.type) {
+    case 'hook':        return 4 // scenario, spec, question, bridge
     case 'outline':     return slide.items?.length || 0
+    case 'section':     return 0
+    case 'equation':    return slide.items?.length || 0
+    case '__path':      return 5 // 2 path-dep + 3 state vars
+    case '__entropy':   return 5
     case 'compress':    return 5 // question, def, eqn, note, diagrams
     case 'thrust':      return (slide.items?.length || 0) + 1 // equation + each point
-    case 'idg':         return 5 // prompt, eqn, cases, takeaway, bridge
+    case 'idg':         return 5 // (legacy renderer kept for reference)
+    case 'example':     return slide.steps?.length || 0
     case 'energymodes': return 7 // intro, 4 modes, payoff, measure
     case 'dof':         return 6 // intro, defs+graph, 3 bands, cpg note
     case 'cpcv':        return 6 // setup, pistons, work, PG, CPG, note
@@ -1112,10 +1531,16 @@ export default function Presentation({ slides: slideData = slides, meta: metaDat
 
   function renderSlide(slide) {
     switch (slide.type) {
+      case 'hook':        return <HookSlide slide={slide} revealed={revealed} />
       case 'outline':     return <OutlineSlide slide={slide} revealed={revealed} />
+      case 'section':     return <SectionSlide slide={slide} />
+      case 'equation':    return <EquationSlide slide={slide} revealed={revealed} />
+      case '__path':      return <PathDependenceSlide revealed={revealed} />
+      case '__entropy':   return <EntropySlide revealed={revealed} />
       case 'compress':    return <CompressSlide slide={slide} revealed={revealed} />
       case 'thrust':      return <ThrustSlide slide={slide} revealed={revealed} />
       case 'idg':         return <IdgSlide slide={slide} revealed={revealed} />
+      case 'example':     return <ExampleSlide slide={slide} revealed={revealed} />
       case 'energymodes': return <EnergyModesSlide slide={slide} revealed={revealed} />
       case 'dof':         return <DofSlide slide={slide} revealed={revealed} />
       case 'cpcv':        return <CpCvSlide slide={slide} revealed={revealed} />
@@ -1475,6 +1900,59 @@ html,body,#root{height:100%;margin:0}
   .em-fig{width:100%}
   .dof-layout,.cpcv-layout{flex-direction:column}
 }
+/* ── Hook slide ─────────────────────────────────────────────────────────── */
+.hook-q-wrap{margin:18px 0 6px}
+.hook-q{display:flex;align-items:center;gap:14px;background:var(--panel);
+  border:1px solid var(--rule);border-left:3px solid var(--accent-2);
+  border-radius:10px;padding:16px 22px}
+.hook-q-mark{font-size:32px;color:var(--accent-2);font-weight:700;line-height:1;flex-shrink:0}
+.hook-q-text{font-size:20px;font-family:var(--display);color:var(--ink);line-height:1.3}
+
+/* ── Merged from ThermodynamicsPresentation ────────────────────────────── */
+.eq-label{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.eq-terms{display:flex;flex-wrap:wrap;gap:5px 20px;margin-bottom:12px}
+.eq-term{font-size:13px}
+.sym{color:var(--accent);font-weight:700;font-style:italic}
+.def{color:var(--muted)}
+.bullet-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.bullet-item{display:flex;gap:12px;align-items:flex-start;
+  opacity:0;transform:translateX(-10px);transition:.35s ease}
+.bullet-item.revealed{opacity:1;transform:none}
+.bullet-marker{color:var(--accent);font-size:9px;margin-top:5px;flex-shrink:0}
+.bullet-text{font-size:14px;line-height:1.5}
+.bullet-text strong{color:var(--ink);display:block;font-size:15px}
+.bullet-sub{color:var(--muted);font-size:13px;margin-top:3px;display:block}
+.col-item{font-size:13px;line-height:1.5;color:var(--muted);padding:6px 0;
+  border-bottom:1px solid var(--panel);opacity:0;transform:translateY(6px);
+  transition:opacity .3s,transform .3s}
+.col-item.revealed{opacity:1;transform:none}
+
+/* ── Example slides (wind-tunnel worked examples) ───────────────────────── */
+.ex-scenario{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:8px;padding:10px 16px;margin-bottom:14px;font-size:14.5px;color:var(--ink);line-height:1.5}
+.ex-scenario-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-right:8px}
+.ex-steps{display:flex;flex-direction:column;gap:9px}
+.ex-step{background:var(--bg);border:1px solid var(--rule);border-radius:8px;padding:10px 14px;
+  opacity:0;transform:translateY(10px);transition:.38s ease}
+.ex-step.revealed{opacity:1;transform:none}
+.ex-step-hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ex-step-num{width:22px;height:22px;border-radius:50%;background:var(--panel);
+  border:1.5px solid var(--accent);color:var(--accent);font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ex-step-lbl{font-size:14px;font-weight:600;color:var(--ink)}
+.ex-step-lbl sub,.ex-step-lbl sup{font-size:.7em}
+.ex-eq{font-size:15px;margin:4px 0 6px;overflow-x:auto}
+.ex-result{display:inline-block;background:var(--panel);border:1px solid var(--accent);
+  border-radius:6px;padding:4px 16px;font-size:16px;color:var(--ink);margin:4px 0}
+.ex-note{font-size:13.5px;color:var(--muted);line-height:1.45;margin:4px 0}
+.ex-note em{color:var(--accent)}
+.ex-note strong{color:var(--accent-2)}
+.ex-question{display:flex;align-items:flex-start;gap:7px;margin-top:7px;padding:7px 10px;
+  background:rgba(240,169,59,.07);border-left:2.5px solid var(--accent-2);
+  border-radius:0 6px 6px 0;font-size:13px;color:var(--accent-2);font-style:italic;line-height:1.4}
+.ex-q-mark{flex-shrink:0;font-weight:700;font-style:normal;font-size:14px;color:var(--accent-2)}
+
 @media (prefers-reduced-motion:reduce){
   .anim-in,.reveal-block,.em-fig,.dof-band-item,.rel-card{animation:none;transition:none}
   .em-translational .em-body,.em-rotational .em-spin,
