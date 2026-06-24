@@ -253,9 +253,10 @@ export const slides = [
       },
       {
         label: 'Why c<sub>v</sub> and not c<sub>p</sub>?',
-        note: 'E = mc<sub>v</sub>T counts energy <em>stored inside</em> the gas molecules. '
-          + 'c<sub>p</sub> includes the extra pv work done when a gas expands against its surroundings '
-          + '— irrelevant for a sealed, fixed-volume vessel.',
+        note: 'c<sub>v</sub> gives internal energy <em>directly</em>: E = mc<sub>v</sub>T. '
+          + 'You can also reach E via c<sub>p</sub> — compute enthalpy H = mc<sub>p</sub>T, '
+          + 'then subtract the pv term (= mRT for an ideal gas): E = H − mRT = m(c<sub>p</sub> − R)T = mc<sub>v</sub>T. '
+          + 'Both routes give the same answer; c<sub>v</sub> is just one step instead of two.',
         question: 'Compute H = mc<sub>p</sub>T. What is the ratio H/E, and why does it equal exactly γ?',
       },
       {
@@ -1044,11 +1045,14 @@ function PathDependenceSlide({ revealed }) {
       color: '#f87171',
       vars: [
         { sym: 'q', label: 'Heat transfer',
-          body: 'Depends on how slowly or quickly the process occurs, and through what path. '
-            + 'Adding heat isothermally vs. adiabatically gives different q even between the same two states.' },
+          body: 'The heat exchanged depends entirely on the process. '
+            + 'Isothermal compression rejects heat to the surroundings throughout; '
+            + 'adiabatic compression transfers none (Q = 0) — yet both can reach the same final (P, T).' },
         { sym: 'w', label: 'Work',
-          body: 'Boundary work ∫p dV depends on the p–V trajectory. Reversible isothermal expansion does more '
-            + 'work than free (unrestrained) expansion between identical endpoints — same states, different paths, different w.' },
+          body: 'Boundary work ∫p dV depends on the p–V trajectory. '
+            + 'Reversible isothermal compression requires more work input than a fast adiabatic compression '
+            + 'between identical endpoints — same states, different paths, different w. '
+            + 'In free expansion into vacuum, external pressure is zero, so W = 0 entirely.' },
       ],
     },
     {
@@ -1056,20 +1060,40 @@ function PathDependenceSlide({ revealed }) {
       color: '#4ade80',
       vars: [
         { sym: 'e', label: 'Internal energy',
-          body: 'e = c<sub>v</sub>T for a calorically perfect gas. Its value is fixed once the state (T, p, ρ) '
-            + 'is known — regardless of how you got there.' },
+          body: 'e = c<sub>v</sub>T for a calorically perfect gas. Fixed once the state (T, p, ρ) is known — regardless of path.' },
         { sym: 'h', label: 'Enthalpy',
-          body: 'h = e + pv = c<sub>p</sub>T. Also a state variable; only the endpoints matter when computing Δh.' },
+          body: 'h = e + pv = c<sub>p</sub>T. State variable; only the endpoints matter when computing Δh.' },
         { sym: 'S', label: 'Entropy',
-          body: 'S is a state variable. But dS = δq<sub>rev</sub>/T — you must integrate along a reversible '
-            + 'path to evaluate it. The result is still path-independent.' },
+          body: 'S is a state variable. dS = δq<sub>rev</sub>/T — integrate along any reversible path; the result is path-independent.' },
       ],
+    },
+  ]
+
+  const paths = [
+    {
+      label: 'Path A — Slow isothermal compression',
+      color: '#5ec8d8',
+      body: 'Vessel stays in thermal contact with the environment. T = 300 K throughout. '
+        + 'Compressor does large W<sub>in</sub>; large Q<sub>out</sub> flows to surroundings to hold T constant.',
+    },
+    {
+      label: 'Path B — Fast adiabatic compression, then cool',
+      color: '#f0a93b',
+      body: 'Insulated vessel charged quickly: Q = 0, so T spikes well above 300 K. '
+        + 'Vessel is then sealed and left to cool back to 300 K: W = 0 during cooling, Q<sub>out</sub> flows to environment. '
+        + 'Different split of Q and W — identical final state.',
+    },
+    {
+      label: 'Path C — Staged compression with intercooling',
+      color: '#a78bfa',
+      body: 'Multiple compression stages; heat is rejected between each stage. '
+        + 'Intermediate Q and W values at every step — yet P = 20 atm, T = 300 K, m = 234.6 kg at the end, exactly as before.',
     },
   ]
 
   let revealCount = 0
   return (
-    <div className="slide-inner compress-slide">
+    <div className="slide-inner compress-slide" style={{ overflowY: 'auto' }}>
       <h2 className="slide-heading anim-in">Path Dependence vs. State Variables</h2>
       <div className="heading-rule anim-in" />
       <p className="anim-in cf-note" style={{ marginBottom: '0.8rem' }}>
@@ -1077,7 +1101,7 @@ function PathDependenceSlide({ revealed }) {
         for heat and work — a reminder that they are <em>not</em> exact differentials.
         Only state variables have exact differentials.
       </p>
-      <div style={{ display: 'flex', gap: '1.2rem' }}>
+      <div style={{ display: 'flex', gap: '1.2rem', marginBottom: '1rem' }}>
         {items.map((group, gi) => (
           <div key={gi} style={{ flex: 1 }}>
             <div style={{
@@ -1101,6 +1125,31 @@ function PathDependenceSlide({ revealed }) {
             })}
           </div>
         ))}
+      </div>
+      {/* Wind tunnel charging example */}
+      <div className={`reveal-block${revealed >= 6 ? ' revealed' : ''}`}>
+        <div style={{
+          fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--accent)',
+          borderBottom: '1px solid var(--rule)', paddingBottom: '6px', marginBottom: '10px',
+        }}>
+          APPLIED EXAMPLE — THREE WAYS TO CHARGE THE WIND TUNNEL VESSEL TO P = 20 atm, T = 300 K
+        </div>
+        <div style={{ display: 'flex', gap: '0.8rem' }}>
+          {paths.map((p, i) => {
+            const show = revealed >= 6 + i
+            return (
+              <div key={i} className={`col-item${show ? ' revealed' : ''}`}
+                style={{ flex: 1, borderLeft: `2px solid ${p.color}60`, paddingLeft: '10px' }}>
+                <span style={{ color: p.color, fontWeight: 700, fontSize: '12px' }}>{p.label}</span>
+                <span className="bullet-sub" style={{ display: 'block', marginTop: '4px' }}><HTML>{p.body}</HTML></span>
+              </div>
+            )
+          })}
+        </div>
+        <p className="cf-note" style={{ marginTop: '10px', fontSize: '12px' }}>
+          <strong style={{ color: 'var(--accent-2)' }}>Takeaway:</strong> e, h, and S at the final state are the same for all three paths.
+          The <em>mix</em> of Q and W differs completely — that is path dependence.
+        </p>
       </div>
     </div>
   )
@@ -1464,7 +1513,7 @@ function totalSteps(slide) {
     case 'outline':     return slide.items?.length || 0
     case 'section':     return 0
     case 'equation':    return slide.items?.length || 0
-    case '__path':      return 5 // 2 path-dep + 3 state vars
+    case '__path':      return 8 // 2 path-dep + 3 state vars + 3 wind-tunnel charging paths
     case '__entropy':   return 5
     case 'compress':    return 5 // question, def, eqn, note, diagrams
     case 'thrust':      return (slide.items?.length || 0) + 1 // equation + each point
