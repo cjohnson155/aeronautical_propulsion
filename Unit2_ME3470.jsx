@@ -84,6 +84,25 @@ export const slides = [
     specificVolume: 'v = m^{3}/kg = \\tfrac{1}{\\rho}',
   },
 
+
+  // ── CLASS POLL: Compressibility intuition ────────────────────────────────────
+  {
+    type: 'poll',
+    sectionNumber: 'Section 1 — Class Poll',
+    question: 'Which of the following is <em>most</em> compressible at room conditions?',
+    choices: [
+      { label: 'A', text: 'Steel rod', correct: false },
+      { label: 'B', text: 'Liquid water', correct: false },
+      { label: 'C', text: 'Air at 1 atm', correct: true },
+      { label: 'D', text: 'Rubber foam (the solid rubber itself)', correct: false },
+    ],
+    explanation:
+      'Air wins by a wide margin — \u03c4 for air at 1 atm \u2248 10\u207b\u2075 Pa\u207b\u00b9, '
+      + 'while water is ~4.5\u00d710\u207b\u00b9\u2070 Pa\u207b\u00b9 (10\u2074\u00d7 less compressible) '
+      + 'and steel ~10\u207b\u00b9\u00b9 Pa\u207b\u00b9. '
+      + 'Foam feels soft because the <em>trapped air pockets</em> compress — the rubber matrix itself is nearly incompressible.',
+  },
+
   // ── SECTION BREAK: THERMODYNAMIC FOUNDATIONS (merged from ThermodynamicsPresentation) ──
   {
     type: 'section',
@@ -234,6 +253,22 @@ export const slides = [
       '<strong>State variables.</strong> e and h depend only on the state, not the path &mdash; so you may use c<sub>v</sub> even when volume changes, and c<sub>p</sub> even when pressure is not constant.',
   },
 
+
+  // ── THINK · PAIR · SHARE: cv for helium ─────────────────────────────────────
+  {
+    type: 'tps',
+    sectionNumber: 'Section 2 — Think \u00b7 Pair \u00b7 Share',
+    question:
+      'Helium has \u03b3 = 5/3 and R<sub>He</sub> = 2077 J/(kg\u00b7K). '
+      + 'Use c<sub>v</sub> = R / (\u03b3 \u2212 1) to find c<sub>v,He</sub>. '
+      + 'Is it larger or smaller than c<sub>v,air</sub> = 717.5 J/(kg\u00b7K)? Explain why.',
+    think: { minutes: 3, prompt: 'Work alone. Plug in the numbers, then think: helium has <em>fewer</em> active degrees of freedom than diatomic air — so why might the result surprise you?' },
+    pair:  { minutes: 3, prompt: 'Compare answers with your neighbour. Agree on the number, then explain the physical reason for the difference in terms of molecular weight.' },
+    share: { prompt: 'What did pairs find? Key idea: R = \u211c / MW — helium\u2019s small molar mass (4 vs 29 g/mol) makes R per unit mass ~7\u00d7 larger, which dominates.' },
+    answer: 'c_{v,\\text{He}} = \\frac{R_{\\text{He}}}{\\gamma - 1} = \\frac{2077}{5/3 - 1} = \\frac{2077}{2/3} = 3116\\;\\mathrm{J/(kg\\cdot K)}',
+    answerNote: 'c<sub>v,He</sub> = 3116 J/(kg\u00b7K) \u2014 more than 4\u00d7 c<sub>v,air</sub>, despite helium having only 3 translational degrees of freedom vs 5 for diatomic air. The difference is entirely driven by R: lighter molecules carry more energy per kilogram at the same temperature.',
+  },
+
   // ── WORKED EXAMPLE: INTERNAL ENERGY (Anderson MCF Ex. 2 — Part c) ───────────
   {
     type: 'example',
@@ -270,6 +305,24 @@ export const slides = [
   // ── PATH DEPENDENCE vs STATE VARIABLES (merged from ThermodynamicsPresentation) ─
   {
     type: '__path',
+  },
+
+
+  // ── CLASS POLL: Free expansion ────────────────────────────────────────────────
+  {
+    type: 'poll',
+    sectionNumber: 'Section 3 — Class Poll',
+    question: 'A sealed ideal gas expands freely into a vacuum (unrestrained expansion). Which statement is correct?',
+    choices: [
+      { label: 'A', text: 'Q = 0, W > 0 — no heat transfer but the gas does work on surroundings', correct: false },
+      { label: 'B', text: 'Q > 0, W = 0 — heat flows in but no work done', correct: false },
+      { label: 'C', text: 'Q = 0, W = 0, \u0394U = 0 — no heat, no work, temperature unchanged (ideal gas)', correct: true },
+      { label: 'D', text: '\u0394U > 0 — internal energy rises because volume increases', correct: false },
+    ],
+    explanation:
+      'C is correct. External pressure is zero (vacuum), so W = \u222bp dV<sub>ext</sub> = 0. '
+      + 'Insulated walls mean Q = 0. By the 1st Law \u0394U = Q \u2212 W = 0, so temperature is unchanged for an ideal gas. '
+      + 'Yet entropy <em>increases</em> — the process is irreversible. This is a vivid example of path dependence: \u0394U = 0 but \u0394S > 0.',
   },
 
   // ── NEW · SECTION 4: CONTROL MASS vs CONTROL VOLUME ─────────────────────────
@@ -401,6 +454,24 @@ export const slides = [
       'So <strong>a</strong> sets the speed limit for “get out of the way” messages. What happens when the flow outruns that limit?',
   },
 
+
+  // ── THINK · PAIR · SHARE: Speed of sound prediction ─────────────────────────
+  {
+    type: 'tps',
+    sectionNumber: 'Section 5 — Think \u00b7 Pair \u00b7 Share',
+    question:
+      'The reservoir air has been heated to <strong>T = 600 K</strong>. '
+      + 'Using a = \u221a(\u03b3RT), predict the speed of sound in the air. '
+      + 'Then predict a if the reservoir held <strong>helium</strong> at 600 K '
+      + '(\u03b3<sub>He</sub> = 5/3, R<sub>He</sub> = 2077 J/kg\u00b7K). '
+      + 'Which is faster, and by roughly how much?',
+    think: { minutes: 3, prompt: 'Set up both calculations individually. Estimate before you compute — which gas do you expect to be faster, and why?' },
+    pair:  { minutes: 3, prompt: 'Compare estimates and calculations. Can you separate the two contributions to the He speedup — the larger \u03b3 vs the much larger R?' },
+    share: { prompt: 'Report back. What is the speedup factor? How much comes from \u03b3 alone vs R alone?' },
+    answer: 'a_{\\text{air}} = \\sqrt{1.4 \\times 287 \\times 600} = 491\\;\\text{m/s} \\qquad a_{\\text{He}} = \\sqrt{\\tfrac{5}{3} \\times 2077 \\times 600} = 1442\\;\\text{m/s}',
+    answerNote: 'He is ~3\u00d7 faster. \u03b3 effect alone: \u221a(5/3 \u00f7 1.4) \u2248 1.09\u00d7. R effect alone: \u221a(2077 \u00f7 287) \u2248 2.69\u00d7. Almost all of the speedup is molecular weight, not \u03b3.',
+  },
+
   // ── WORKED EXAMPLE: ACOUSTIC TRAVERSE (Anderson MCF Ex. 2 — Parts e, f) ─────
   {
     type: 'example',
@@ -485,6 +556,36 @@ function Equation({ latex, display = true }) {
 // ─── HTML-safe span (for <sub>, <sup>, <em>, <strong>, <br>) ─────────────────
 function HTML({ children, className }) {
   return <span className={className} dangerouslySetInnerHTML={{ __html: children }} />
+}
+
+// ─── Click-to-reveal cover block ─────────────────────────────────────────────
+// Renders children invisibly (so the block sizes correctly), overlays a solid
+// coloured panel, and removes the panel on click.
+function CoverBlock({ children, color = 'var(--accent)' }) {
+  const [hidden, setHidden] = useState(true)
+  return (
+    <span
+      style={{ position: 'relative', display: 'inline-block', cursor: hidden ? 'pointer' : 'default' }}
+      onClick={hidden ? (e) => { e.stopPropagation(); setHidden(false) } : undefined}
+    >
+      <span style={{ visibility: hidden ? 'hidden' : 'visible' }}>{children}</span>
+      {hidden && (
+        <span style={{
+          position: 'absolute', inset: 0,
+          background: color,
+          borderRadius: '5px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '10px', fontFamily: 'monospace',
+          color: 'rgba(0,0,0,0.45)',
+          letterSpacing: '0.08em',
+          userSelect: 'none',
+          boxShadow: '0 1px 6px rgba(0,0,0,0.35)',
+        }}>
+          ▶ click to reveal
+        </span>
+      )}
+    </span>
+  )
 }
 
 // ─── DRAWING 1 + 2: Control-volume boxes under pressure P ────────────────────
@@ -1209,6 +1310,144 @@ function EntropySlide({ revealed }) {
   )
 }
 
+
+// ─── Poll slide ───────────────────────────────────────────────────────────────
+function PollSlide({ slide }) {
+  const [selected, setSelected] = useState(null)
+  const [revealed, setRevealed] = useState(false)
+  return (
+    <div className="slide-inner compress-slide">
+      <div className="section-number anim-in">{slide.sectionNumber}</div>
+      <div className="activity-badge activity-badge--poll anim-in">CLASS POLL &nbsp;✋</div>
+      <h2 className="slide-heading anim-in" style={{ marginTop: '6px' }}><HTML>{slide.question}</HTML></h2>
+      <div className="heading-rule anim-in" />
+      <div className="poll-choices">
+        {slide.choices.map((c, i) => {
+          const state = revealed
+            ? c.correct ? 'correct' : selected === i ? 'wrong' : 'dim'
+            : selected === i ? 'selected' : 'idle'
+          return (
+            <button key={i}
+              className={`poll-choice poll-choice--${state}`}
+              onClick={() => !revealed && setSelected(i)}
+            >
+              <span className="poll-choice-label">{c.label}</span>
+              <span className="poll-choice-text"><HTML>{c.text}</HTML></span>
+              {revealed && c.correct && <span className="poll-tick">✓</span>}
+            </button>
+          )
+        })}
+      </div>
+      <button className="poll-reveal-btn" onClick={() => setRevealed(true)} disabled={revealed}>
+        {revealed ? 'Answer shown' : 'Reveal answer'}
+      </button>
+      {revealed && (
+        <div className="poll-explanation"><HTML>{slide.explanation}</HTML></div>
+      )}
+    </div>
+  )
+}
+
+// ─── Think-Pair-Share slide ───────────────────────────────────────────────────
+function TPSSlide({ slide }) {
+  const [phase, setPhase] = useState('idle')   // idle | think | pair | share
+  const [timeLeft, setTimeLeft] = useState(0)
+
+  const startPhase = (p) => {
+    setPhase(p)
+    if (p === 'think') setTimeLeft(slide.think.minutes * 60)
+    else if (p === 'pair') setTimeLeft(slide.pair.minutes * 60)
+    else setTimeLeft(0)
+  }
+
+  useEffect(() => {
+    if (timeLeft <= 0 || (phase !== 'think' && phase !== 'pair')) return
+    const t = setInterval(() => setTimeLeft(s => Math.max(0, s - 1)), 1000)
+    return () => clearInterval(t)
+  }, [timeLeft, phase])
+
+  const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+  const totalFor = p => (p === 'think' ? slide.think.minutes : slide.pair.minutes) * 60
+  const pct = (phase === 'think' || phase === 'pair') ? (timeLeft / totalFor(phase)) * 100 : 0
+  const timerColor = timeLeft < 30 ? '#f87171' : 'var(--accent)'
+
+  const phaseOrder = ['idle', 'think', 'pair', 'share']
+  const phaseIdx = phaseOrder.indexOf(phase)
+
+  return (
+    <div className="slide-inner compress-slide">
+      <div className="section-number anim-in">{slide.sectionNumber}</div>
+      <div className="activity-badge activity-badge--tps anim-in">THINK &nbsp;·&nbsp; PAIR &nbsp;·&nbsp; SHARE</div>
+      <div className="tps-question anim-in"><HTML>{slide.question}</HTML></div>
+      <div className="heading-rule anim-in" />
+
+      <div className="tps-phases">
+        {/* ── Think ── */}
+        <div className={`tps-phase${phase === 'think' ? ' tps-phase--active' : phaseIdx > 1 ? ' tps-phase--done' : ''}`}>
+          <div className="tps-phase-hd">
+            <span className="tps-num" style={{ background: 'var(--accent)' }}>1</span>
+            <span className="tps-phase-name">Think</span>
+            <span className="tps-duration">{slide.think.minutes} min</span>
+          </div>
+          <p className="tps-prompt"><HTML>{slide.think.prompt}</HTML></p>
+          {phase === 'idle' && (
+            <button className="tps-btn" onClick={() => startPhase('think')}>▶ Start timer</button>
+          )}
+          {phase === 'think' && (
+            <div className="tps-timer">
+              <span className="tps-time" style={{ color: timerColor }}>{fmt(timeLeft)}</span>
+              <div className="tps-bar"><div className="tps-bar-fill" style={{ width: `${pct}%`, background: timerColor }} /></div>
+              <button className="tps-btn tps-btn--sm" onClick={() => startPhase('pair')}>Next →</button>
+            </div>
+          )}
+        </div>
+
+        {/* ── Pair ── */}
+        <div className={`tps-phase${phase === 'pair' ? ' tps-phase--active' : phaseIdx > 2 ? ' tps-phase--done' : ''}`}>
+          <div className="tps-phase-hd">
+            <span className="tps-num" style={{ background: 'var(--accent-2)' }}>2</span>
+            <span className="tps-phase-name">Pair</span>
+            <span className="tps-duration">{slide.pair.minutes} min</span>
+          </div>
+          <p className="tps-prompt"><HTML>{slide.pair.prompt}</HTML></p>
+          {phase !== 'pair' && phase !== 'share' && (
+            <button className="tps-btn tps-btn--amber" onClick={() => startPhase('pair')}>▶ {phase === 'idle' ? 'Skip to pair' : 'Start pair timer'}</button>
+          )}
+          {phase === 'pair' && (
+            <div className="tps-timer">
+              <span className="tps-time" style={{ color: timeLeft < 30 ? '#f87171' : 'var(--accent-2)' }}>{fmt(timeLeft)}</span>
+              <div className="tps-bar"><div className="tps-bar-fill" style={{ width: `${pct}%`, background: 'var(--accent-2)' }} /></div>
+              <button className="tps-btn tps-btn--sm tps-btn--amber" onClick={() => startPhase('share')}>Share →</button>
+            </div>
+          )}
+        </div>
+
+        {/* ── Share ── */}
+        <div className={`tps-phase${phase === 'share' ? ' tps-phase--active' : ''}`}>
+          <div className="tps-phase-hd">
+            <span className="tps-num" style={{ background: '#a78bfa' }}>3</span>
+            <span className="tps-phase-name">Share</span>
+          </div>
+          <p className="tps-prompt"><HTML>{slide.share.prompt}</HTML></p>
+          {phase !== 'share' && (
+            <button className="tps-btn tps-btn--purple" onClick={() => startPhase('share')}>▶ Share phase</button>
+          )}
+          {phase === 'share' && (
+            <CoverBlock color="#a78bfa">
+              <div className="tps-answer">
+                <div className="ex-result" style={{ marginBottom: '6px', display: 'block' }}>
+                  <Equation latex={slide.answer} display={false} />
+                </div>
+                <span className="ex-note"><HTML>{slide.answerNote}</HTML></span>
+              </div>
+            </CoverBlock>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── Example slide (wind-tunnel worked examples) ─────────────────────────────
 function ExampleSlide({ slide, revealed }) {
   return (
@@ -1231,9 +1470,11 @@ function ExampleSlide({ slide, revealed }) {
             </div>
             {step.eq && <div className="ex-eq"><Equation latex={step.eq} /></div>}
             {step.result && (
-              <div className="ex-result">
-                <Equation latex={step.result} display={false} />
-              </div>
+              <CoverBlock>
+                <div className="ex-result">
+                  <Equation latex={step.result} display={false} />
+                </div>
+              </CoverBlock>
             )}
             {step.note && <div className="ex-note"><HTML>{step.note}</HTML></div>}
             {step.question && (
@@ -1283,7 +1524,8 @@ function CompressSlide({ slide, revealed }) {
         <p className="cf-question">
           <span className="cf-tag">Q</span>
           <span><strong><HTML>{slide.question}</HTML></strong>{' '}
-            <HTML>{slide.questionAnswer}</HTML></span>
+            <CoverBlock color="var(--accent-2)"><HTML>{slide.questionAnswer}</HTML></CoverBlock>
+          </span>
         </p>
       </div>
 
@@ -1514,6 +1756,8 @@ function totalSteps(slide) {
     case 'section':     return 0
     case 'equation':    return slide.items?.length || 0
     case '__path':      return 8 // 2 path-dep + 3 state vars + 3 wind-tunnel charging paths
+    case 'poll':        return 0
+    case 'tps':         return 0
     case '__entropy':   return 5
     case 'compress':    return 5 // question, def, eqn, note, diagrams
     case 'thrust':      return (slide.items?.length || 0) + 1 // equation + each point
@@ -1586,6 +1830,8 @@ export default function Presentation({ slides: slideData = slides, meta: metaDat
       case 'equation':    return <EquationSlide slide={slide} revealed={revealed} />
       case '__path':      return <PathDependenceSlide revealed={revealed} />
       case '__entropy':   return <EntropySlide revealed={revealed} />
+      case 'poll':        return <PollSlide slide={slide} />
+      case 'tps':         return <TPSSlide slide={slide} />
       case 'compress':    return <CompressSlide slide={slide} revealed={revealed} />
       case 'thrust':      return <ThrustSlide slide={slide} revealed={revealed} />
       case 'idg':         return <IdgSlide slide={slide} revealed={revealed} />
@@ -1938,6 +2184,67 @@ html,body,#root{height:100%;margin:0}
   .diagram{width:140px}
   .cmp-row,.law-col{flex-direction:column}
 }
+
+/* ── Activity badges ─────────────────────────────────────────────────────── */
+.activity-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:3px 10px;border-radius:3px;margin-bottom:2px}
+.activity-badge--poll{background:rgba(94,200,216,.15);color:var(--accent);border:1px solid var(--accent)}
+.activity-badge--tps{background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid #a78bfa}
+
+/* ── Poll choices ────────────────────────────────────────────────────────── */
+.poll-choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.poll-choice{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:6px;
+  cursor:pointer;text-align:left;font-size:13.5px;transition:background .2s,border-color .2s;
+  background:var(--panel);border:1.5px solid var(--rule);color:var(--ink)}
+.poll-choice:hover:not(:disabled){border-color:var(--accent);background:rgba(94,200,216,.07)}
+.poll-choice-label{flex-shrink:0;width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:12px;background:var(--rule);color:var(--muted)}
+.poll-choice-text{flex:1;line-height:1.35}
+.poll-tick{margin-left:auto;font-size:16px;color:#4ade80}
+.poll-choice--selected{border-color:var(--accent);background:rgba(94,200,216,.12)}
+.poll-choice--selected .poll-choice-label{background:var(--accent);color:#000}
+.poll-choice--correct{border-color:#4ade80;background:rgba(74,222,128,.1);cursor:default}
+.poll-choice--correct .poll-choice-label{background:#4ade80;color:#000}
+.poll-choice--wrong{border-color:#f87171;background:rgba(248,113,113,.08);opacity:.7;cursor:default}
+.poll-choice--dim{opacity:.4;cursor:default}
+.poll-reveal-btn{margin-top:4px;padding:7px 20px;border-radius:5px;font-size:12px;font-weight:600;
+  letter-spacing:.06em;cursor:pointer;border:1.5px solid var(--accent);
+  background:rgba(94,200,216,.1);color:var(--accent);transition:background .2s}
+.poll-reveal-btn:hover:not(:disabled){background:rgba(94,200,216,.2)}
+.poll-reveal-btn:disabled{opacity:.5;cursor:default}
+.poll-explanation{margin-top:10px;padding:10px 14px;border-left:3px solid var(--accent);
+  border-radius:0 6px 6px 0;background:rgba(94,200,216,.06);
+  font-size:13px;color:var(--muted);line-height:1.5}
+
+/* ── TPS layout ──────────────────────────────────────────────────────────── */
+.tps-question{font-size:16px;font-weight:600;color:var(--ink);line-height:1.45;margin:6px 0 2px}
+.tps-phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.tps-phase{padding:12px 14px;border-radius:8px;border:1.5px solid var(--rule);
+  background:var(--panel);display:flex;flex-direction:column;gap:6px;transition:border-color .3s}
+.tps-phase--active{border-color:var(--accent);background:rgba(94,200,216,.05)}
+.tps-phase--done{opacity:.55}
+.tps-phase-hd{display:flex;align-items:center;gap:8px}
+.tps-num{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:700;color:#000;flex-shrink:0}
+.tps-phase-name{font-weight:700;font-size:13px;color:var(--ink)}
+.tps-duration{margin-left:auto;font-size:11px;color:var(--muted);font-family:monospace}
+.tps-prompt{font-size:12px;color:var(--muted);line-height:1.45;margin:0;flex:1}
+.tps-timer{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.tps-time{font-size:26px;font-weight:700;font-family:monospace;line-height:1}
+.tps-bar{height:4px;background:var(--rule);border-radius:2px;overflow:hidden}
+.tps-bar-fill{height:100%;border-radius:2px;transition:width .9s linear}
+.tps-answer{padding:10px 12px;border-radius:6px;background:var(--panel);
+  border:1px solid var(--rule)}
+.tps-btn{margin-top:auto;padding:6px 14px;border-radius:5px;font-size:11px;font-weight:600;
+  letter-spacing:.06em;cursor:pointer;border:1.5px solid var(--accent);
+  background:rgba(94,200,216,.1);color:var(--accent);width:100%;transition:background .2s}
+.tps-btn:hover{background:rgba(94,200,216,.2)}
+.tps-btn--amber{border-color:var(--accent-2);background:rgba(240,169,59,.1);color:var(--accent-2)}
+.tps-btn--amber:hover{background:rgba(240,169,59,.2)}
+.tps-btn--purple{border-color:#a78bfa;background:rgba(167,139,250,.1);color:#a78bfa}
+.tps-btn--purple:hover{background:rgba(167,139,250,.2)}
+.tps-btn--sm{padding:4px 10px;font-size:10px;width:auto;align-self:flex-end}
 @media (prefers-reduced-motion:reduce){
   .outline-item,.thrust-item,.cmp-card,.law-card,.regime-card{animation:none;transition:none}
   .piston-anim .piston,.piston-anim .gas,.piston-anim .gas-label,.piston-anim .heat-out{animation:none}

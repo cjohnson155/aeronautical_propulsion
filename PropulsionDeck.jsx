@@ -57,6 +57,7 @@ const SLIDES = [
       "A large-diameter screw accelerates a big mass of water by a small velocity change — ideal in a dense medium.",
     specs: [
       ["Thrust", "~500 kN (typical laden ship)"],
+  application: "Large commercial shipping — container ships, bulk carriers, and tankers. The screw propeller is the dominant propulsor for ocean-going vessels worldwide.",
       ["Propulsive eff. (η_p)", "~65–70% at cruise"],
       ["Key thrust driver", "Disk area & mass flow rate"],
       ["Key design tradeoff", "Diameter vs. ship draft depth"],
@@ -74,6 +75,7 @@ const SLIDES = [
       "A large fan moves most of the air around the core (high bypass). Most thrust comes from the cold bypass stream — quiet and fuel-efficient.",
     specs: [
       ["Thrust", "~100–350 kN (e.g. CFM56–GE90)"],
+  application: "Commercial passenger aviation — every large airliner flying today uses a high-bypass turbofan. It is the standard propulsion choice for subsonic passenger and cargo aircraft.",
       ["Propulsive eff. (η_p)", "~65–75% at cruise"],
       ["Key thrust driver", "Bypass mass flow rate"],
       ["Key design tradeoff", "Bypass ratio vs. nacelle drag/weight"],
@@ -91,6 +93,7 @@ const SLIDES = [
       "A gas turbine core drives a propeller through a reduction gearbox. Effectively a turbofan with an unducted, very high bypass 'fan'.",
     specs: [
       ["Thrust", "~20–50 kN shaft-equiv. (e.g. PT6A)"],
+  application: "Regional airliners and military transport aircraft. Turboprops dominate short-haul commuter routes and utility roles where cruise speed matters less than fuel economy and operating cost.",
       ["Propulsive eff. (η_p)", "~80–85% at design speed"],
       ["Key thrust driver", "Propeller diameter & rpm"],
       ["Key design tradeoff", "Prop efficiency vs. tip compressibility limit"],
@@ -107,6 +110,7 @@ const SLIDES = [
       "A historical contrast: a V-12 reciprocating engine burns fuel in cylinders to spin a crankshaft and prop. No gas-turbine core — combustion is intermittent, not continuous.",
     specs: [
       ["Thrust", "~2–15 kN (via propeller)"],
+  application: "General aviation — private aircraft, flight training, and light utility planes. The piston engine remains the most common powerplant for single-engine propeller aircraft.",
       ["Propulsive eff. (η_p)", "~75–85% at cruise"],
       ["Key thrust driver", "Displacement & prop diameter"],
       ["Key design tradeoff", "Power-to-weight ratio vs. cooling drag"],
@@ -124,6 +128,7 @@ const SLIDES = [
       "Four fixed-pitch rotors driven by electric motors. Thrust and attitude are controlled purely by varying each motor's rpm.",
     specs: [
       ["Thrust", "~5–40 N total (consumer UAV)"],
+  application: "Consumer and commercial drones — photography, surveying, agricultural spraying, and package delivery. The quadcopter's mechanical simplicity and electronic controllability have made it the default UAV platform.",
       ["Propulsive eff. (η_p)", "~45–55% in hover"],
       ["Key thrust driver", "Rotor disk area & tip speed"],
       ["Key design tradeoff", "Hover endurance vs. battery weight"],
@@ -141,6 +146,7 @@ const SLIDES = [
       "A low-bypass or pure turbojet maximizes exhaust velocity. An afterburner injects fuel into the hot exhaust for a surge of thrust.",
     specs: [
       ["Thrust", "~50–100 kN dry, up to 150 kN with A/B"],
+  application: "Manned supersonic fighter jets and cruise missiles. Fighters use low-bypass afterburning turbofans derived from turbojet architecture; pure turbojets persist in expendable cruise missiles where simplicity outweighs efficiency.",
       ["Propulsive eff. (η_p)", "~25–40% at supersonic cruise"],
       ["Key thrust driver", "Exhaust velocity (high Δv)"],
       ["Key design tradeoff", "Thrust vs. fuel burn (TSFC)"],
@@ -159,6 +165,7 @@ const SLIDES = [
     note: "Traditional propulsive efficiency η_p = 2(v/v_e)/(1 + (v/v_e)²) peaks at 100% only when vehicle speed equals exhaust speed (~3–4 km/s). At liftoff v ≈ 0, so η_p ≈ 0% — rockets are intentionally designed around the liftoff constraint, not peak η_p. Mission-averaged η_p is typically 15–30%. Isp is the standard figure of merit for rockets.",
     specs: [
       ["Thrust", "~1–9 MN (e.g. RS-25 ≈ 2.1 MN vac.)"],
+  application: "Space launch vehicles — orbital rockets, upper stages, and spacecraft propulsion. Chemical rockets are the only propulsion technology capable of reaching orbit from Earth's surface.",
       ["Specific impulse (Isp)", "~340–450 s (LH₂/LOX)"],
       ["Key thrust driver", "Mass flow rate × exhaust velocity"],
       ["Key design tradeoff", "Thrust vs. Isp (nozzle expansion ratio)"],
@@ -176,6 +183,7 @@ const SLIDES = [
       "Electric fields accelerate ionized propellant (e.g. xenon) to enormous exhaust velocity. Tiny thrust, but extraordinary efficiency for deep space.",
     specs: [
       ["Thrust", "~0.1–250 mN (very low)"],
+  application: "Deep-space science missions and satellite station-keeping. Ion thrusters are the standard choice wherever mission duration allows slow acceleration in exchange for extraordinary propellant efficiency.",
       ["Specific impulse (Isp)", "~1,500–10,000 s"],
       ["Key thrust driver", "Ion exhaust velocity"],
       ["Key design tradeoff", "Thrust vs. electrical power draw"],
@@ -362,6 +370,12 @@ function SystemSlide({ s }) {
           {s.note && (
             <div style={{ marginTop: 14, padding: "10px 14px", border: `1px solid ${C.amber}`, borderLeft: `3px solid ${C.amber}`, background: "rgba(245,158,11,0.06)" }}>
               <span style={{ fontFamily: head, fontStyle: "italic", color: C.dim, fontSize: 12, lineHeight: 1.5 }}>{s.note}</span>
+            </div>
+          )}
+          {s.application && (
+            <div style={{ marginTop: 14, padding: "10px 14px", border: `1px solid ${C.cyan}40`, borderLeft: `3px solid ${C.cyan}`, background: "rgba(63,208,214,0.05)" }}>
+              <div style={{ fontFamily: mono, color: C.cyan, fontSize: 9.5, letterSpacing: 2, textTransform: "uppercase", marginBottom: 5 }}>Current Application</div>
+              <span style={{ fontFamily: head, color: C.dim, fontSize: 12, lineHeight: 1.5 }}>{s.application}</span>
             </div>
           )}
         </div>
