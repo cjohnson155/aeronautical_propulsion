@@ -757,6 +757,7 @@ export const slides = [
       'That split &mdash; isentropic for p<sub>t</sub> and &rho;<sub>t</sub>, merely adiabatic for T<sub>t</sub> &mdash; is the crux of the topic. Let&rsquo;s test it.',
   },
 
+  // ── StagnationQuestions.jsx integrated: p_t poll + T_t poll + define/conserve TPS ──
   // ── CLASS POLL: isentropic flow conserves p_t ──────────────────────────────
   {
     type: 'poll',
@@ -809,7 +810,7 @@ export const slides = [
   },
 
 
-]
+];
 
 // ─── KaTeX renderer ──────────────────────────────────────────────────────────
 function Equation({ latex, display = true }) {
@@ -1064,7 +1065,7 @@ function StepGraph({ lit, accent, accent2, ink, muted }) {
 
       <line x1={X0} y1={Y0} x2={X0} y2={Y1} stroke={muted} strokeWidth="1" />
       <line x1={X0} y1={Y1} x2={X1} y2={Y1} stroke={muted} strokeWidth="1" />
-      <text x={X0 - 30} y={Y0 - 8} textAnchor="start" className="dof-axis">cv/R</text>
+      <text x={X0 - 30} y={Y0 - 8} textAnchor="start" className="dof-axis">cᵥ/R</text>
       <text x={X1} y={Y1 + 16} textAnchor="end" className="dof-axis">T</text>
 
       {/* y-axis level markers: 3/2, 5/2, 7/2 with dashed guide lines */}
@@ -1625,7 +1626,8 @@ function TPSSlide({ slide }) {
   const [phase, setPhase] = useState('idle')   // idle | think | pair | share
   const [timeLeft, setTimeLeft] = useState(0)
 
-  const startPhase = (p) => {
+  const startPhase = (p, e) => {
+    e?.stopPropagation?.()
     setPhase(p)
     if (p === 'think') setTimeLeft(slide.think.minutes * 60)
     else if (p === 'pair') setTimeLeft(slide.pair.minutes * 60)
@@ -1653,7 +1655,7 @@ function TPSSlide({ slide }) {
       <div className="tps-question anim-in"><HTML>{slide.question}</HTML></div>
       <div className="heading-rule anim-in" />
 
-      <div className="tps-phases">
+      <div className="tps-phases" onClick={(e) => e.stopPropagation()}>
         {/* ── Think ── */}
         <div className={`tps-phase${phase === 'think' ? ' tps-phase--active' : phaseIdx > 1 ? ' tps-phase--done' : ''}`}>
           <div className="tps-phase-hd">
@@ -1663,13 +1665,13 @@ function TPSSlide({ slide }) {
           </div>
           <p className="tps-prompt"><HTML>{slide.think.prompt}</HTML></p>
           {phase === 'idle' && (
-            <button className="tps-btn" onClick={() => startPhase('think')}>▶ Start timer</button>
+            <button className="tps-btn" onClick={(e) => startPhase('think', e)}>▶ Start timer</button>
           )}
           {phase === 'think' && (
             <div className="tps-timer">
               <span className="tps-time" style={{ color: timerColor }}>{fmt(timeLeft)}</span>
               <div className="tps-bar"><div className="tps-bar-fill" style={{ width: `${pct}%`, background: timerColor }} /></div>
-              <button className="tps-btn tps-btn--sm" onClick={() => startPhase('pair')}>Next →</button>
+              <button className="tps-btn tps-btn--sm" onClick={(e) => startPhase('pair', e)}>Next →</button>
             </div>
           )}
         </div>
@@ -1683,13 +1685,13 @@ function TPSSlide({ slide }) {
           </div>
           <p className="tps-prompt"><HTML>{slide.pair.prompt}</HTML></p>
           {phase !== 'pair' && phase !== 'share' && (
-            <button className="tps-btn tps-btn--amber" onClick={() => startPhase('pair')}>▶ {phase === 'idle' ? 'Skip to pair' : 'Start pair timer'}</button>
+            <button className="tps-btn tps-btn--amber" onClick={(e) => startPhase('pair', e)}>▶ {phase === 'idle' ? 'Skip to pair' : 'Start pair timer'}</button>
           )}
           {phase === 'pair' && (
             <div className="tps-timer">
               <span className="tps-time" style={{ color: timeLeft < 30 ? '#f87171' : 'var(--accent-2)' }}>{fmt(timeLeft)}</span>
               <div className="tps-bar"><div className="tps-bar-fill" style={{ width: `${pct}%`, background: 'var(--accent-2)' }} /></div>
-              <button className="tps-btn tps-btn--sm tps-btn--amber" onClick={() => startPhase('share')}>Share →</button>
+              <button className="tps-btn tps-btn--sm tps-btn--amber" onClick={(e) => startPhase('share', e)}>Share →</button>
             </div>
           )}
         </div>
@@ -1702,7 +1704,7 @@ function TPSSlide({ slide }) {
           </div>
           <p className="tps-prompt"><HTML>{slide.share.prompt}</HTML></p>
           {phase !== 'share' && (
-            <button className="tps-btn tps-btn--purple" onClick={() => startPhase('share')}>▶ Share phase</button>
+            <button className="tps-btn tps-btn--purple" onClick={(e) => startPhase('share', e)}>▶ Share phase</button>
           )}
           {phase === 'share' && (
             <CoverBlock color="#a78bfa">
@@ -2163,7 +2165,10 @@ export default function Presentation({ slides: slideData = slides, meta: metaDat
   }, [advance, retreat])
 
   const handleStageClick = (e) => {
-    if (e.target.closest('.nav-btn') || e.target.closest('.nav-dot')) return
+    // Do not advance the deck when the click starts on an interactive control.
+    // This prevents TPS timer controls, poll choices, reveal buttons, and
+    // any future in-slide buttons from bubbling up to the stage click handler.
+    if (e.target.closest('button, [role="button"], a, input, select, textarea, .nav-btn, .nav-dot, .tps-timer, .tps-phases, .poll-choices, .poll-reveal-btn')) return
     advance()
   }
 
