@@ -1244,7 +1244,7 @@ function totalSteps(slide) {
 }
 
 // ─── Main Presentation component ─────────────────────────────────────────────
-export default function Presentation({ slides: slideData, meta: metaData, sections = [] }) {
+export default function Presentation({ slides: slideData, meta: metaData, sections = [], onExit }) {
   const hasSections = Array.isArray(sections) && sections.length > 0
   const [atHome, setAtHome] = useState(hasSections)
   const [slideIdx, setSlideIdx] = useState(0)
@@ -1345,6 +1345,9 @@ export default function Presentation({ slides: slideData, meta: metaData, sectio
     <div className="app">
       <style>{CSS}</style>
       <div className="top-bar">
+        {onExit && (
+          <button className="home-btn" onClick={onExit} title="Back to all units">← Units</button>
+        )}
         {hasSections && !atHome && (
           <button className="home-btn" onClick={goHome} title="Back to sections (Esc)">⌂ Sections</button>
         )}
