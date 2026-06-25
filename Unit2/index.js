@@ -1,13 +1,14 @@
 // ME 3470 · Unit 2 — slide assembly + section index
-// Concatenates the per-section slide arrays in lecture order (reproducing the
-// original `slides` export) AND derives a `sections` table (title, accent,
-// slide count, and start index) consumed by the home-screen section cards.
+// Concatenates the per-section slide arrays in lecture order AND derives a
+// `sections` table (title, accent, slide count, start index) consumed by the
+// home-screen section cards.
 import { openerSlides }       from './00-opener'
 import { introSlides }        from './01-intro'
 import { thermoSlides }       from './02-thermo'
 import { firstLawSlides }     from './03-first-law'
 import { conservationSlides } from './04-conservation'
 import { soundSlides }        from './05-sound'
+import { stagnationSlides }   from './06-stagnation'
 
 // Single source of truth: lecture order + card metadata + the slide arrays.
 // Edit titles/colours here; start indices recompute automatically.
@@ -24,9 +25,11 @@ const groups = [
     subtitle: 'Control volume \u00b7 mass, momentum & energy',        slides: conservationSlides },
   { id: 'sound',        tag: '\u00a75', accent: '#60a5fa', title: 'Speed of Sound, Mach & Shocks',
     subtitle: 'a = \u221a(\u03b3RT) \u00b7 Mach number \u00b7 shocks', slides: soundSlides },
+  { id: 'stagnation',   tag: '\u00a76', accent: '#06b6d4', title: 'Stagnation Properties',
+    subtitle: 'Total conditions \u00b7 T\u2080, P\u2080, \u03c1\u2080 \u00b7 Mach relations', slides: stagnationSlides },
 ]
 
-// Flat array — identical ordering to the original consolidated deck.
+// Flat array — lecture order.
 export const slides = groups.flatMap((g) => g.slides)
 
 // Section table with auto-computed start index + count.
