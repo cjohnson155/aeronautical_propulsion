@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from 'react'
 import Unit1Menu from './Unit1Menu.jsx'
 import Unit2Deck from './Unit2/App.jsx'
+import Unit3Deck from './Unit3/App.jsx'
 
 // ── Top-level course hub ─────────────────────────────────────────────────────
 // Landing page → pick a unit. Lightweight hash routing (no router dependency):
 //   #/        → this landing page
 //   #/unit1   → Unit 1 (propulsion decks menu)
-//   #/unit2   → Unit 2 (compressible-flow slide deck)
+//   #/unit2   → Unit 2 (compressible-flow slide deck, incl. stagnation §6)
+//   #/unit3   → Unit 3 (quasi-1D flows deck)
 // Hashes are used because this is a GitHub Pages *project* page: they need no
 // server-side redirect, so the browser/phone Back button works and links like
 // …/#/unit2 are shareable. Vite's `base` handles asset URLs independently.
@@ -15,6 +17,7 @@ function readRoute() {
   const h = window.location.hash.replace(/^#\/?/, '')
   if (h === 'unit1') return 'unit1'
   if (h === 'unit2') return 'unit2'
+  if (h === 'unit3') return 'unit3'
   return 'home'
 }
 
@@ -22,14 +25,20 @@ const units = [
   {
     id: 'unit1',
     title: 'Unit 1 — Propulsion',
-    subtitle: 'Laws of motion · engine types · turbojets · nozzles · stagnation',
+    subtitle: 'Laws of motion · engine types · turbojets',
     color: 'from-red-700 to-orange-500',
   },
   {
     id: 'unit2',
     title: 'Unit 2 — Compressible Flow',
-    subtitle: 'Thermo foundations · conservation · speed of sound',
+    subtitle: 'Thermo · conservation · speed of sound · stagnation',
     color: 'from-violet-700 to-purple-500',
+  },
+  {
+    id: 'unit3',
+    title: 'Unit 3 — Quasi-1D Flows',
+    subtitle: 'Diffusers & nozzles · area–velocity relations',
+    color: 'from-lime-500 to-emerald-300',
   },
 ]
 
@@ -47,6 +56,7 @@ export default function App() {
 
   if (route === 'unit1') return <Unit1Menu onExit={goHome} />
   if (route === 'unit2') return <Unit2Deck onExit={goHome} />
+  if (route === 'unit3') return <Unit3Deck onExit={goHome} />
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6">
@@ -56,7 +66,7 @@ export default function App() {
           <p className="text-xl text-slate-400">Select a unit to begin</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {units.map((u) => (
             <button
               key={u.id}

@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 // Unit 1 — propulsion decks menu (formerly the app's root App.jsx).
 // Rendered by ../App.jsx for the #/unit1 route. `onExit` returns to the unit picker.
-// import ThermodynamicsPresentation from './ThermodynamicsPresentation';
-import Quasi1DFlowsPresentation from './Quasi1DFlowsPresentation';
 import TurbojetPresentation from './TurbojetPresentation';
 import PropulsionDeck from './PropulsionDeck';
 import NewtonsLawsPropulsion from './NewtonsLawsPropulsion';
-import StagnationProperties from './StagnationProperties';
 
-// ── ARCHIVED DECKS (kept out of the build on purpose) ────────────────────────
-// CompressibleFlowPresentation.jsx → speed of sound / Mach / stagnation now live
-//                                    in the Unit 2 deck (./Unit2).
-// Unit2slides.jsx                  → its intro/thrust content merged into Unit 2.
-// Unit2_ME3470.jsx                 → the OLD monolithic Unit 2 deck. Unit 2 is now
-//                                    the modular deck in ./Unit2, reached from the
-//                                    top-level unit picker, so this card was
-//                                    removed. File kept on disk for reference.
+// ── MOVED / MERGED OUT OF UNIT 1 ─────────────────────────────────────────────
+// Quasi1DFlowsPresentation.jsx → now Unit 3 (moved to ./Unit3, reached from the
+//                                top-level unit picker).
+// StagnationProperties.jsx     → merged into Unit 2 as Section 6 (./Unit2/06-stagnation.js).
+//                                The standalone file is now unused (safe to delete).
+// Unit2_ME3470.jsx             → old monolithic Unit 2 deck; superseded by ./Unit2.
+// Archived, kept on disk for reference:
 // import CompressibleFlowPresentation from './CompressibleFlowPresentation';
 // import Unit2slides from './Unit2slides';
 
@@ -43,20 +39,6 @@ const Unit1Menu = ({ onExit }) => {
       subtitle: 'Thrust & Energy Conversion',
       component: TurbojetPresentation,
       color: 'from-red-700 to-orange-500'
-    },
-    {
-      id: 'quasi-1d-flows',
-      title: 'Quasi 1D-Flows',
-      subtitle: 'Diffusers & Nozzles',
-      component: Quasi1DFlowsPresentation,
-      color: 'from-lime-500 to-emerald-300'
-    },
-    {
-      id: 'stagnation',
-      title: 'Stagnation Properties',
-      subtitle: 'Section 6a · Total Conditions · Mach Relations',
-      component: StagnationProperties,
-      color: 'from-sky-500 to-cyan-300'
     }
   ];
 
