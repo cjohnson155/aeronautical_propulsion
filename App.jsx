@@ -1,145 +1,77 @@
-import React, { useState } from 'react';
-// ThermodynamicsPresentation merged into Unit2_ME3470 — archived, kept on disk for reference
-// import ThermodynamicsPresentation from './ThermodynamicsPresentation';
-import Quasi1DFlowsPresentation from './Quasi1DFlowsPresentation';
-import TurbojetPresentation from './TurbojetPresentation';
-import PropulsionDeck from './PropulsionDeck';
-import NewtonsLawsPropulsion from './NewtonsLawsPropulsion';
-import Unit2_ME3470 from './Unit2_ME3470';
-import StagnationProperties from './StagnationProperties';
+import { useState, useEffect, useCallback } from 'react'
+import Unit1Menu from './Unit1Menu.jsx'
+import Unit2Deck from './Unit2/App.jsx'
 
-// ── ARCHIVED DECKS (superseded — kept out of the build on purpose) ───────────
-// CompressibleFlowPresentation.jsx  → speed-of-sound / Mach / stagnation now
-//                                      live in Unit2_ME3470 (Section 5).
-// Unit2slides.jsx                    → its Section 1 (intro + thrust/density)
-//                                      was merged into Unit2_ME3470.
-// Both files remain on disk for reference; re-import here only if you need them.
-// import CompressibleFlowPresentation from './CompressibleFlowPresentation';
-// import Unit2slides from './Unit2slides';
-// ThermodynamicsPresentation.jsx → content merged into Unit2_ME3470 (Sections 2 & 4).
+// ── Top-level course hub ─────────────────────────────────────────────────────
+// Landing page → pick a unit. Lightweight hash routing (no router dependency):
+//   #/        → this landing page
+//   #/unit1   → Unit 1 (propulsion decks menu)
+//   #/unit2   → Unit 2 (compressible-flow slide deck)
+// Hashes are used because this is a GitHub Pages *project* page: they need no
+// server-side redirect, so the browser/phone Back button works and links like
+// …/#/unit2 are shareable. Vite's `base` handles asset URLs independently.
 
-const App = () => {
-  const [currentPresentation, setCurrentPresentation] = useState(null);
+function readRoute() {
+  const h = window.location.hash.replace(/^#\/?/, '')
+  if (h === 'unit1') return 'unit1'
+  if (h === 'unit2') return 'unit2'
+  return 'home'
+}
 
-  const presentations = [
+const units = [
   {
-      id: 'newtonslaws',
-      title: 'The Laws of Motion',
-      subtitle: 'How we move forward',
-      component: NewtonsLawsPropulsion,
-      color: 'from-amber-500 to-yellow-300'
-    },
+    id: 'unit1',
+    title: 'Unit 1 — Propulsion',
+    subtitle: 'Laws of motion · engine types · turbojets · nozzles · stagnation',
+    color: 'from-red-700 to-orange-500',
+  },
   {
-      id: 'propulsion',
-      title: 'Types of Propusion Devices',
-      subtitle: 'Air, sea, space',
-      component: PropulsionDeck,
-      color: 'from-fuchsia-600 to-pink-400'
-    }, 
-    {
-      id: 'turbojet',
-      title: 'Turbojet Engines',
-      subtitle: 'Thrust & Energy Conversion',
-      component: TurbojetPresentation,
-      color: 'from-red-700 to-orange-500'
-    },
-    // ── ARCHIVED: ThermodynamicsPresentation merged into Unit2_ME3470
-    // {
-    //   id: 'thermodynamics',
-    //   title: 'Thermodynamics Fundamentals',
-    //   subtitle: 'First & Second Laws, Entropy',
-    //   component: ThermodynamicsPresentation,
-    //   color: 'from-blue-700 to-indigo-400'
-    // },
-    // ── ARCHIVED: the standalone Compressible Flow deck is superseded by the
-    //    consolidated Unit 2 deck below (Section 5 covers speed of sound / Mach).
-    // {
-    //   id: 'compressible-flow',
-    //   title: 'Compressible Flow',
-    //   subtitle: 'Speed of Sound & Mach Number',
-    //   component: CompressibleFlowPresentation,
-    //   color: 'from-blue-600 to-cyan-600'
-    // },
-    {
-      id: 'quasi-1d-flows',
-      title: 'Quasi 1D-Flows',
-      subtitle: 'Diffusers & Nozzles',
-      component: Quasi1DFlowsPresentation,
-      color: 'from-lime-500 to-emerald-300'
-    },
-    {
-      id: 'Unit2',
-      title: 'Unit 2 — Compressible Flow',
-      subtitle: 'Thermo Foundations · IDG · Energy · Entropy · Conservation · Speed of Sound',
-      component: Unit2_ME3470,
-      color: 'from-violet-700 to-purple-500'
-    },
-    {
-      id: 'stagnation',
-      title: 'Stagnation Properties',
-      subtitle: 'Section 6a · Total Conditions · Mach Relations',
-      component: StagnationProperties,
-      color: 'from-sky-500 to-cyan-300'
-    }
- ];
+    id: 'unit2',
+    title: 'Unit 2 — Compressible Flow',
+    subtitle: 'Thermo foundations · conservation · speed of sound',
+    color: 'from-violet-700 to-purple-500',
+  },
+]
 
-  if (currentPresentation) {
-    const presentation = presentations.find(p => p.id === currentPresentation);
-    const Component = presentation.component;
-    
-    return (
-      <div>
-        <button
-          onClick={() => setCurrentPresentation(null)}
-          className="fixed top-6 left-6 z-50 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors font-semibold"
-        >
-          ← Back to Menu
-        </button>
-        <Component />
-      </div>
-    );
-  }
+export default function App() {
+  const [route, setRoute] = useState(readRoute)
+
+  useEffect(() => {
+    const onHash = () => setRoute(readRoute())
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+
+  const go = useCallback((id) => { window.location.hash = `#/${id}` }, [])
+  const goHome = useCallback(() => { window.location.hash = '#/' }, [])
+
+  if (route === 'unit1') return <Unit1Menu onExit={goHome} />
+  if (route === 'unit2') return <Unit2Deck onExit={goHome} />
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16 pt-8">
-          <h1 className="text-5xl font-bold text-white mb-4">
-            Compressible Flow & Propulsion
-          </h1>
-          <p className="text-xl text-slate-400">
-            Select a presentation to view
-          </p>
+          <h1 className="text-5xl font-bold text-white mb-4">Aeronautical Propulsion</h1>
+          <p className="text-xl text-slate-400">Select a unit to begin</p>
         </div>
 
-        {/* Presentation Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {presentations.map((presentation) => (
+          {units.map((u) => (
             <button
-              key={presentation.id}
-              onClick={() => setCurrentPresentation(presentation.id)}
+              key={u.id}
+              onClick={() => go(u.id)}
               className="group relative overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
             >
-              {/* Card Background */}
-              <div className={`bg-gradient-to-br ${presentation.color} p-8 h-80 flex flex-col justify-between relative overflow-hidden`}>
-                {/* Decorative elements */}
+              <div className={`bg-gradient-to-br ${u.color} p-8 h-80 flex flex-col justify-between relative overflow-hidden`}>
                 <div className="absolute top-0 right-0 w-40 h-40 bg-white opacity-5 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-300"></div>
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-white opacity-5 rounded-full -ml-16 -mb-16"></div>
-
-                {/* Content */}
                 <div className="relative z-10">
-                  <h2 className="text-3xl font-bold text-white mb-3">
-                    {presentation.title}
-                  </h2>
-                  <p className="text-lg text-white text-opacity-90">
-                    {presentation.subtitle}
-                  </p>
+                  <h2 className="text-3xl font-bold text-white mb-3">{u.title}</h2>
+                  <p className="text-lg text-white text-opacity-90">{u.subtitle}</p>
                 </div>
-
-                {/* CTA */}
                 <div className="relative z-10 flex items-center gap-2 text-white text-opacity-90 group-hover:text-opacity-100 transition-all">
-                  <span className="font-semibold">View Presentation</span>
+                  <span className="font-semibold">Open unit</span>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-2 transition-transform">
                     <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
@@ -148,14 +80,7 @@ const App = () => {
             </button>
           ))}
         </div>
-
-        {/* Footer */}
-        <div className="mt-16 text-center text-slate-400">
-          <p>Click any card to start viewing</p>
-        </div>
       </div>
     </div>
-  );
-};
-
-export default App;
+  )
+}
