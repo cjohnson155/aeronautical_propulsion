@@ -37,23 +37,6 @@ export const meta = {
 
 export const slides = [
 
-  // ── DESIGN TASK HOOK ────────────────────────────────────────────────────────
-  {
-    type: 'hook',
-    scenario:
-      'We are <strong>propulsion engineers</strong>. '
-      + 'Our job: design a supersonic wind tunnel to test our inlet geometries at realistic flight Mach numbers.',
-    spec:
-      'The tunnel needs a large reservoir of compressed air. '
-      + 'We plan to store it at <strong>P&nbsp;=&nbsp;20&nbsp;atm, T&nbsp;=&nbsp;300&nbsp;K</strong> '
-      + 'in a 10&nbsp;m³ pressure vessel.',
-    question: 'How much air can we get into that vessel?',
-    bridge:
-      'That depends on how <strong>compressible</strong> air is. '
-      + 'So first — what is the definition of compressibility?',
-  },
-
-  // ── UNIT 2 OUTLINE ──────────────────────────────────────────────────────────
   {
     type: 'outline',
     sectionNumber: 'Unit 2',
@@ -69,7 +52,6 @@ export const slides = [
     ],
   },
 
-  // ── SECTION 1: INTRO TO COMPRESSIBLE FLOW ──────────────────────────────────
   {
     type: 'compress',
     sectionNumber: 'Section 1',
@@ -84,100 +66,24 @@ export const slides = [
     specificVolume: 'v = m^{3}/kg = \\tfrac{1}{\\rho}',
   },
 
-
-  // ── CLASS POLL: Compressibility intuition ────────────────────────────────────
   {
     type: 'poll',
     sectionNumber: 'Section 1 — Class Poll',
     question: 'Which of the following is <em>most</em> compressible at room conditions?',
     choices: [
-      { label: 'A', text: 'Steel rod', correct: false },
-      { label: 'B', text: 'Liquid water', correct: false },
+      { label: 'A', text: 'CO\u2082 at 1 atm', correct: false },
+      { label: 'B', text: 'Air at 20 atm (compressed)', correct: false },
       { label: 'C', text: 'Air at 1 atm', correct: true },
-      { label: 'D', text: 'Rubber foam (the solid rubber itself)', correct: false },
+      { label: 'D', text: 'Steam at 1 atm', correct: false },
     ],
     explanation:
-      'Air wins by a wide margin — \u03c4 for air at 1 atm \u2248 10\u207b\u2075 Pa\u207b\u00b9, '
-      + 'while water is ~4.5\u00d710\u207b\u00b9\u2070 Pa\u207b\u00b9 (10\u2074\u00d7 less compressible) '
-      + 'and steel ~10\u207b\u00b9\u00b9 Pa\u207b\u00b9. '
-      + 'Foam feels soft because the <em>trapped air pockets</em> compress — the rubber matrix itself is nearly incompressible.',
+      'Air at 1 atm is the most compressible of these — \u03c4 = 1/P \u2248 10\u207b\u2075 Pa\u207b\u00b9. '
+      + 'Compressing air to 20 atm makes it 20\u00d7 less compressible (\u03c4 = 1/P drops with pressure). '
+      + 'CO\u2082 and steam at 1 atm are similarly compressible to air, but CO\u2082 has a higher bulk modulus '
+      + 'and steam sits closer to condensation conditions where real-gas effects stiffen it slightly. '
+      + 'The key takeaway: for an ideal gas, \u03c4<sub>T</sub> = 1/P — lower pressure means higher compressibility.',
   },
 
-  // ── SECTION BREAK: THERMODYNAMIC FOUNDATIONS (merged from ThermodynamicsPresentation) ──
-  {
-    type: 'section',
-    sectionNumber: 'Section 2',
-    title: 'Thermodynamic Foundations',
-    subtitle: 'Internal energy, enthalpy, specific heats, and entropy.',
-  },
-
-  // ── INTERNAL ENERGY & ENTHALPY EQUATIONS (merged from ThermodynamicsPresentation) ──
-  {
-    type: 'equation',
-    heading: 'Internal Energy &amp; Enthalpy of a Calorically Perfect Gas',
-    equationLabel: 'Key relations — calorically perfect gas (constant c<sub>p</sub>, c<sub>v</sub>)',
-    equation: 'e = c_v T \\qquad h = c_p T \\qquad \\gamma = \\frac{c_p}{c_v} \\qquad c_v = \\frac{R}{\\gamma - 1}',
-    terms: [
-      { symbol: 'e', definition: 'Specific internal energy (J/kg)' },
-      { symbol: 'h = e + pv', definition: 'Specific enthalpy (J/kg)' },
-      { symbol: 'R = 287 J/kg·K', definition: 'Specific gas constant for air' },
-      { symbol: 'γ = 1.4', definition: 'Ratio of specific heats (air, calorically perfect)' },
-      { symbol: 'c<sub>v</sub> = 717.5 J/kg·K', definition: 'From R/(γ−1) = 287/0.4' },
-      { symbol: 'c<sub>p</sub> = c<sub>v</sub> + R', definition: '= 1004.5 J/kg·K' },
-    ],
-    items: [
-      {
-        title: 'Worked example — room of air',
-        body: 'ρ = 1.181 kg/m³, V = 5×7×3.3 m = 115.5 m³ → m = 136.4 kg, T ≈ 293 K.<br>'
-          + 'E = c<sub>v</sub>Tm = 717.5 × 293 × 136.4 ≈ <strong>29.2 MJ</strong>'
-          + '&emsp;H = c<sub>p</sub>Tm ≈ <strong>40.8 MJ</strong>.<br>'
-          + 'Check: H/E = c<sub>p</sub>/c<sub>v</sub> = γ = 1.4 ✓',
-      },
-      {
-        title: 'Why does H/E = γ?',
-        body: 'H = c<sub>p</sub>Tm and E = c<sub>v</sub>Tm, so H/E = c<sub>p</sub>/c<sub>v</sub> = γ exactly. A fast sanity check you can always use.',
-      },
-    ],
-  },
-
-  // ── WORKED EXAMPLE: WIND TUNNEL RESERVOIR (Anderson MCF Ex. 2 — Parts a, b) ─
-  {
-    type: 'example',
-    sectionNumber: 'Section 2 — Worked Example',
-    heading: 'Supersonic Wind Tunnel: Reservoir Air',
-    scenario:
-      'Pressure vessel: <strong>V = 10 m³, P = 20 atm, T = 300 K.</strong> '
-      + 'Stores compressed air for a supersonic wind tunnel. '
-      + 'Find <em>(a)</em> the stored mass and <em>(b)</em> the isothermal compressibility.',
-    steps: [
-      {
-        label: 'Check IDG validity',
-        note: 'P = 20 atm is elevated but not extreme; T = 300 K is well above condensation. '
-          + 'Intermolecular forces negligible &rarr; treat as an ideal gas.',
-        question: 'At what conditions (very high P or very low T) would we need a real-gas equation of state instead?',
-      },
-      {
-        label: 'Write the IDG law in mass form',
-        eq: 'P = \\frac{m}{V}\\,RT \\quad\\Longrightarrow\\quad m = \\frac{PV}{RT}',
-        question: 'R<sub>air</sub> = 287 J/(kg·K). How would R change if the reservoir contained CO₂ or helium?',
-      },
-      {
-        label: 'Convert pressure and solve',
-        eq: 'm = \\frac{(20 \\times 101\\,325)(10)}{(287)(300)}',
-        result: 'm = 234.6\\;\\mathrm{kg}',
-      },
-      {
-        label: 'Isothermal compressibility for an IDG',
-        eq: '\\tau_T = \\frac{1}{\\rho}\\!\\left(\\frac{\\partial\\rho}{\\partial p}\\right)_{\\!T} '
-          + '= \\frac{1}{\\rho}\\cdot\\frac{1}{RT} = \\frac{1}{p}',
-        result: '\\tau_T = 4.93\\times 10^{-7}\\;\\mathrm{m^2/N}',
-        question: 'τ₁ = 1/p: the gas gets <em>less</em> compressible as pressure rises. '
-          + 'What does this imply for the structural design of the vessel as it is charged?',
-      },
-    ],
-  },
-
-  // ── ENERGY-STORAGE MODES (animated molecules) ───────────────────────────────
   {
     type: 'energymodes',
     sectionNumber: 'Section 2 — Internal Energy',
@@ -216,7 +122,6 @@ export const slides = [
       'Temperature is what our instruments actually read: particles in translational motion striking the sensor.',
   },
 
-  // ── DEGREES OF FREEDOM: the cp/R step graph ─────────────────────────────────
   {
     type: 'dof',
     sectionNumber: 'Section 2 — Specific Heats',
@@ -236,7 +141,6 @@ export const slides = [
       'From 3&nbsp;K to ~600&nbsp;K, c<sub>p</sub> and c<sub>v</sub> sit on the flat 5/2 plateau &mdash; treat them as constant. That is the <strong>Calorically Perfect Gas (CPG)</strong>, where almost all of our cycle analysis lives. Above ~600&nbsp;K vibration switches on and c<sub>p</sub>/R climbs toward 7/2.',
   },
 
-  // ── WHY cp > cv + RELATIONS ─────────────────────────────────────────────────
   {
     type: 'cpcv',
     sectionNumber: 'Section 2 — c\u209A vs c\u1D65',
@@ -253,8 +157,41 @@ export const slides = [
       '<strong>State variables.</strong> e and h depend only on the state, not the path &mdash; so you may use c<sub>v</sub> even when volume changes, and c<sub>p</sub> even when pressure is not constant.',
   },
 
+  {
+    type: 'section',
+    sectionNumber: 'Section 2',
+    title: 'Thermodynamic Foundations',
+    subtitle: 'Internal energy, enthalpy, specific heats, and entropy.',
+  },
 
-  // ── THINK · PAIR · SHARE: cv for helium ─────────────────────────────────────
+  {
+    type: 'equation',
+    heading: 'Internal Energy &amp; Enthalpy of a Calorically Perfect Gas',
+    equationLabel: 'Key relations — calorically perfect gas (constant c<sub>p</sub>, c<sub>v</sub>)',
+    equation: 'e = c_v T \\qquad h = c_p T \\qquad \\gamma = \\frac{c_p}{c_v} \\qquad c_v = \\frac{R}{\\gamma - 1}',
+    terms: [
+      { symbol: 'e', definition: 'Specific internal energy (J/kg)' },
+      { symbol: 'h = e + pv', definition: 'Specific enthalpy (J/kg)' },
+      { symbol: 'R = 287 J/kg·K', definition: 'Specific gas constant for air' },
+      { symbol: 'γ = 1.4', definition: 'Ratio of specific heats (air, calorically perfect)' },
+      { symbol: 'c<sub>v</sub> = 717.5 J/kg·K', definition: 'From R/(γ−1) = 287/0.4' },
+      { symbol: 'c<sub>p</sub> = c<sub>v</sub> + R', definition: '= 1004.5 J/kg·K' },
+    ],
+    items: [
+      {
+        title: 'Worked example — room of air',
+        body: 'ρ = 1.181 kg/m³, V = 5×7×3.3 m = 115.5 m³ → m = 136.4 kg, T ≈ 293 K.<br>'
+          + 'E = c<sub>v</sub>Tm = 717.5 × 293 × 136.4 ≈ <strong>29.2 MJ</strong>'
+          + '&emsp;H = c<sub>p</sub>Tm ≈ <strong>40.8 MJ</strong>.<br>'
+          + 'Check: H/E = c<sub>p</sub>/c<sub>v</sub> = γ = 1.4 ✓',
+      },
+      {
+        title: 'Why does H/E = γ?',
+        body: 'H = c<sub>p</sub>Tm and E = c<sub>v</sub>Tm, so H/E = c<sub>p</sub>/c<sub>v</sub> = γ exactly. A fast sanity check you can always use.',
+      },
+    ],
+  },
+
   {
     type: 'tps',
     sectionNumber: 'Section 2 — Think \u00b7 Pair \u00b7 Share',
@@ -269,7 +206,57 @@ export const slides = [
     answerNote: 'c<sub>v,He</sub> = 3116 J/(kg\u00b7K) \u2014 more than 4\u00d7 c<sub>v,air</sub>, despite helium having only 3 translational degrees of freedom vs 5 for diatomic air. The difference is entirely driven by R: lighter molecules carry more energy per kilogram at the same temperature.',
   },
 
-  // ── WORKED EXAMPLE: INTERNAL ENERGY (Anderson MCF Ex. 2 — Part c) ───────────
+  {
+    type: 'hook',
+    scenario:
+      'We are <strong>propulsion engineers</strong>. '
+      + 'Our job: design a supersonic wind tunnel to test our inlet geometries at realistic flight Mach numbers.',
+    spec:
+      'The tunnel needs a large reservoir of compressed air. '
+      + 'We plan to store it at <strong>P&nbsp;=&nbsp;20&nbsp;atm, T&nbsp;=&nbsp;300&nbsp;K</strong> '
+      + 'in a 10&nbsp;m³ pressure vessel.',
+    question: 'How much air can we get into that vessel?',
+    bridge:
+      'That depends on how <strong>compressible</strong> air is. '
+      + 'So first — what is the definition of compressibility?',
+  },
+
+  {
+    type: 'example',
+    sectionNumber: 'Section 2 — Worked Example',
+    heading: 'Supersonic Wind Tunnel: Reservoir Air',
+    scenario:
+      'Pressure vessel: <strong>V = 10 m³, P = 20 atm, T = 300 K.</strong> '
+      + 'Stores compressed air for a supersonic wind tunnel. '
+      + 'Find <em>(a)</em> the stored mass and <em>(b)</em> the isothermal compressibility.',
+    steps: [
+      {
+        label: 'Check IDG validity',
+        note: 'P = 20 atm is elevated but not extreme; T = 300 K is well above condensation. '
+          + 'Intermolecular forces negligible &rarr; treat as an ideal gas.',
+        question: 'At what conditions (very high P or very low T) would we need a real-gas equation of state instead?',
+      },
+      {
+        label: 'Write the IDG law in mass form',
+        eq: 'P = \\frac{m}{V}\\,RT \\quad\\Longrightarrow\\quad m = \\frac{PV}{RT}',
+        question: 'R<sub>air</sub> = 287 J/(kg·K). How would R change if the reservoir contained CO₂ or helium?',
+      },
+      {
+        label: 'Convert pressure and solve',
+        eq: 'm = \\frac{(20 \\times 101\\,325)(10)}{(287)(300)}',
+        result: 'm = 234.6\\;\\mathrm{kg}',
+      },
+      {
+        label: 'Isothermal compressibility for an IDG',
+        eq: '\\tau_T = \\frac{1}{\\rho}\\!\\left(\\frac{\\partial\\rho}{\\partial p}\\right)_{\\!T} '
+          + '= \\frac{1}{\\rho}\\cdot\\frac{1}{RT} = \\frac{1}{p}',
+        result: '\\tau_T = 4.93\\times 10^{-7}\\;\\mathrm{m^2/N}',
+        question: 'τ₁ = 1/p: the gas gets <em>less</em> compressible as pressure rises. '
+          + 'What does this imply for the structural design of the vessel as it is charged?',
+      },
+    ],
+  },
+
   {
     type: 'example',
     sectionNumber: 'Section 2 — Worked Example',
@@ -302,13 +289,10 @@ export const slides = [
     ],
   },
 
-  // ── PATH DEPENDENCE vs STATE VARIABLES (merged from ThermodynamicsPresentation) ─
   {
     type: '__path',
   },
 
-
-  // ── CLASS POLL: Free expansion ────────────────────────────────────────────────
   {
     type: 'poll',
     sectionNumber: 'Section 3 — Class Poll',
@@ -325,7 +309,6 @@ export const slides = [
       + 'Yet entropy <em>increases</em> — the process is irreversible. This is a vivid example of path dependence: \u0394U = 0 but \u0394S > 0.',
   },
 
-  // ── NEW · SECTION 4: CONTROL MASS vs CONTROL VOLUME ─────────────────────────
   {
     type: 'conserve',
     sectionNumber: 'Section 4 — Conservation Principles',
@@ -356,7 +339,6 @@ export const slides = [
       'For an airbreathing engine the <strong>control volume</strong> wins: air streams through it continuously, so we count what crosses the inlet and nozzle rather than chasing one packet of air.',
   },
 
-  // ── NEW · SECTION 4: THE CONSERVATION LAWS (CV FORM) ────────────────────────
   {
     type: 'conslaws',
     sectionNumber: 'Section 4 — Conservation Laws',
@@ -384,12 +366,10 @@ export const slides = [
       'These three are the engine of every cycle analysis. Next we ask a different question — not how much mass or momentum crosses, but <em>how fast the gas can pass information to itself</em>.',
   },
 
-  // ── ENTROPY EXAMPLES (merged from ThermodynamicsPresentation) ────────────────
   {
     type: '__entropy',
   },
 
-  // ── WORKED EXAMPLE: ENTROPY CHANGE (Anderson MCF Ex. 2 — Part d) ─────────────
   {
     type: 'example',
     sectionNumber: 'Section 4 — Worked Example',
@@ -431,7 +411,6 @@ export const slides = [
     ],
   },
 
-  // ── NEW · SECTION 5: SPEED OF SOUND ─────────────────────────────────────────
   {
     type: 'soundspeed',
     sectionNumber: 'Section 5 — Speed of Sound',
@@ -454,8 +433,6 @@ export const slides = [
       'So <strong>a</strong> sets the speed limit for “get out of the way” messages. What happens when the flow outruns that limit?',
   },
 
-
-  // ── THINK · PAIR · SHARE: Speed of sound prediction ─────────────────────────
   {
     type: 'tps',
     sectionNumber: 'Section 5 — Think \u00b7 Pair \u00b7 Share',
@@ -472,7 +449,6 @@ export const slides = [
     answerNote: 'He is ~3\u00d7 faster. \u03b3 effect alone: \u221a(5/3 \u00f7 1.4) \u2248 1.09\u00d7. R effect alone: \u221a(2077 \u00f7 287) \u2248 2.69\u00d7. Almost all of the speedup is molecular weight, not \u03b3.',
   },
 
-  // ── WORKED EXAMPLE: ACOUSTIC TRAVERSE (Anderson MCF Ex. 2 — Parts e, f) ─────
   {
     type: 'example',
     sectionNumber: 'Section 5 — Worked Example',
@@ -515,7 +491,6 @@ export const slides = [
     ],
   },
 
-  // ── NEW · SECTION 5: V vs a — SHOCK FORMATION ───────────────────────────────
   {
     type: 'shockform',
     sectionNumber: 'Section 5 — V vs. a',
