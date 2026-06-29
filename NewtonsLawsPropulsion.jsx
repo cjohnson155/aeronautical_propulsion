@@ -168,12 +168,6 @@ const slides = [
     subtitle: "Pressure imbalance → Net force",
   },
   {
-    id: 4,
-    type: "pressure-internal",
-    title: "The Air's Perspective",
-    subtitle: "Internal gas view → same physics, different frame",
-  },
-  {
     id: 5,
     type: "satellite",
     title: "Satellite Thrusters",
@@ -317,7 +311,7 @@ function BalloonSlide() {
           style={{
             position: "absolute",
             top: "50%",
-            left: released ? "8%" : "50%",
+            left: released ? "14%" : "50%",
             transform: "translate(-50%, -50%)",
             transition: released ? "left 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "none",
             cursor: phase === 0 ? "pointer" : "default",
@@ -325,11 +319,32 @@ function BalloonSlide() {
           }}
         >
           <div style={{ fontSize: 56, filter: "drop-shadow(0 0 12px rgba(255,107,53,0.6))", transform: released ? "rotate(-15deg)" : "none", transition: "transform 0.3s" }}>🎈</div>
+          {/* Pressure arrows ride along with the balloon. Far (closed) end: internal
+              pressure pushes the intact wall outward and is now unbalanced → net thrust
+              left. Neck (open end): high-pressure gas drives out to the right. No
+              skin-tension arrow here — the membrane is open at the neck. */}
           {released && (
-            <div style={{
-              position: "absolute", right: -8, top: "50%", transform: "translateY(-50%)",
-              color: "#ff6b35", fontSize: 18, animation: "fadeInRight 0.4s ease forwards",
-            }}>←</div>
+            <>
+              {/* Far end (left): unbalanced internal pressure → net thrust */}
+              <div style={{
+                position: "absolute", right: "100%", top: "50%", marginRight: 4,
+                transform: "translateY(-50%)", display: "flex", flexDirection: "column",
+                alignItems: "center", gap: 1, whiteSpace: "nowrap",
+                animation: "fadeInLeft 0.4s ease forwards",
+              }}>
+                <span style={{ color: "#ff6b35", fontFamily: "monospace", fontSize: 10, letterSpacing: 1 }}>net force</span>
+                <span style={{ color: "#ff6b35", fontSize: 24, lineHeight: 1, filter: "drop-shadow(0 0 6px rgba(255,107,53,0.6))" }}>⟵</span>
+              </div>
+              {/* Neck (right, open): internal pressure drives the gas out */}
+              <div style={{
+                position: "absolute", left: "100%", top: "50%", marginLeft: 2,
+                transform: "translateY(-50%)", display: "flex", alignItems: "center",
+                gap: 4, whiteSpace: "nowrap", animation: "fadeInRight 0.4s ease forwards",
+              }}>
+                <span style={{ color: "#00d4ff", fontSize: 24, lineHeight: 1, filter: "drop-shadow(0 0 6px rgba(0,212,255,0.6))" }}>⟶</span>
+                <span style={{ color: "#00d4ff", fontFamily: "monospace", fontSize: 10, letterSpacing: 1 }}>P_int</span>
+              </div>
+            </>
           )}
         </div>
 
@@ -392,6 +407,10 @@ function BalloonSlide() {
         }
         @keyframes fadeInRight {
           from { opacity: 0; transform: translate(10px, -50%); }
+          to { opacity: 1; transform: translate(0, -50%); }
+        }
+        @keyframes fadeInLeft {
+          from { opacity: 0; transform: translate(-10px, -50%); }
           to { opacity: 1; transform: translate(0, -50%); }
         }
       `}</style>
@@ -765,196 +784,6 @@ function PressureDiagram() {
   );
 }
 
-// ── Internal Air Perspective Diagram ──────────────────────────────────────
-// Duplicate of PressureDiagram but framed entirely from the internal gas's POV.
-function InternalPerspectiveDiagram() {
-  const [step, setStep] = useState(0);
-  const [step3t, setStep3t] = useState(0);
-
-  const CX = 260, CY = 135, RX = 128, RY = 86;
-  const N = 14;
-  const INT_ARROW = 30;
-  const NX = CX + RX, NY = CY;
-
-  const allPts = ellipseArrows(CX, CY, RX, RY, N);
-
-  useEffect(() => {
-    if (step !== 2) { setStep3t(0); return; }
-    const id = setTimeout(() => setStep3t(1), 100);
-    return () => clearTimeout(id);
-  }, [step]);
-
-  const stepMeta = [
-    { label: "Step 1 — Gas pushes uniformly outward on all walls. Skin pushes back. Net = 0." },
-    { label: "Step 2 — Right wall (nozzle) removed. Gas still pushes left wall. No opposing push on right." },
-    { label: "Step 3 — Unresisted push on left wall accelerates balloon. Gas escapes right." },
-  ];
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, width: "100%" }}>
-      {/* Step buttons */}
-      <div style={{ display: "flex", gap: 8 }}>
-        {stepMeta.map((s, i) => (
-          <button key={i} onClick={() => setStep(i)} style={{
-            padding: "5px 14px", borderRadius: 6, fontFamily: "monospace", fontSize: 11,
-            background: step === i ? "#ff6b35" : "transparent",
-            border: `1px solid ${step === i ? "#ff6b35" : "#30363d"}`,
-            color: step === i ? "#000" : "#666", cursor: "pointer", transition: "all 0.2s",
-          }}>Step {i + 1}</button>
-        ))}
-      </div>
-
-      <svg viewBox="0 0 620 270" style={{ width: "100%", maxWidth: 640, height: "auto", overflow: "visible" }}>
-        <defs>
-          <marker id="ip-int" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <path d="M0,0 L0,8 L8,4 z" fill="#ff6b35" />
-          </marker>
-          <marker id="ip-big" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto">
-            <path d="M0,0 L0,12 L12,6 z" fill="#ff6b35" />
-          </marker>
-          <marker id="ip-exhaust" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-            <path d="M0,0 L0,8 L8,4 z" fill="#a8ff3e" />
-          </marker>
-          <filter id="ip-glow" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-
-        {/* ── STEP 0: sealed, all walls present, uniform outward push ── */}
-        {step === 0 && (
-          <>
-            <ellipse cx={CX} cy={CY} rx={RX} ry={RY}
-              fill="#111428" fillOpacity="0.92" stroke="#ff6b35" strokeWidth="2.5" />
-            {/* Nozzle sealed */}
-            <rect x={NX - 2} y={NY - 13} width="24" height="26" fill="#111428" stroke="#ff6b35" strokeWidth="2" />
-            <rect x={NX + 18} y={NY - 15} width="10" height="30" rx="2" fill="#ff6b35" />
-            {/* Outward internal pressure arrows on top */}
-            {allPts.map((p, i) => {
-              const x1 = p.x - p.nx * INT_ARROW;
-              const y1 = p.y - p.ny * INT_ARROW;
-              const x2 = p.x - p.nx * 1;
-              const y2 = p.y - p.ny * 1;
-              return (
-                <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
-                  stroke="#ff6b35" strokeWidth="2.2" markerEnd="url(#ip-int)"
-                  filter="url(#ip-glow)"
-                  style={{ opacity: 0, animation: `pdFade 0.3s ${i*0.04}s ease forwards` }}
-                />
-              );
-            })}
-            {/* Label */}
-            <text x={CX} y={CY + 8} fill="#ff6b3588" fontSize="13" fontFamily="monospace" textAnchor="middle">P_int</text>
-            <text x={CX} y={CY - RY - 18} fill="#a8ff3e" fontSize="10" fontFamily="monospace" textAnchor="middle">
-              All walls present → internal forces cancel → F_net = 0
-            </text>
-          </>
-        )}
-
-        {/* ── STEP 1: nozzle open — right wall gone, left wall still pushed ── */}
-        {step === 1 && (
-          <>
-            <ellipse cx={CX} cy={CY} rx={RX} ry={RY}
-              fill="#111428" fillOpacity="0.92" stroke="#ff6b35" strokeWidth="2.5" />
-            {/* Nozzle open — draw gap */}
-            <rect x={NX - 2} y={NY - 13} width="24" height="26"
-              fill="#111428" stroke="#ff6b35" strokeWidth="2" strokeDasharray="4 3" opacity="0.35" />
-
-            {/* All outward arrows EXCEPT right side (neck gone) */}
-            {allPts.map((p, i) => {
-              if (p.nx > 0.45) return null; // no wall on right → no force
-              const x1 = p.x - p.nx * INT_ARROW;
-              const y1 = p.y - p.ny * INT_ARROW;
-              const x2 = p.x - p.nx * 1;
-              const y2 = p.y - p.ny * 1;
-              return (
-                <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
-                  stroke="#ff6b35" strokeWidth="2.2" markerEnd="url(#ip-int)"
-                  filter="url(#ip-glow)"
-                  style={{ opacity: 0, animation: `pdFade 0.3s ${i*0.04}s ease forwards` }}
-                />
-              );
-            })}
-
-            {/* Highlight surviving leftward push */}
-            {allPts.filter(p => p.nx < -0.5).map((p, i) => (
-              <line key={`hl-${i}`} x1={p.x - p.nx * INT_ARROW * 0.6} y1={p.y - p.ny * INT_ARROW * 0.6}
-                x2={p.x - p.nx * 1} y2={p.y - p.ny * 1}
-                stroke="#ff6b35" strokeWidth="4" opacity="0.35"
-              />
-            ))}
-
-            {/* Net force arrow → points LEFT: start=right, end=left, markerEnd puts tip at left end */}
-            <line x1={CX + 70} y1={CY + RY + 28} x2={CX - 60} y2={CY + RY + 28}
-              stroke="#ff6b35" strokeWidth="5.5" markerEnd="url(#ip-big)"
-              style={{ opacity: 0, animation: "pdFade 0.6s 1s ease forwards" }}
-            />
-            <text x={CX + 5} y={CY + RY + 47} fill="#ff6b35" fontSize="12" fontFamily="monospace" textAnchor="middle" fontWeight="bold"
-              style={{ opacity: 0, animation: "pdFade 0.5s 1.3s ease forwards" }}>
-              Unresisted push on left wall → F_net ←
-            </text>
-
-            {/* Ghost "missing wall" label */}
-            <text x={NX + 28} y={NY - 20} fill="#555" fontSize="9" fontFamily="monospace">wall</text>
-            <text x={NX + 28} y={NY - 10} fill="#555" fontSize="9" fontFamily="monospace">gone</text>
-          </>
-        )}
-
-        {/* ── STEP 2: balloon moves left, air escapes right ── */}
-        {step === 2 && (
-          <>
-            <g style={{
-              transform: step3t ? "translateX(-55px)" : "translateX(0)",
-              transition: "transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94)",
-            }}>
-              <ellipse cx={CX} cy={CY} rx={RX} ry={RY}
-                fill="#111428" stroke="#ff6b35" strokeWidth="2.5" />
-              <rect x={NX - 2} y={NY - 13} width="24" height="26" fill="#111428" stroke="#ff6b35" strokeWidth="2" />
-              {/* Remaining internal arrows (non-right) */}
-              {allPts.filter(p => p.nx < 0.45).map((p, i) => {
-                const x1 = p.x - p.nx * (INT_ARROW * 0.7);
-                const y1 = p.y - p.ny * (INT_ARROW * 0.7);
-                const x2 = p.x - p.nx * 1;
-                const y2 = p.y - p.ny * 1;
-                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
-                  stroke="#ff6b35" strokeWidth="1.8" markerEnd="url(#ip-int)" opacity="0.55" />;
-              })}
-              {/* Balloon motion arrow — right to left so markerEnd tip points left */}
-              <line x1={CX + 40} y1={CY - RY - 16} x2={CX - 60} y2={CY - RY - 16}
-                stroke="#ff6b35" strokeWidth="3" markerEnd="url(#ip-big)"
-                style={{ opacity: step3t ? 1 : 0, transition: "opacity 0.6s 0.9s" }}
-              />
-              <text x={CX - 50} y={CY - RY - 24} fill="#ff6b35" fontSize="11" fontFamily="monospace" textAnchor="middle"
-                style={{ opacity: step3t ? 1 : 0, transition: "opacity 0.6s 0.9s" }}>balloon ←</text>
-            </g>
-
-            {/* Exhaust right */}
-            <g style={{ opacity: step3t ? 1 : 0, transition: "opacity 0.5s 0.3s" }}>
-              {[0,1,2,3,4].map(i => (
-                <line key={i}
-                  x1={NX + 22 + i*16} y1={NY + (i%2===0 ? -3:3)*i*0.3}
-                  x2={NX + 32 + i*16} y2={NY + (i%2===0 ? -5:5)*i*0.3}
-                  stroke="#a8ff3e" strokeWidth={2.2 - i*0.3} markerEnd="url(#ip-exhaust)" opacity={1 - i*0.15}
-                />
-              ))}
-              <text x={NX + 92} y={NY + 4} fill="#a8ff3e" fontSize="11" fontFamily="monospace">→ gas escapes</text>
-            </g>
-
-            {/* Label at top */}
-            <text x={CX} y={18} fill="#8b949e" fontSize="10" fontFamily="monospace" textAnchor="middle"
-              style={{ opacity: step3t ? 1 : 0, transition: "opacity 0.4s 1s" }}>
-              Internal gas perspective: push on left wall drives balloon left
-            </text>
-          </>
-        )}
-      </svg>
-
-      <p style={{ color: "#aaa", fontFamily: "'DM Mono', monospace", fontSize: 11, textAlign: "center", maxWidth: 560, margin: 0 }}>
-        {stepMeta[step].label}
-      </p>
-    </div>
-  );
-}
-
 // ── Concept-question diagrams ──────────────────────────────────────────────
 function RocketDiagram() {
   return (
@@ -1287,6 +1116,87 @@ function StudentVote({ code }) {
   );
 }
 
+// ── Laws overview: reveal each law on click ────────────────────────────────
+// Each click brings in the next law with a slide-and-fade. Existing cards stay
+// put (their entrance animation only runs once, on mount), so only the newest
+// card animates. Leaving and returning to the slide remounts this fresh at 0.
+function LawsOverview({ slide }) {
+  const [shown, setShown] = useState(0);
+  const total = slide.laws.length;
+  const allShown = shown >= total;
+
+  const advance = () => { if (!allShown) setShown((s) => Math.min(total, s + 1)); };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 18, width: "100%" }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: "#f0f6fc", margin: 0 }}>{slide.title}</h2>
+        {allShown ? (
+          <button onClick={() => setShown(0)} style={{
+            background: "transparent", border: "1px solid #30363d", color: "#666",
+            padding: "4px 12px", borderRadius: 6, cursor: "pointer", fontFamily: "monospace", fontSize: 11,
+            transition: "all 0.2s",
+          }}
+            onMouseEnter={(e) => { e.target.style.borderColor = "#666"; e.target.style.color = "#aaa"; }}
+            onMouseLeave={(e) => { e.target.style.borderColor = "#30363d"; e.target.style.color = "#666"; }}
+          >↺ replay</button>
+        ) : (
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#ff6b35", letterSpacing: 2, textTransform: "uppercase" }}>
+            click to reveal · {shown}/{total}
+          </span>
+        )}
+      </div>
+
+      {/* Clickable reveal area */}
+      <div onClick={advance} style={{
+        display: "flex", flexDirection: "column", gap: 14, width: "100%",
+        cursor: allShown ? "default" : "pointer",
+      }}>
+        {slide.laws.map((law, i) => {
+          if (i >= shown) return null;
+          return (
+            <div key={law.num} style={{
+              display: "flex", gap: 20, alignItems: "flex-start",
+              background: "#0d1117", borderRadius: 10,
+              border: `1px solid ${law.color}22`, padding: "16px 20px",
+              opacity: 0, animation: "lawReveal 0.5s ease forwards",
+            }}>
+              <div style={{
+                fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 900,
+                color: law.color, minWidth: 44, lineHeight: 1,
+                textShadow: `0 0 20px ${law.color}55`,
+              }}>{law.num}</div>
+              <div>
+                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: law.color, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>
+                  {law.katexName ? <K color={law.color}>{String.raw`F = ma`}</K> : law.name}
+                </div>
+                <div style={{ color: "#8b949e", fontSize: 14, lineHeight: 1.6 }}>{law.text}</div>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Prompt shown before the first reveal */}
+        {shown === 0 && (
+          <div style={{
+            border: "1px dashed #30363d", borderRadius: 10, padding: "30px 20px",
+            textAlign: "center", color: "#555", fontFamily: "'DM Mono', monospace", fontSize: 13,
+          }}>
+            Click here to reveal Newton's First Law →
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes lawReveal {
+          from { opacity: 0; transform: translateX(-16px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 // ── Slide renderer ─────────────────────────────────────────────────────────
 function SlideContent({ slide }) {
   switch (slide.type) {
@@ -1317,30 +1227,7 @@ function SlideContent({ slide }) {
       );
 
     case "laws-overview":
-      return (
-        <div style={{ display: "flex", flexDirection: "column", gap: 18, width: "100%" }}>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: "#f0f6fc", margin: 0 }}>{slide.title}</h2>
-          {slide.laws.map(law => (
-            <div key={law.num} style={{
-              display: "flex", gap: 20, alignItems: "flex-start",
-              background: "#0d1117", borderRadius: 10,
-              border: `1px solid ${law.color}22`, padding: "16px 20px",
-            }}>
-              <div style={{
-                fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 900,
-                color: law.color, minWidth: 44, lineHeight: 1,
-                textShadow: `0 0 20px ${law.color}55`,
-              }}>{law.num}</div>
-              <div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: law.color, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>
-                  {law.katexName ? <K color={law.color}>{String.raw`F = ma`}</K> : law.name}
-                </div>
-                <div style={{ color: "#8b949e", fontSize: 14, lineHeight: 1.6 }}>{law.text}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      );
+      return <LawsOverview slide={slide} />;
 
     case "balloon":
       return (
@@ -1366,24 +1253,6 @@ function SlideContent({ slide }) {
               Inside a sealed balloon, pressure is <span style={{ color: "#00d4ff" }}>isotropic</span> — equal in all directions, so forces cancel. 
               Opening one end lets air escape, destroying the symmetry. The left wall still has gas pushing on it; 
               the right wall's opposing force is gone. The resulting <span style={{ color: "#ff6b35" }}>net force</span> accelerates the balloon leftward: <em>F = ma</em>.
-            </p>
-          </div>
-        </div>
-      );
-
-    case "pressure-internal":
-      return (
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
-          <div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, color: "#f0f6fc", margin: "0 0 4px 0" }}>{slide.title}</h2>
-            <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#ff6b35", letterSpacing: 2, textTransform: "uppercase", margin: 0 }}>{slide.subtitle}</p>
-          </div>
-          <InternalPerspectiveDiagram />
-          <div style={{ background: "#0d1117", borderRadius: 8, padding: "12px 16px", borderLeft: "3px solid #ff6b35" }}>
-            <p style={{ color: "#8b949e", fontSize: 13, margin: 0, lineHeight: 1.6 }}>
-              From the <span style={{ color: "#ff6b35" }}>gas's perspective</span>: it pushes on every wall equally. With all walls sealed, every push has an equal-and-opposite partner — net force zero. 
-              Remove the right wall (open the neck) and the push on the left wall is <span style={{ color: "#ff6b35" }}>unresisted</span>. That surviving force accelerates the balloon.
-              The escaping gas carries momentum rightward; the balloon carries equal momentum leftward.
             </p>
           </div>
         </div>
