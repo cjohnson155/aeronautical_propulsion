@@ -115,7 +115,7 @@ export const thermoSlides = [
     sectionNumber: 'Section 2 — Practical Application',
     heading: 'Where You Actually Hit These Extremes: Rocket Engines',
     equationLabel:
-      'A rocket&rsquo;s <strong>combustion chamber</strong> is exactly the high-pressure regime where the ideal gas law starts to strain &mdash; the <strong>nozzle exit</strong> is the opposite.',
+      'A rocket&rsquo;s <strong>combustion chamber</strong> is a very the high-pressure regime; the <strong>nozzle exit</strong> is the opposite.',
     equation: '\\frac{p(x)}{p_c} = \\left(1 + \\frac{\\gamma-1}{2}M(x)^2\\right)^{\\!\\frac{\\gamma}{1-\\gamma}}',
     terms: [
       { symbol: 'p<sub>c</sub>', definition: 'combustion chamber (stagnation) pressure' },
