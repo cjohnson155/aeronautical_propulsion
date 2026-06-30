@@ -72,6 +72,35 @@ export const stagnationSlides = [
     ],
   },
 
+  // ── STOP AND SOLVE: Stagnation conditions back in the reservoir ────────────
+  {
+    type: 'example',
+    sectionNumber: 'Section 6 — Stop and Solve',
+    heading: 'Back to Our Wind Tunnel: Find the Reservoir&rsquo;s Job',
+    scenario:
+      'Last section we found the test-section flow reaches <strong>M = 2.4</strong> at static T&nbsp;=&nbsp;200&nbsp;K. '
+      + 'That static state has to come from <em>somewhere</em> — it is what our reservoir air becomes after expanding through the nozzle. '
+      + '<strong>Your turn:</strong> using T<sub>t</sub>/T = 1 + [(γ&minus;1)/2]M², find the stagnation temperature the reservoir must supply to produce that test-section state. Then use the matching pressure relation to find the required reservoir (stagnation) pressure if the test section needs to run at <strong>p = 0.5 atm</strong>. Set up each calculation and solve before revealing.',
+    steps: [
+      {
+        label: 'Step 1 — required reservoir (stagnation) temperature',
+        eq: '\\frac{T_t}{T} = 1 + \\frac{\\gamma - 1}{2}M^2',
+        note: 'Plug in γ = 1.4, M = 2.4, T = 200 K. Solve for T<sub>t</sub> before revealing.',
+        result: 'T_t = 200\\left[1 + 0.2(2.4)^2\\right] = 200(2.152) = 430\\;\\mathrm{K}',
+        revealResult: true,
+        question: 'Does this match the &ldquo;heated to 600 K&rdquo; scenario from the speed-of-sound section, or would that reservoir overshoot what this test section needs?',
+      },
+      {
+        label: 'Step 2 — required reservoir (stagnation) pressure',
+        eq: '\\frac{p_t}{p} = \\left(1 + \\frac{\\gamma-1}{2}M^2\\right)^{\\!\\frac{\\gamma}{\\gamma-1}}',
+        note: 'Use the same M = 2.4 and the bracket value [1 + 0.2(2.4)²] = 2.152 you already computed. Raise it to γ/(γ&minus;1) = 3.5, then multiply by the test-section static pressure p = 0.5 atm.',
+        result: 'p_t = 0.5\\,(2.152)^{3.5} = 0.5(14.6) = 7.3\\;\\mathrm{atm}',
+        revealResult: true,
+        question: 'Notice p<sub>t</sub>/p grew far more than T<sub>t</sub>/T for the same M. Why is the pressure ratio so much more sensitive to Mach number than the temperature ratio?',
+      },
+    ],
+  },
+
   // ── CLASS POLL: static vs stagnation in adiabatic acceleration ─────────────
   {
     type: 'poll',
@@ -159,5 +188,32 @@ export const stagnationSlides = [
     answer: 'c_p T_{t1} + q_{\\text{in}} = c_p T_{t2} \\;\\Rightarrow\\; T_{t2} > T_{t1}',
     answerNote:
       'You can <em>always</em> define T<sub>t</sub> at any point in any flow — it is a local property. T<sub>t</sub> is <em>conserved</em> only when the flow is adiabatic with no work. <strong>Nozzle (1):</strong> insulated, no work &rArr; T<sub>t2</sub> = T<sub>t1</sub>. <strong>Heater (2):</strong> T<sub>t</sub> is still perfectly well-defined everywhere, but <em>not</em> conserved — the added heat raises it. Defining is a <em>local</em> question; conserving is a <em>process</em> question. (And note p<sub>t</sub> is stricter still: it needs reversibility, not just adiabatic.)',
+  },
+
+  // ── CLOSING: WHAT YOU CAN NOW SOLVE ─────────────────────────────────────────
+  {
+    type: 'conserve',
+    sectionNumber: 'Unit 2 — Wrap-Up',
+    heading: 'What You Can Now Solve',
+    intro:
+      'Between compressibility, the equation of state, conservation laws, speed of sound, and stagnation properties, you now have everything needed for two classic problem types &mdash; and not yet enough for a third.',
+    columns: [
+      {
+        tag: '\u2713', label: 'Ready Today', accent: '#5ec8d8',
+        items: [
+          { k: 'Anderson-style diffuser problems', v: 'Given M, p, T, A at the inlet (and a stagnation pressure ratio across the device), find mass flow rate, exit Mach number, and static pressure recovery &mdash; e.g. <strong>Problem 2.31, parts (a)&ndash;(c)</strong>.' },
+          { k: 'Stagnation-data nozzle/diffuser problems', v: 'Given M<sub>1</sub>, M<sub>2</sub>, p<sub>t1</sub>, p<sub>t2</sub>, T<sub>t1</sub>, T<sub>t2</sub>, c<sub>p</sub>, and &gamma; at both stations, relate static and stagnation conditions &mdash; e.g. <strong>Problem 2.45</strong> (the version with full stagnation data given at both stations).' },
+        ],
+      },
+      {
+        tag: '\u2717', label: 'Not Yet', accent: '#f0a93b',
+        items: [
+          { k: 'Full momentum / impulse force-balance problems', v: 'Computing the axial force a fluid exerts on slanted or variable-area walls (e.g. <strong>2.31(d)</strong>, or the axial-force-on-a-component version of 2.45) needs a careful pressure-and-momentum control-volume treatment we have not yet worked through &mdash; that is coming in a later unit.' },
+          { k: 'Heat-addition (Rayleigh-flow) problems', v: 'Problems with heat added along a constant-area duct (e.g. <strong>Problem 2.54</strong>) require Rayleigh-flow relations we have not covered. Skip these for now.' },
+        ],
+      },
+    ],
+    bridge:
+      'Use this as your homework filter: if a problem gives you Mach number, pressure, and temperature at two stations and asks for the other one, you are ready. If it asks for a force on a wall or involves heat addition along the duct, hold off.',
   },
 ]
