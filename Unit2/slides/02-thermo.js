@@ -109,33 +109,8 @@ export const thermoSlides = [
     ],
   },
 
-  // ── WHERE EXTREME PRESSURES SHOW UP: ROCKET COMBUSTION CHAMBER ─────────────
-  {
-    type: 'equation',
-    sectionNumber: 'Section 2 — Practical Application',
-    heading: 'Where You Actually Hit These Extremes: Rocket Engines',
-    equationLabel:
-      'A rocket&rsquo;s <strong>combustion chamber</strong> is a very the high-pressure regime; the <strong>nozzle exit</strong> is the opposite.',
-    equation: '\\frac{p(x)}{p_c} = \\left(1 + \\frac{\\gamma-1}{2}M(x)^2\\right)^{\\!\\frac{\\gamma}{1-\\gamma}}',
-    terms: [
-      { symbol: 'p<sub>c</sub>', definition: 'combustion chamber (stagnation) pressure' },
-      { symbol: 'p(x)', definition: 'static pressure at a point in the nozzle' },
-    ],
-    items: [
-      {
-        title: 'Chamber pressure: tens to hundreds of atm',
-        body: 'Typical liquid-fuel rocket combustion chambers run roughly 20–300 atm (a small hobby engine might sit near 20 atm; large engines like the Space Shuttle Main Engine or Raptor reach 200–300 atm). That is squarely the high-pressure regime where van der Waals corrections become non-negligible for the hot combustion gases.',
-      },
-      {
-        title: 'Exit pressure: deliberately driven back down to ~1 atm',
-        body: 'The diverging nozzle expands and accelerates the flow, dropping pressure as Mach number climbs. Nozzles are designed so the exit pressure matches the surrounding atmosphere at the design altitude — for a sea-level-optimized nozzle, that means p<sub>exit</sub> &asymp; 1 atm, even though p<sub>chamber</sub> might be 100&times; higher.',
-      },
-      {
-        title: 'For comparison: turbofan jet engine combustor',
-        body: 'A turbofan&rsquo;s combustion chamber sits right after the compressor, so its pressure is set by the engine&rsquo;s overall pressure ratio (OPR). A GE90 (Boeing 777) at take-off has OPR &asymp; 40, giving a combustor inlet pressure of roughly 40 atm — high, but an order of magnitude below a rocket chamber, since a turbofan compresses with rotating machinery rather than relying on the combustion itself to build pressure.',
-      },
-    ],
-  },
+
+  
 
 
   // ── WORKED EXAMPLE: WIND TUNNEL RESERVOIR (Anderson MCF Ex. 2 — Parts a, b) ─
