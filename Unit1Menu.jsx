@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 // Unit 1 — propulsion decks menu (formerly the app's root App.jsx).
 // Rendered by ../App.jsx for the #/unit1 route. `onExit` returns to the unit picker.
-import TurbojetPresentation from './TurbojetPresentation';
+//import TurbojetPresentation from './TurbojetPresentation';
+import JetEngineComponents from './JetEngineComponents';
 import PropulsionDeck from './PropulsionDeck';
 import NewtonsLawsPropulsion from './NewtonsLawsPropulsion';
 
@@ -34,10 +35,10 @@ const Unit1Menu = ({ onExit }) => {
       color: 'from-fuchsia-600 to-pink-400'
     },
     {
-      id: 'turbojet',
-      title: 'Turbojet Engines',
+      id: 'jetengine',
+      title: 'Turbojet Engine Components',
       subtitle: 'Thrust & Energy Conversion',
-      component: TurbojetPresentation,
+      component: JetEngineComponents,
       color: 'from-red-700 to-orange-500'
     }
   ];
