@@ -145,7 +145,7 @@ export const stagnationSlides = [
     heading: 'Pressure &amp; Density, and What They Require',
     intro:
       'With the temperature ratio in hand, the isentropic relations deliver pressure and density too &mdash; but they carry a stricter condition than temperature does.',
-    equation: '\\frac{p_t}{p} = \\left(1 + \\frac{\\gamma-1}{2}M^2\\right)^{\\!\\frac{\\gamma}{\\gamma-1}} \\qquad \\frac{\\rho_t}{\\rho} = \\left(1 + \\frac{\\gamma-1}{2}M^2\\right)^{\\!\\frac{1}{\\gamma-1}}',
+    equation: '\\frac{p_t}{p} = \\left(1 + \\frac{\\gamma-1}{2}M^2\\right)^{\\!\\frac{\\gamma}{\\gamma-1}} \\qquad \\frac{\\rho_t}{\\rho} = \\left(1 + \\frac{\\gamma-1}{2}M^2\\right)^{\\!\\gamma}',
     equationLabel: 'Isentropic stagnation relations',
     terms: [
       { sym: '\\frac{p_t}{p}', def: 'stagnation (total) pressure ratio' },
