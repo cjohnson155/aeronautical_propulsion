@@ -120,7 +120,55 @@ export const slides = [
       },
     ],
     closer:
-      'The fix: cut the duct into very small chunks \u2014 <strong>slabs of thickness dx</strong> \u2014 and take the limit. Each conservation law becomes a differential relation (momentum \u2192 <strong>&rho;u du = &minus;dp</strong>), and together they lead to the area&ndash;Mach relation.',
+      'The fix: cut the duct into very small chunks \u2014 <strong>slabs of thickness dx</strong>. Zoom in on a single slab and apply the same three laws.',
+  },
+
+  // ── THE DIFFERENTIAL SLAB ────────────────────────────────────────────────────
+  {
+    type: 'diagram',
+    sectionNumber: 'Section 2.1',
+    heading: 'The Differential Slab',
+    intro:
+      'Cut the duct into a thin slab of thickness dx. A property enters on the <strong>left face</strong> and leaves on the <strong>right face</strong> changed by a single differential.',
+    figure: 'slab',
+    caption:
+      'Left face: &rho;, T, p, A. Right face: &rho;+d&rho;, T+dT, p+dp, A+dA. Flow passes left \u2192 right; velocity u \u2192 u+du across dx.',
+    cards: [
+      { tag: 'Left', accent: '#5ec8d8', label: 'Inlet Face',
+        body: 'State entering the slab: <strong>&rho;, T, p, A</strong> (with velocity u).' },
+      { tag: 'Right', accent: '#f0a93b', label: 'Outlet Face',
+        body: 'Each property nudged by one differential: <strong>&rho;+d&rho;, T+dT, p+dp, A+dA</strong> (velocity u+du).' },
+    ],
+    bridge:
+      'Apply mass, momentum, and energy to the slab and keep only first-order terms.',
+  },
+
+  // ── CONSERVATION ON THE SLAB ─────────────────────────────────────────────────
+  {
+    type: 'system',
+    sectionNumber: 'Section 2.1',
+    heading: 'Conservation on the Slab',
+    intro:
+      'Each integral balance becomes a differential relation between the two faces of the slab.',
+    laws: [
+      {
+        tag: 'Continuity', accent: '#5ec8d8',
+        eq: '\\frac{\\mathrm{d}\\rho}{\\rho} + \\frac{\\mathrm{d}u}{u} + \\frac{\\mathrm{d}A}{A} = 0',
+        note: 'From d(&rho;uA) = 0: the fractional changes in density, velocity, and area sum to zero.',
+      },
+      {
+        tag: 'Momentum', accent: '#f0a93b',
+        eq: '\\rho u\\,\\mathrm{d}u = -\\,\\mathrm{d}p',
+        note: 'On the slab the sloped-wall pressure term p dA cancels the cross-term, leaving A dp \u2014 so the awkward integral collapses to Euler\u2019s equation.',
+      },
+      {
+        tag: 'Energy', accent: '#5ec8d8',
+        eq: '\\mathrm{d}h + u\\,\\mathrm{d}u = 0 \\quad (\\mathrm{d}h_t = 0)',
+        note: 'Adiabatic, no shaft work: total enthalpy is unchanged across the slab.',
+      },
+    ],
+    closer:
+      'Combine these three with the isentropic relation and out drops the <strong>area&ndash;Mach relation</strong>: (M&sup2;&minus;1) du/u = dA/A \u2014 the payoff of the whole setup.',
   },
 
 ]
@@ -280,6 +328,54 @@ function Figure({ name }) {
         <defs>
           <marker id="cv-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
             <path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-a" />
+          </marker>
+        </defs>
+      </svg>
+    )
+  }
+  if (name === 'slab') {
+    return (
+      <svg viewBox="0 0 540 220" {...common}>
+        <g key={run}>
+          {/* slab walls (slightly diverging) */}
+          <path d="M200 72 L345 62" className="q1d-wall" />
+          <path d="M200 166 L345 176" className="q1d-wall" />
+          {/* faces */}
+          <line x1="200" y1="72" x2="200" y2="166" className="q1d-vax" />
+          <line x1="345" y1="62" x2="345" y2="176" className="q1d-vwall" />
+          {/* flow through the slab */}
+          <line x1="150" y1="119" x2="196" y2="119" className="q1d-core-arrow" markerEnd="url(#slab-a)" />
+          <line x1="349" y1="119" x2="404" y2="119" className="q1d-bl-arrow" markerEnd="url(#slab-b)" />
+          <text x="150" y="109" className="q1d-t q1d-t--a">u</text>
+          <text x="352" y="109" className="q1d-t q1d-t--r">u+du</text>
+          {/* dx dimension */}
+          <line x1="200" y1="190" x2="345" y2="190" className="q1d-axisline" />
+          <line x1="200" y1="185" x2="200" y2="195" className="q1d-station" />
+          <line x1="345" y1="185" x2="345" y2="195" className="q1d-station" />
+          <text x="272" y="207" className="q1d-t q1d-t--sm" textAnchor="middle">dx</text>
+          {/* left face properties */}
+          <text x="70" y="70" className="q1d-t q1d-t--sm" textAnchor="middle">left face</text>
+          <text className="q1d-t q1d-t--a" x="70" y="86" textAnchor="middle">
+            <tspan x="70" dy="0">ρ</tspan>
+            <tspan x="70" dy="20">T</tspan>
+            <tspan x="70" dy="20">p</tspan>
+            <tspan x="70" dy="20">A</tspan>
+          </text>
+          {/* right face properties */}
+          <text x="458" y="70" className="q1d-t q1d-t--sm" textAnchor="middle">right face</text>
+          <text className="q1d-t q1d-t--r" x="458" y="86" textAnchor="middle">
+            <tspan x="458" dy="0">ρ+dρ</tspan>
+            <tspan x="458" dy="20">T+dT</tspan>
+            <tspan x="458" dy="20">p+dp</tspan>
+            <tspan x="458" dy="20">A+dA</tspan>
+          </text>
+        </g>
+        <defs>
+          <marker id="slab-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-a" />
+          </marker>
+          <marker id="slab-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-o" />
           </marker>
         </defs>
       </svg>
