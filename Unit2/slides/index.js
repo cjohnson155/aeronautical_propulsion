@@ -7,6 +7,7 @@ import { firstLawSlides }     from './03-first-law'
 import { conservationSlides } from './04-conservation'
 import { soundSlides }        from './05-sound'
 import { stagnationSlides }   from './06-stagnation'
+import { summarySlides }      from './07-summary'
 
 const groups = [
   { id: 'intro',        tag: '§1', accent: '#5ec8d8', title: 'Intro to Compressible Flow',
@@ -21,6 +22,8 @@ const groups = [
     subtitle: 'a = √(γRT) · Mach number · shock formation',           slides: soundSlides },
   { id: 'stagnation',   tag: '§6', accent: '#60a5fa', title: 'Stagnation Properties',
     subtitle: 'Bring the flow to rest · total T, p, ρ · when they apply', slides: stagnationSlides },
+  { id: 'summary',   tag: '§7', accent: '#60a5fa', title: 'Summary - Equations',
+    subtitle: 'All the tools we now have in the toolbox', slides: summarySlides },
 ]
 
 export const slides = groups.flatMap((g) => g.slides)
