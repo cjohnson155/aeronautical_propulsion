@@ -23,7 +23,7 @@ import katex from 'katex'
 
 export const meta = {
   courseId:  'ME 3470',
-  deckTitle: 'Steady Quasi-1D Flow · Definition, Control Volume & Governing Equations',
+  deckTitle: 'Steady Quasi-1D Flow · Governing Equations, Nozzles & Diffusers, and the Area–Velocity Relation',
 }
 
 export const slides = [
@@ -33,10 +33,10 @@ export const slides = [
     type: 'title',
     eyebrow: 'Undergraduate Course \u00b7 ME 3470',
     title: 'Steady Quasi-1D<br>Flow Equations',
-    subtitle: 'What quasi-1D flow means, the streamtube control volume, and the integral conservation laws \u2014 set up for the jump to differential form.',
+    subtitle: 'What quasi-1D flow means, the streamtube control volume and conservation laws, why nozzles and diffusers are perfect quasi-1D ducts, and the area\u2013velocity relation that governs them.',
     meta: [
       { label: 'Unit',      value: '03 \u2014 Quasi-1D Flows' },
-      { label: 'Topics',    value: 'Definition \u00b7 Control volume \u00b7 Continuity \u00b7 Momentum \u00b7 Energy' },
+      { label: 'Topics',    value: 'Control volume \u00b7 Governing equations \u00b7 Nozzles & diffusers \u00b7 Area\u2013velocity relation' },
       { label: 'Builds on', value: 'Unit 2 \u2014 Compressible Flow' },
     ],
   },
@@ -168,7 +168,91 @@ export const slides = [
       },
     ],
     closer:
-      'Combine these three with the isentropic relation and out drops the <strong>area&ndash;Mach relation</strong>: (M&sup2;&minus;1) du/u = dA/A \u2014 the payoff of the whole setup.',
+      'These are <strong>exact</strong> for the quasi-1D model \u2014 the geometric neglect of y and z is our only compromise. Time to put them to work on real hardware: the nozzles and diffusers inside an engine.',
+  },
+
+  // ── NOZZLES & DIFFUSERS IN THE ENGINE ────────────────────────────────────────
+  {
+    type: 'diagram',
+    sectionNumber: 'Application',
+    heading: 'Nozzles & Diffusers in the Engine',
+    intro:
+      'Now put the governing equations to work. The two variable-area components in an engine flowpath are the <strong>inlet / diffuser</strong> and the <strong>exit / nozzle</strong>.',
+    figure: 'engine-nd',
+    caption:
+      'Flow enters through the inlet/diffuser (area increases, flow slows) and leaves through the exit/nozzle (area decreases, flow speeds up).',
+    cards: [
+      { tag: 'In', accent: '#5ec8d8', label: 'Inlet / Diffuser',
+        body: 'Purpose: <strong>slow the flow down</strong>, converting kinetic energy into pressure and thermal energy before the compressor.' },
+      { tag: 'Out', accent: '#f0a93b', label: 'Exit / Nozzle',
+        body: 'Purpose: <strong>speed the flow up</strong>, converting thermal energy into kinetic energy to make thrust.' },
+    ],
+    bridge:
+      'Both are just variable-area ducts \u2014 ideal candidates for the quasi-1D model. But is that model trustworthy here?',
+  },
+
+  // ── IS QUASI-1D VALID HERE? ──────────────────────────────────────────────────
+  {
+    type: 'concept',
+    sectionNumber: 'Application',
+    heading: 'Is Quasi-1D Trustworthy Here?',
+    intro:
+      'Quasi-1D flow is reliable for nozzles and diffusers as long as three assumptions hold.',
+    cards: [
+      { tag: '1', accent: '#5ec8d8', label: 'Smooth Area Change',
+        body: 'The cross-section varies gradually, so the flow stays attached and axial.' },
+      { tag: '2', accent: '#5ec8d8', label: 'y, z Changes Negligible',
+        body: 'Transverse variation is small next to the axial change \u2014 the core quasi-1D assumption.' },
+      { tag: '3', accent: '#f0a93b', label: 'Adiabatic & Steady',
+        body: 'Little heat crosses the walls, and conditions do not change in time.' },
+    ],
+    bridge:
+      'Real inlets and nozzles are rarely insulated \u2014 but the flow moves so fast there is little time for heat transfer, so <strong>adiabatic</strong> stays a good approximation.',
+  },
+
+  // ── ONE MORE RELATION: TWO INGREDIENTS ───────────────────────────────────────
+  {
+    type: 'system',
+    sectionNumber: 'Section 2.8',
+    heading: 'One More Relation \u2014 Two Ingredients',
+    intro:
+      'We need one relationship that reveals a wealth of information about quasi-1D flow. Build it from two pieces.',
+    laws: [
+      {
+        tag: 'Continuity (expanded)', accent: '#5ec8d8',
+        eq: '\\frac{\\mathrm{d}A}{A} + \\frac{\\mathrm{d}u}{u} + \\frac{\\mathrm{d}\\rho}{\\rho} = 0',
+        note: 'Product rule on d(&rho;uA) = 0 \u2014 differentiate one factor, hold the other two \u2014 then divide through by &rho;uA.',
+      },
+      {
+        tag: 'Density\u2013Mach link', accent: '#f0a93b',
+        eq: '\\frac{\\mathrm{d}\\rho}{\\rho} = -\\,M^2\\,\\frac{\\mathrm{d}u}{u}',
+        note: 'Momentum gives dp/&rho; = &minus;u du; the isentropic flow gives a&sup2; = dp/d&rho;. Combine: d&rho;/&rho; = &minus;u du / a&sup2; = &minus;M&sup2; du/u.',
+      },
+    ],
+    closer:
+      'Substitute the density\u2013Mach link into expanded continuity to eliminate d&rho; \u2014 and one clean relation falls out.',
+  },
+
+  // ── THE AREA\u2013VELOCITY RELATION ──────────────────────────────────────────────
+  {
+    type: 'equation',
+    sectionNumber: 'Section 2.8',
+    heading: 'The Area\u2013Velocity Relation',
+    intro:
+      'Eliminating density leaves a single relation between area change and velocity change \u2014 governed entirely by the Mach number.',
+    equation: '\\frac{\\mathrm{d}A}{A} = (M^2 - 1)\\,\\frac{\\mathrm{d}u}{u}',
+    equationLabel: 'How area change drives velocity change',
+    terms: [
+      { sym: 'M',                        def: 'Mach number u/a \u2014 its value above or below 1 sets the sign.' },
+      { sym: '\\tfrac{\\mathrm{d}A}{A}', def: 'Fractional area change along the duct.' },
+      { sym: '\\tfrac{\\mathrm{d}u}{u}', def: 'Fractional velocity change of the flow.' },
+    ],
+    cards: [
+      { label: 'Where it comes from',
+        body: 'Put d&rho;/&rho; = &minus;M&sup2; du/u into dA/A + du/u + d&rho;/&rho; = 0. The velocity terms combine to (1 &minus; M&sup2;) du/u, leaving dA/A = (M&sup2; &minus; 1) du/u.' },
+    ],
+    bridge:
+      'The factor (M&sup2;&minus;1) changes sign at Mach 1 \u2014 exactly why a diffuser and a nozzle take opposite shapes, and why the flow behaves oppositely below and above Mach 1.',
   },
 
 ]
@@ -375,6 +459,41 @@ function Figure({ name }) {
             <path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-a" />
           </marker>
           <marker id="slab-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-o" />
+          </marker>
+        </defs>
+      </svg>
+    )
+  }
+  if (name === 'engine-nd') {
+    return (
+      <svg viewBox="0 0 560 210" {...common}>
+        <g key={run}>
+          {/* nacelle top wall: inlet -> diffuser (diverge) -> core -> nozzle (converge) */}
+          <path d="M55 80 C95 75 145 68 185 66 L360 66 C405 68 470 80 505 92" className="q1d-wall" />
+          {/* nacelle bottom wall (mirror about y=110) */}
+          <path d="M55 140 C95 145 145 152 185 154 L360 154 C405 152 470 140 505 128" className="q1d-wall" />
+          {/* station lines */}
+          <line x1="55" y1="80" x2="55" y2="140" className="q1d-axisline" />
+          <line x1="185" y1="66" x2="185" y2="154" className="q1d-station" />
+          <line x1="360" y1="66" x2="360" y2="154" className="q1d-station" />
+          <line x1="505" y1="92" x2="505" y2="128" className="q1d-axisline" />
+          {/* inlet + exit flow arrows */}
+          <line x1="8" y1="110" x2="50" y2="110" className="q1d-core-arrow" markerEnd="url(#nd-a)" />
+          <line x1="510" y1="110" x2="552" y2="110" className="q1d-bl-arrow" markerEnd="url(#nd-b)" />
+          {/* region labels */}
+          <text x="120" y="186" className="q1d-t q1d-t--a" textAnchor="middle">inlet · diffuser</text>
+          <text x="272" y="186" className="q1d-t q1d-t--sm" textAnchor="middle">engine core</text>
+          <text x="432" y="186" className="q1d-t q1d-t--r" textAnchor="middle">exit · nozzle</text>
+          {/* behaviour cues */}
+          <text x="120" y="112" className="q1d-t q1d-t--sm" textAnchor="middle">area ↑ · slows</text>
+          <text x="432" y="112" className="q1d-t q1d-t--sm" textAnchor="middle">area ↓ · speeds</text>
+        </g>
+        <defs>
+          <marker id="nd-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-a" />
+          </marker>
+          <marker id="nd-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
             <path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-o" />
           </marker>
         </defs>
