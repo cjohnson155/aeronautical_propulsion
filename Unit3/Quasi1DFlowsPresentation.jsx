@@ -360,6 +360,125 @@ export const slides = [
       'Continuity between the throat and a general section, together with the isentropic relations, gives the area ratio A/A* as a function of Mach number \u2014 the integral area\u2013Mach relation, coming next.',
   },
 
+  // ── CONTINUITY \u2192 AREA RATIO ────────────────────────────────────────────────
+  {
+    type: 'system',
+    sectionNumber: 'Section 2.8',
+    heading: 'From Continuity to the Area Ratio',
+    intro:
+      'Apply continuity between the sonic throat and any section, then peel it into ratios we already know. At the throat u* = a* (the flow moves at the local speed of sound), so we write the throat velocity as a*.',
+    laws: [
+      {
+        tag: 'Continuity', accent: '#5ec8d8',
+        eq: '\\rho^{*} a^{*} A^{*} = \\rho\\, u\\, A',
+        note: 'Mass flow at the throat equals mass flow at the section. Since M = 1 there, u* = a*.',
+      },
+      {
+        tag: 'Divide by A* & \u03c1u', accent: '#f0a93b',
+        eq: '\\frac{\\rho^{*}}{\\rho}\\,\\frac{a^{*}}{u} = \\frac{A}{A^{*}}',
+        note: 'Divide by A*, then by &rho;u. The area ratio is now a density ratio times a velocity ratio.',
+      },
+      {
+        tag: 'Insert stagnation density', accent: '#5ec8d8',
+        eq: '\\frac{A}{A^{*}} = \\frac{\\rho^{*}}{\\rho_t}\\,\\frac{\\rho_t}{\\rho}\\,\\frac{a^{*}}{u}',
+        note: 'Multiply and divide by the stagnation density &rho;<sub>t</sub>. Because the flow is isentropic, &rho;<sub>t</sub> is <strong>constant</strong> \u2014 identical at the throat, at our section, and everywhere between.',
+      },
+    ],
+    closer:
+      'Every one of these three ratios has a known isentropic form in M and &gamma;. Evaluate them next.',
+  },
+
+  // ── THREE ISENTROPIC INGREDIENTS ─────────────────────────────────────────────
+  {
+    type: 'system',
+    sectionNumber: 'Section 2.8',
+    heading: 'Three Isentropic Ingredients',
+    intro:
+      'Write each ratio in terms of M and &gamma;: the isentropic density ratio at a general section, the same relation at the sonic point (M = 1), and the characteristic-Mach relation for the velocity.',
+    laws: [
+      {
+        tag: 'Density at a section', accent: '#5ec8d8',
+        eq: '\\frac{\\rho_t}{\\rho} = \\left(1 + \\tfrac{\\gamma-1}{2}M^{2}\\right)^{\\frac{1}{\\gamma-1}}',
+        note: 'Stagnation-to-static density anywhere in the duct, straight from isentropic flow.',
+      },
+      {
+        tag: 'Density at the throat', accent: '#f0a93b',
+        eq: '\\frac{\\rho_t}{\\rho^{*}} = \\left(1 + \\tfrac{\\gamma-1}{2}\\right)^{\\frac{1}{\\gamma-1}} = \\left(\\tfrac{\\gamma+1}{2}\\right)^{\\frac{1}{\\gamma-1}}',
+        note: 'The same relation with M = 1 \u2014 isentropically slow the sonic flow to rest to reach &rho;<sub>t</sub>.',
+      },
+      {
+        tag: 'Velocity ratio', accent: '#5ec8d8',
+        eq: '\\left(\\frac{u}{a^{*}}\\right)^{2} = M^{*2} = \\frac{\\tfrac{\\gamma+1}{2}M^{2}}{1 + \\tfrac{\\gamma-1}{2}M^{2}}',
+        note: 'The characteristic Mach number M* ties the local speed to the sonic speed a*.',
+      },
+    ],
+    closer:
+      'Square A/A*, substitute all three, and the powers of (1 + (&gamma;&minus;1)/2 M&sup2;) and (&gamma;+1)/2 collapse into one bracket.',
+  },
+
+  // ── THE AREA\u2013MACH RELATION ─────────────────────────────────────────────────
+  {
+    type: 'equation',
+    sectionNumber: 'Section 2.8',
+    heading: 'The Area\u2013Mach Relation',
+    intro:
+      'Squaring the area ratio and inserting the three ingredients gives one closed-form relation \u2014 the area ratio as a function of Mach number and &gamma; alone.',
+    equation: '\\left(\\frac{A}{A^{*}}\\right)^{2} = \\frac{1}{M^{2}}\\left[\\frac{2}{\\gamma+1}\\left(1 + \\frac{\\gamma-1}{2}M^{2}\\right)\\right]^{\\frac{\\gamma+1}{\\gamma-1}}',
+    equationLabel: 'Area ratio as a function of M and &gamma;',
+    terms: [
+      { sym: '\\tfrac{A}{A^{*}}', def: 'Local duct area referenced to the sonic throat area.' },
+      { sym: 'M',                def: 'Local Mach number at that section.' },
+      { sym: '\\gamma',          def: 'Ratio of specific heats \u2014 1.4 for air, ~1.3 for hot combustion gas.' },
+    ],
+    cards: [
+      { label: 'Where the exponent comes from',
+        body: 'Squaring gives (&rho;*/&rho;<sub>t</sub>)&sup2;(&rho;<sub>t</sub>/&rho;)&sup2;(a*/u)&sup2;. The density powers add to (&gamma;+1)/(&gamma;&minus;1) and the (&gamma;+1)/2 factors combine, leaving the single bracket raised to (&gamma;+1)/(&gamma;&minus;1).' },
+      { label: 'How general is it',
+        body: 'Continuity and the M* relation are exact; only the isentropic ratios assume a calorically perfect gas. Keep &gamma; symbolic and the result holds for any such gas.' },
+    ],
+    bridge:
+      'Its real power: the relation can be turned inside out \u2014 solving for the Mach number from the area ratio alone.',
+  },
+
+  // ── TURN IT INSIDE OUT: TWO ROOTS ────────────────────────────────────────────
+  {
+    type: 'diagram',
+    sectionNumber: 'Section 2.8',
+    heading: 'Turn It Inside Out \u2014 Two Roots',
+    intro:
+      'Invert the relation to M = f(A/A*). The Mach number anywhere in the duct depends only on the ratio of the local area to the sonic throat area. Because A/A* comes from a square-root, each area ratio maps to <strong>two</strong> Mach numbers.',
+    figure: 'area-mach-curve',
+    caption:
+      'For any A/A* &gt; 1 there are two solutions: one subsonic (lower branch) and one supersonic (upper branch). They meet at the throat, A/A* = 1, M = 1.',
+    cards: [
+      { tag: 'Two roots', accent: '#5ec8d8', label: 'Subsonic & Supersonic',
+        body: 'A square-root function has two roots. The same area ratio serves a slow flow and a fast flow \u2014 which one occurs is set by the back pressure and the duct geometry.' },
+      { tag: 'A \u2265 A*', accent: '#f0a93b', label: 'The Throat Is the Minimum',
+        body: 'From dA/A = (M&sup2;&minus;1) du/u, isentropic flow needs <strong>A &ge; A*</strong>. An area below the throat has no solution \u2014 A &lt; A* is physically impossible.' },
+    ],
+    bridge:
+      'To get numbers without solving the implicit equation every time, read A/A* from tabulated values.',
+  },
+
+  // ── ISENTROPIC TABLES ────────────────────────────────────────────────────────
+  {
+    type: 'concept',
+    sectionNumber: 'Section 2.8',
+    heading: 'Reading Off Values \u2014 Isentropic Tables',
+    intro:
+      'The area\u2013Mach relation is implicit in M, so solutions for A/A* are pre-computed and tabulated for specific values of &gamma;.',
+    cards: [
+      { tag: '\u03b3 = 1.4', accent: '#5ec8d8', label: 'Cold Air',
+        body: 'The standard for inlets and cold-flow analysis \u2014 Farokhi tabulates the full isentropic set.' },
+      { tag: '\u03b3 = 1.3', accent: '#f0a93b', label: 'Hot Gas',
+        body: 'Represents high-temperature combustion products through the turbine and nozzle.' },
+      { tag: 'App. B', accent: '#5ec8d8', label: 'Isentropic Table',
+        body: 'Farokhi Appendix B lists A/A*, p/p<sub>t</sub>, &rho;/&rho;<sub>t</sub>, and T/T<sub>t</sub> versus M \u2014 pick the branch you need.' },
+    ],
+    bridge:
+      'With the area\u2013Mach relation and its tables, you can march Mach number, pressure, and temperature through any isentropic nozzle or diffuser outward from the throat.',
+  },
+
 ]
 
 // ─── KaTeX renderer ──────────────────────────────────────────────────────────
@@ -679,6 +798,48 @@ function Figure({ name }) {
           <marker id="cdt-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-a" /></marker>
           <marker id="cdt-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-o" /></marker>
         </defs>
+      </svg>
+    )
+  }
+  if (name === 'area-mach-curve') {
+    return (
+      <svg viewBox="0 0 520 292" {...common}>
+        <g key={run}>
+          {/* axes */}
+          <line x1="70" y1="24" x2="70" y2="242" className="q1d-wall" />
+          <line x1="70" y1="240" x2="502" y2="240" className="q1d-wall" />
+          {/* y ticks + labels (Mach number) */}
+          {[['4.0', 30], ['3.0', 82.5], ['2.0', 135], ['1.0', 187.5], ['0.1', 234.75]].map(([lbl, y]) => (
+            <g key={lbl}>
+              <line x1="66" y1={y} x2="70" y2={y} className="q1d-station" />
+              <text x="60" y={y + 3.5} className="q1d-t q1d-t--sm" textAnchor="end">{lbl}</text>
+            </g>
+          ))}
+          {/* x ticks + labels (area ratio) */}
+          {[['1.0', 70], ['2.0', 148], ['4.0', 305], ['6.0', 461]].map(([lbl, x]) => (
+            <g key={lbl}>
+              <line x1={x} y1="240" x2={x} y2="244" className="q1d-station" />
+              <text x={x} y="256" className="q1d-t q1d-t--sm" textAnchor="middle">{lbl}</text>
+            </g>
+          ))}
+          {/* axis titles */}
+          <text x="20" y="140" className="q1d-t q1d-t--sm" textAnchor="middle" transform="rotate(-90 20 140)">Mach number  M</text>
+          <text x="286" y="276" className="q1d-t q1d-t--sm" textAnchor="middle">area ratio  A / A*</text>
+          {/* throat guide line at M = 1 */}
+          <line x1="70" y1="187.5" x2="128" y2="187.5" className="q1d-axisline" />
+          <text x="134" y="191" className="q1d-t q1d-t--sm">M = 1</text>
+          {/* supersonic branch (upper, cyan) */}
+          <path d="M70 187.5 L72.3 177 L83.8 161.3 L104.3 145.5 L124 135 L163.4 119.3 L198 108.8 L265.5 93 L322.6 82.5 L392 72 L475 61.5"
+                className="q1d-core-arrow" fill="none" />
+          {/* subsonic branch (lower, orange) */}
+          <path d="M70 187.5 L73 198 L84.7 208.5 L96.6 213.8 L116.1 219 L151 224.3 L179.6 226.9 L223.3 229.5 L297.6 232.1 L447 234.8"
+                className="q1d-bl-arrow" fill="none" />
+          {/* branch labels */}
+          <text x="214" y="98" className="q1d-t q1d-t--a" textAnchor="middle">supersonic</text>
+          <text x="150" y="223" className="q1d-t q1d-t--o" textAnchor="middle">subsonic</text>
+          {/* vertex (throat) marker */}
+          <circle cx="70" cy="187.5" r="3.2" className="q1d-ahead-a" />
+        </g>
       </svg>
     )
   }
