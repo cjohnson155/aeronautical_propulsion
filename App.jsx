@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Unit1Menu from './Unit1Menu.jsx'
 import Unit2Deck from './Unit2/App.jsx'
 import Unit3Deck from './Unit3/App.jsx'
+import Unit4Deck from './Unit4/App.jsx'
 
 // ── Top-level course hub ─────────────────────────────────────────────────────
 // Landing page → pick a unit. Lightweight hash routing (no router dependency):
@@ -9,6 +10,7 @@ import Unit3Deck from './Unit3/App.jsx'
 //   #/unit1   → Unit 1 (propulsion decks menu)
 //   #/unit2   → Unit 2 (compressible-flow slide deck, incl. stagnation §6)
 //   #/unit3   → Unit 3 (quasi-1D flows deck)
+//   #/unit4 -> Unit 4 (Rayleigh flow and fluid impulse)
 // Hashes are used because this is a GitHub Pages *project* page: they need no
 // server-side redirect, so the browser/phone Back button works and links like
 // …/#/unit2 are shareable. Vite's `base` handles asset URLs independently.
@@ -18,6 +20,7 @@ function readRoute() {
   if (h === 'unit1') return 'unit1'
   if (h === 'unit2') return 'unit2'
   if (h === 'unit3') return 'unit3'
+  if (h === 'unit4') return 'unit4'
   return 'home'
 }
 
@@ -40,6 +43,13 @@ const units = [
     subtitle: 'Diffusers & nozzles · area–velocity relations',
     color: 'from-lime-500 to-emerald-300',
   },
+  
+  {
+    id: 'unit4',
+    title: 'Unit 4 — Rayleigh Flow & Fluid Impulse',
+    subtitle: 'Rayleigh line · 1D flow with heat transfer · fluid impulse',
+    color: 'from-blue-700 to-cyan-500',
+  },
 ]
 
 export default function App() {
@@ -57,6 +67,7 @@ export default function App() {
   if (route === 'unit1') return <Unit1Menu onExit={goHome} />
   if (route === 'unit2') return <Unit2Deck onExit={goHome} />
   if (route === 'unit3') return <Unit3Deck onExit={goHome} />
+  if (route === 'unit4') return <Unit4Deck onExit={goHome} />
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6">
