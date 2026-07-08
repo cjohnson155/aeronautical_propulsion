@@ -36,7 +36,7 @@ export const slides = [
     subtitle: 'What quasi-1D flow means, the streamtube control volume and conservation laws, why nozzles and diffusers are perfect quasi-1D ducts, and the area\u2013velocity relation that governs them.',
     meta: [
       { label: 'Unit',      value: '03 \u2014 Quasi-1D Flows' },
-      { label: 'Topics',    value: 'Control volume \u00b7 Governing equations \u00b7 Nozzles & diffusers \u00b7 Area\u2013velocity relation' },
+      { label: 'Topics',    value: 'Governing equations \u00b7 Nozzles & diffusers \u00b7 Area\u2013velocity relation \u00b7 CD (Laval) nozzles & the throat' },
       { label: 'Builds on', value: 'Unit 2 \u2014 Compressible Flow' },
     ],
   },
@@ -253,6 +253,111 @@ export const slides = [
     ],
     bridge:
       'The factor (M&sup2;&minus;1) changes sign at Mach 1 \u2014 exactly why a diffuser and a nozzle take opposite shapes, and why the flow behaves oppositely below and above Mach 1.',
+  },
+
+  // ── FOUR MACH-NUMBER CASES ───────────────────────────────────────────────────
+  {
+    type: 'compare',
+    sectionNumber: 'Section 2.8',
+    heading: 'Four Mach-Number Cases',
+    intro:
+      'Read the boxed relation dA/A = (M&sup2;&minus;1) du/u for four values of the Mach number.',
+    regimes: [
+      { tag: 'M \u2192 0', label: 'Incompressible', accent: '#5ec8d8',
+        head: 'Au = constant',
+        body: 'Density barely changes, so area and velocity simply trade off: Au &asymp; const.' },
+      { tag: '0 \u2264 M < 1', label: 'Subsonic', accent: '#5ec8d8',
+        head: 'Converging speeds it up',
+        body: '+du (faster) pairs with &minus;dA (smaller area). Decreasing area accelerates subsonic flow.' },
+      { tag: 'M > 1', label: 'Supersonic', accent: '#f0a93b',
+        head: 'Diverging speeds it up',
+        body: '+du (faster) pairs with +dA (larger area). Increasing area accelerates supersonic flow.' },
+      { tag: 'M = 1', label: 'Sonic', accent: '#f0a93b',
+        head: 'dA/A = 0 \u2192 the throat',
+        body: 'Velocity changes with zero area change \u2014 a local minimum (or maximum) area.' },
+    ],
+    closer:
+      'Cases 2 and 3 flip at Mach 1, and case 4 pins M = 1 to the minimum area \u2014 the seed of the convergent\u2013divergent nozzle.',
+  },
+
+  // ── CD DUCTS & THE THROAT ────────────────────────────────────────────────────
+  {
+    type: 'diagram',
+    sectionNumber: 'Section 2.8',
+    heading: 'Convergent\u2013Divergent Ducts & the Throat',
+    intro:
+      'To expand a gas from <strong>subsonic to supersonic</strong>, it must pass through a <strong>convergent\u2013divergent (CD) duct</strong>. The minimum area between the two sections is the <strong>throat</strong>.',
+    figure: 'cd-nozzle',
+    caption:
+      'Subsonic flow (M &lt; 1) accelerates through the converging section to M = 1 at the throat, then keeps accelerating supersonically (M &gt; 1) in the diverging section.',
+    cards: [
+      { tag: 'Nozzle', accent: '#5ec8d8', label: 'Subsonic \u2192 Supersonic',
+        body: 'Converge to sonic at the throat, then diverge; velocity <strong>increases</strong> the whole way.' },
+      { tag: 'Diffuser', accent: '#f0a93b', label: 'Supersonic \u2192 Subsonic',
+        body: 'Run the same shape in reverse; velocity <strong>decreases</strong> the whole way, passing M = 1 at the throat.' },
+    ],
+    bridge:
+      'The throat is sonic (M = 1) only if the flow goes supersonic on the far side \u2014 or vice versa. Otherwise it is just the point of maximum subsonic speed.',
+  },
+
+  // ── CD NOZZLE IN A ROCKET ENGINE ─────────────────────────────────────────────
+  {
+    type: 'diagram',
+    sectionNumber: 'Application',
+    heading: 'The CD Nozzle in a Rocket Engine',
+    intro:
+      'The rocket engine is the classic CD nozzle: burn propellant in the chamber, then accelerate the hot gas from subsonic, through sonic at the throat, to supersonic at the exit.',
+    figure: 'rocket-cd',
+    caption:
+      'Fuel and oxidizer burn in the combustion chamber (M &lt; 1); the flow reaches M = 1 at the throat and expands to M &gt; 1 through the exhaust nozzle.',
+    cards: [
+      { tag: 'Chamber', accent: '#5ec8d8', label: 'Combustion Chamber',
+        body: 'High-pressure, low-speed (M &lt; 1) combustion products feed the nozzle.' },
+      { tag: 'Nozzle', accent: '#f0a93b', label: 'Exhaust Nozzle',
+        body: 'Converges to the throat (M = 1), then diverges to supersonic exhaust (M &gt; 1) \u2014 that is the thrust.' },
+    ],
+    bridge:
+      'Same physics as any CD duct \u2014 combustion just sets the upstream conditions.',
+  },
+
+  // ── CD (LAVAL) NOZZLE: HOW GENERAL ───────────────────────────────────────────
+  {
+    type: 'concept',
+    sectionNumber: 'Section 2.8',
+    heading: 'CD (Laval) Nozzle \u2014 How General Is This?',
+    intro:
+      'The convergent\u2013divergent nozzle is also called a <strong>Laval nozzle</strong>, and the area\u2013velocity relation is more general than it looks.',
+    cards: [
+      { tag: '1', accent: '#5ec8d8', label: 'No Perfect-Gas Assumption',
+        body: 'dA/A = (M&sup2;&minus;1) du/u was derived with <strong>no</strong> perfect-gas assumption.' },
+      { tag: '2', accent: '#5ec8d8', label: 'Holds for Real Gases',
+        body: 'It applies to real and even chemically reacting gases \u2014 as well as a perfect gas \u2014 as long as the flow is <strong>isentropic</strong>.' },
+      { tag: '3', accent: '#f0a93b', label: 'Differential vs Integral',
+        body: 'This differential form is less handy than the integral form \u2014 which we build next.' },
+    ],
+    bridge:
+      'To get that integral form, anchor everything to the one special point every CD nozzle has: the sonic throat.',
+  },
+
+  // ── TOWARD THE AREA\u2013MACH RELATION ──────────────────────────────────────────
+  {
+    type: 'diagram',
+    sectionNumber: 'Section 2.8',
+    heading: 'Toward the Area\u2013Mach Relation',
+    intro:
+      'Anchor the flow to its <strong>sonic reference</strong> \u2014 the throat, where M = 1. Quantities at sonic conditions carry an <strong>asterisk</strong>: A*, u*, &rho;*.',
+    figure: 'cd-throat',
+    caption:
+      'At the throat: A*, M* = 1, u* = a (the local speed of sound). Compare with any other section of the duct: A, M, u.',
+    equation: '\\rho^{*} u^{*} A^{*} = \\rho\\, u\\, A',
+    cards: [
+      { tag: '*', accent: '#5ec8d8', label: 'Sonic Reference',
+        body: 'The throat is where M = 1. Its starred properties are the reference for every other section of the duct.' },
+      { tag: 'u*', accent: '#f0a93b', label: 'Throat Velocity',
+        body: 'At the throat the gas moves at exactly the speed of sound: <strong>u* = a</strong> (and, being sonic, a gets a * too).' },
+    ],
+    bridge:
+      'Continuity between the throat and a general section, together with the isentropic relations, gives the area ratio A/A* as a function of Mach number \u2014 the integral area\u2013Mach relation, coming next.',
   },
 
 ]
@@ -496,6 +601,83 @@ function Figure({ name }) {
           <marker id="nd-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
             <path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-o" />
           </marker>
+        </defs>
+      </svg>
+    )
+  }
+  if (name === 'cd-nozzle') {
+    return (
+      <svg viewBox="0 0 520 200" {...common}>
+        <g key={run}>
+          <path d="M40 55 C130 56 210 79 250 80 C295 81 400 52 480 45" className="q1d-wall" />
+          <path d="M40 145 C130 144 210 121 250 120 C295 119 400 148 480 155" className="q1d-wall" />
+          <line x1="8" y1="100" x2="38" y2="100" className="q1d-core-arrow" markerEnd="url(#cdn-a)" />
+          <line x1="482" y1="100" x2="512" y2="100" className="q1d-bl-arrow" markerEnd="url(#cdn-b)" />
+          <text x="250" y="30" className="q1d-t q1d-t--sm" textAnchor="middle">throat</text>
+          <line x1="250" y1="36" x2="250" y2="76" className="q1d-axisline" />
+          <text x="250" y="104" className="q1d-t q1d-t--sm" textAnchor="middle">u increasing →</text>
+          <text x="140" y="186" className="q1d-t q1d-t--a" textAnchor="middle">M &lt; 1</text>
+          <text x="250" y="186" className="q1d-t q1d-t--sm" textAnchor="middle">M = 1</text>
+          <text x="395" y="186" className="q1d-t q1d-t--r" textAnchor="middle">M &gt; 1</text>
+        </g>
+        <defs>
+          <marker id="cdn-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-a" /></marker>
+          <marker id="cdn-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-o" /></marker>
+        </defs>
+      </svg>
+    )
+  }
+  if (name === 'rocket-cd') {
+    return (
+      <svg viewBox="0 0 560 220" {...common}>
+        <g key={run}>
+          <rect x="95" y="72" width="150" height="76" rx="10" className="q1d-wall" fill="none" />
+          <line x1="55" y1="40" x2="108" y2="72" className="q1d-core-arrow" markerEnd="url(#rk-a)" />
+          <line x1="55" y1="180" x2="108" y2="148" className="q1d-core-arrow" markerEnd="url(#rk-a)" />
+          <text x="46" y="34" className="q1d-t q1d-t--sm" textAnchor="middle">fuel</text>
+          <text x="42" y="196" className="q1d-t q1d-t--sm" textAnchor="middle">oxidizer</text>
+          <path d="M245 78 C300 80 332 96 360 98 C400 101 470 66 525 58" className="q1d-wall" />
+          <path d="M245 142 C300 140 332 124 360 122 C400 119 470 154 525 162" className="q1d-wall" />
+          <line x1="527" y1="110" x2="555" y2="110" className="q1d-bl-arrow" markerEnd="url(#rk-b)" />
+          <text x="170" y="106" className="q1d-t q1d-t--a" textAnchor="middle">combustion</text>
+          <text x="170" y="124" className="q1d-t q1d-t--sm" textAnchor="middle">chamber · M &lt; 1</text>
+          <text x="360" y="44" className="q1d-t q1d-t--sm" textAnchor="middle">throat · M = 1</text>
+          <line x1="360" y1="50" x2="360" y2="94" className="q1d-axisline" />
+          <text x="474" y="198" className="q1d-t q1d-t--r" textAnchor="middle">exhaust · M &gt; 1</text>
+        </g>
+        <defs>
+          <marker id="rk-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-a" /></marker>
+          <marker id="rk-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-o" /></marker>
+        </defs>
+      </svg>
+    )
+  }
+  if (name === 'cd-throat') {
+    return (
+      <svg viewBox="0 0 520 210" {...common}>
+        <g key={run}>
+          <path d="M40 55 C130 56 210 79 250 80 C295 81 400 52 480 45" className="q1d-wall" />
+          <path d="M40 145 C130 144 210 121 250 120 C295 119 400 148 480 155" className="q1d-wall" />
+          <line x1="8" y1="100" x2="38" y2="100" className="q1d-core-arrow" markerEnd="url(#cdt-a)" />
+          <line x1="482" y1="100" x2="512" y2="100" className="q1d-bl-arrow" markerEnd="url(#cdt-b)" />
+          <text x="120" y="28" className="q1d-t q1d-t--sm" textAnchor="middle">converging</text>
+          <text x="405" y="28" className="q1d-t q1d-t--sm" textAnchor="middle">diverging</text>
+          <text className="q1d-t q1d-t--a" x="250" y="140" textAnchor="middle">
+            <tspan x="250" dy="0">A*</tspan>
+            <tspan x="250" dy="16">M* = 1</tspan>
+            <tspan x="250" dy="16">u* = a</tspan>
+          </text>
+          <line x1="372" y1="60" x2="372" y2="140" className="q1d-station" />
+          <text className="q1d-t q1d-t--r" x="398" y="84">
+            <tspan x="398" dy="0">A</tspan>
+            <tspan x="398" dy="16">M</tspan>
+            <tspan x="398" dy="16">u</tspan>
+          </text>
+          <text x="398" y="160" className="q1d-t q1d-t--sm">(any section)</text>
+        </g>
+        <defs>
+          <marker id="cdt-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-a" /></marker>
+          <marker id="cdt-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 Z" className="q1d-ahead-o" /></marker>
         </defs>
       </svg>
     )
