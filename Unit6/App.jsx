@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import Unit6BraytonCycleDeck from './Unit6BraytonCycleDeck.jsx'
 import Unit6CycleAnalysis2Deck from './Unit6CycleAnalysis2Deck.jsx'
+import Unit6BraytonCycleDeck1 from './Unit6BraytonCycleDeck1.jsx'
 
 // NOTE: save this file as  src/Unit6/App.jsx
 // (the deck lives beside it at  src/Unit6/Unit6BraytonCycleDeck.jsx)
 
 const unit6Options = [
   {
+        id: 'brayton-cycle1',
+    title: 'Engine Flowpath Tour',
+    subtitle: 'Four energy currencies \u00b7 enthalpy = u + Pv \u00b7 Assumptions and models ',
+    color: 'from-violet-500 to-pink-300',
+  },
     id: 'brayton-cycle',
     title: 'Ideal vs. Real Brayton Cycle',
     subtitle: 'Four energy currencies \u00b7 enthalpy = u + Pv \u00b7 component energy exchange \u00b7 cycle efficiency \u00b7 ideal vs. real',
