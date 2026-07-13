@@ -30,7 +30,7 @@ const unit6Options = [
   },
 ]
 
-const decks: Record<string, React.ComponentType> = {
+const decks: = {
   'brayton-cycle1': Unit6BraytonCycleDeck1,
   'brayton-cycle': Unit6BraytonCycleDeck,
   'cycle-analysis-2': Unit6CycleAnalysis2Deck,
