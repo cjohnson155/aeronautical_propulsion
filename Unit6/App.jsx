@@ -2,12 +2,14 @@ import { useState } from 'react'
 import Unit6BraytonCycleDeck from './Unit6BraytonCycleDeck'
 import Unit6BraytonCycleDeck1 from './Unit6BraytonCycleDeck1'
 import Unit6CycleAnalysis2Deck from './Unit6CycleAnalysis2Deck'
+import Unit6TurbojetStationWalk from './Unit6TurbojetStationWalk'
 
 // NOTE: save this file as  src/Unit6/App.jsx
 // (the decks live beside it:
 //    src/Unit6/Unit6BraytonCycleDeck.jsx
 //    src/Unit6/Unit6BraytonCycleDeck1.jsx
-//    src/Unit6/Unit6CycleAnalysis2Deck.jsx )
+//    src/Unit6/Unit6CycleAnalysis2Deck.jsx
+//    src/Unit6/Unit6TurbojetStationWalk.jsx )
 
 const unit6Options = [
   {
@@ -28,12 +30,19 @@ const unit6Options = [
     subtitle: 'Cyclic energy balance \u00b7 heat-transfer terms \u00b7 thermal efficiency derivation \u00b7 isentropic + isobaric simplification',
     color: 'from-indigo-500 to-cyan-300',
   },
+  {
+    id: 'turbojet-station-walk',
+    title: 'Ideal Afterburning Turbojet',
+    subtitle: 'Full station walk 1\u21929 \u00b7 inlet ram \u00b7 compressor \u00b7 burner \u00b7 turbine \u00b7 afterburner \u00b7 CD nozzle \u00b7 exhaust velocity + specific thrust',
+    color: 'from-rose-500 to-amber-300',
+  },
 ]
 
 const decks = {
   'brayton-cycle1': Unit6BraytonCycleDeck1,
   'brayton-cycle': Unit6BraytonCycleDeck,
   'cycle-analysis-2': Unit6CycleAnalysis2Deck,
+  'turbojet-station-walk': Unit6TurbojetStationWalk,
 }
 
 export default function Unit6Deck({ onExit }) {
