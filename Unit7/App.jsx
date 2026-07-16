@@ -1,28 +1,47 @@
-// App entry — renders the transformed Component Efficiencies deck.
+// App entry — menu wrapper offering two self-contained decks.
 //
-// The transformed deck (ComponentEfficiencies.tsx) is fully self-contained:
-//   • its own full-screen shell — top bar, nav dots, progress bar,
-//     and click / arrow-key / space navigation
-//   • its own navy/cyan theme (no external CSS needed)
-//   • math rendered with plain `katex` (NO react-katex dependency)
+// Each deck (ComponentEfficiencies, ProblemSet2Problem2) is fully
+// self-contained: its own full-screen shell (top bar, nav dots, progress bar,
+// click / arrow-key / space navigation), its own navy/cyan theme, and math
+// rendered with plain `katex`. This wrapper just lets the user pick which one
+// to mount, then gets out of the way.
 //
-// So this file no longer needs the old light-theme shell, the dashed
-// placeholder primitives (<Img/> <Eqn/> <Txt/>), or its own `slides` array —
-// all of that lived in the pre-transform version and is now dead weight that
-// also pulled in react-katex. This wrapper just mounts the deck.
-//
-// Adjust the import path below if your deck file sits elsewhere or is renamed.
+// Adjust the import paths below if your deck files sit elsewhere or are renamed.
 
-import Presentation from './ComponentEfficiencies'
+import { useState } from 'react'
+import ComponentEfficiencies, { meta as ceMeta } from './ComponentEfficiencies'
+import ProblemSet2Problem2, { meta as ps2Meta } from './ProblemSet2Problem2'
+
+const DECKS = [
+  { id: 'ce',  label: ceMeta.deckTitle,  Component: ComponentEfficiencies },
+  { id: 'ps2', label: ps2Meta.deckTitle, Component: ProblemSet2Problem2 },
+]
 
 export default function App() {
-  return <Presentation />
-}
+  const [selected, setSelected] = useState(null)
 
-// ── customizing ──────────────────────────────────────────────────────────────
-// <Presentation/> already defaults to the deck's built-in slides + meta, so the
-// bare tag above is all you need. If you ever want to override either, the deck
-// also exports them as named exports:
-//
-//   import Presentation, { slides, meta } from './ComponentEfficiencies'
-//   return <Presentation slides={slides} meta={{ ...meta, deckTitle: 'Custom' }} />
+  if (selected) {
+    const { Component } = DECKS.find(d => d.id === selected)
+    return (
+      <div style={{ position: 'relative', height: '100vh' }}>
+        <button
+          onClick={(e) => { e.stopPropagation(); setSelected(null) }}
+          style={{
+            position: 'absolute', top: 12, right: 16, zIndex: 50,
+            background: '#13243a', color: '#eaf1f8', border: '1px solid #27405e',
+            borderRadius: 7, padding: '6px 14px', fontSize: 13, cursor: 'pointer',
+            fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif',
+          }}
+        >
+          &larr; Menu
+        </button>
+        <Component />
+      </div>
+    )
+  }
+
+  return (
+    <div style={{
+      height: '100vh', display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center', gap: 20,
+      background: 'radial-gradient(1200px 700px at 70% -10%,#163152 0%,#0d
