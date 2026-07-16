@@ -4,6 +4,7 @@ import Unit2Deck from './Unit2/App.jsx'
 import Unit3Deck from './Unit3/App.jsx'
 import Unit4Deck from './Unit4/App.jsx'
 import Unit6Deck from './Unit6/App.jsx'
+import Unit7Deck from './Unit7/App.jsx'
 
 // ── Top-level course hub ─────────────────────────────────────────────────────
 // Landing page → pick a unit. Lightweight hash routing (no router dependency):
@@ -13,6 +14,7 @@ import Unit6Deck from './Unit6/App.jsx'
 //   #/unit3   → Unit 3 (quasi-1D flows deck)
 //   #/unit4   → Unit 4 (Rayleigh flow and fluid impulse)
 //   #/unit6   → Unit 6 (ideal vs. real Brayton cycle)
+//   #/unit7   → Unit 7 (real cycle & component efficiencies)
 // Hashes are used because this is a GitHub Pages *project* page: they need no
 // server-side redirect, so the browser/phone Back button works and links like
 // …/#/unit2 are shareable. Vite's `base` handles asset URLs independently.
@@ -24,6 +26,7 @@ function readRoute() {
   if (h === 'unit3') return 'unit3'
   if (h === 'unit4') return 'unit4'
   if (h === 'unit6') return 'unit6'
+  if (h === 'unit7') return 'unit7'
   return 'home'
 }
 
@@ -58,6 +61,12 @@ const units = [
     subtitle: 'Energy currencies · enthalpy · component energy exchange · cycle efficiency',
     color: 'from-rose-600 to-amber-400',
   },
+  {
+    id: 'unit7',
+    title: 'Unit 7 — Real Cycle & Component Efficiencies',
+    subtitle: 'Component losses · η & π definitions · turbine–compressor power balance · real turbojet analysis',
+    color: 'from-orange-700 to-yellow-400',
+  },
 ]
 
 export default function App() {
@@ -77,6 +86,7 @@ export default function App() {
   if (route === 'unit3') return <Unit3Deck onExit={goHome} />
   if (route === 'unit4') return <Unit4Deck onExit={goHome} />
   if (route === 'unit6') return <Unit6Deck onExit={goHome} />
+  if (route === 'unit7') return <Unit7Deck onExit={goHome} />
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6">
