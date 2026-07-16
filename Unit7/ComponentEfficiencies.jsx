@@ -146,7 +146,7 @@ export const slides = [
       src: IMG_SINGLE_SPOOL,
       alt: 'Single-spool axial compressor cutaway showing stator vanes, rotor blades, and the main shaft',
       caption:
-        'Single-spool axial compressor cutaway \u2014 rotor rows add energy, stator rows diffuse it to pressure. [confirm source before publishing]',
+        'A typical multistage axial flow compressor (Rolls-Royce, 1992), via MIT 16.unified Thermodynamics notes \u2014 rotor rows add energy, stator rows diffuse it to pressure.',
     },
     cards: [
       { tag: 'Job', accent: '#5ec8d8', label: 'Purpose &amp; Source of Power',
@@ -204,6 +204,8 @@ export const slides = [
         body: '&tau;<sub>c</sub> = 1 + (&pi;<sub>c</sub><sup>(&gamma;\u22121)/&gamma;</sup> &minus; 1)&#8202;/&#8202;&eta;<sub>c</sub>, then T<sub>t3</sub> = &tau;<sub>c</sub>T<sub>t2</sub> and P<sub>t3</sub> = &pi;<sub>c</sub>P<sub>t2</sub>.' },
       { label: 'Depends on \u2192 sets up',
         body: 'Given T<sub>t2</sub>, P<sub>t2</sub> from the inlet plus design &pi;<sub>c</sub>, measured &eta;<sub>c</sub>, and &gamma;, it <strong>sets the burner-inlet state</strong> T<sub>t3</sub>, P<sub>t3</sub>.' },
+      { label: 'Adiabatic &eta;<sub>c</sub> vs polytropic e<sub>c</sub>',
+        body: 'The polytropic (small-stage) efficiency e<sub>c</sub> is the isentropic efficiency of an <em>infinitesimal</em> stage, held roughly constant through the machine: &eta;<sub>c</sub> = (&pi;<sub>c</sub><sup>(&gamma;&minus;1)/&gamma;</sup> &minus; 1)&#8202;/&#8202;(&pi;<sub>c</sub><sup>(&gamma;&minus;1)/(&gamma;&#8202;e<sub>c</sub>)</sup> &minus; 1). It removes the &pi;<sub>c</sub> dependence that makes &eta;<sub>c</sub> sag as pressure ratio climbs, so <strong>e<sub>c</sub> &gt; &eta;<sub>c</sub></strong> \u2014 the fairer figure for comparing compressors of different &pi;<sub>c</sub>.' },
     ],
     bridge:
       'Hand T<sub>t3</sub>, P<sub>t3</sub> to the burner and light it.',
@@ -310,9 +312,38 @@ export const slides = [
         body: 'The compressor sets the work demand; the shaft transmits it; so <strong>&tau;<sub>t</sub> is fixed</strong> by the balance, not picked by the designer. Everything downstream follows from it.' },
       { tag: '\u03b7\u2098', accent: '#f0a93b', label: 'Mechanical Efficiency',
         body: 'Bearing and windage losses mean a little turbine work never reaches the compressor: &eta;<sub>m</sub> &lt; 1, usually above 0.98. Small, but it belongs in the balance.' },
+      { tag: 'BWR', accent: '#5ec8d8', label: 'Back-Work Ratio',
+        body: 'The flip side of the balance \u2014 what fraction of the turbine\u2019s work is spent just turning the compressor: r<sub>bw</sub> = w<sub>c,in</sub>&#8202;/&#8202;w<sub>T,out</sub>. Gas turbines run <strong>high</strong>; a worked case gives 305&#8202;/&#8202;515 &asymp; <strong>0.59</strong>. In a turbojet the turbine takes <em>only</em> the compressor\u2019s share \u2014 the rest of the expansion is left for the nozzle.' },
     ],
     bridge:
       'With &tau;<sub>t</sub> known, only one component stands between the gas and the sky.',
+  },
+
+  // --- WORKED EXAMPLE (real gas-turbine numbers) ---
+  {
+    type: 'derive',
+    sectionNumber: 'Putting Numbers On It',
+    heading: 'Worked Example \u2014 Actual Gas Turbine',
+    intro:
+      'A quick numerical pass on a <strong>real</strong> (irreversible) gas turbine from the thermo text. States 1&rarr;4 are the book\u2019s own \u2014 compressor inlet, compressor exit, turbine inlet, turbine exit \u2014 not the 0\u20139 engine stations. Given the component efficiencies and works, find the back-work ratio, thermal efficiency, and turbine-exit temperature.',
+    steps: [
+      { n: '1', tag: 'Given', eq: '\\eta_c = 0.80,\\quad \\eta_T = 0.85,\\quad w_{c,in} = 305,\\quad w_{T,out} = 515\\ \\tfrac{\\text{kJ}}{\\text{kg}}',
+        note: 'A shaft-power (Brayton) gas turbine \u2014 actual, not ideal. Unlike the turbojet it delivers <strong>net shaft work</strong>, so the back-work ratio genuinely bites.' },
+      { n: '2', tag: '(b) Back-work ratio', eq: 'r_{bw} = \\frac{w_{c,in}}{w_{T,out}} = \\frac{305}{515} = 0.592',
+        note: 'Nearly <strong>60%</strong> of the turbine output is recycled straight back to the compressor \u2014 characteristically high for gas turbines.' },
+      { n: '3', tag: 'Compressor exit state', eq: 'h_{2a} = h_1 + w_{c,in} = 300.19 + 305 = 605\\ \\tfrac{\\text{kJ}}{\\text{kg}} \\;\\Rightarrow\\; T_{2a} \\approx 598\\ \\text{K}',
+        note: 'Add the <em>actual</em> compressor work to the inlet enthalpy, then read the temperature back from the air tables.' },
+      { n: '4', tag: '(c) Thermal efficiency', eq: '\\eta_{th} = \\frac{w_{net}}{q_{in}} = \\frac{515-305}{1395-605} = \\frac{210}{790} = 0.266',
+        note: 'Net work over heat added, with q<sub>in</sub> = h<sub>3</sub> &minus; h<sub>2a</sub>. The component losses &eta;<sub>c</sub>, &eta;<sub>T</sub> are exactly what hold this down.' },
+      { n: '5', tag: '(a) Turbine exit state', eq: 'h_{4a} = h_3 - w_{T,out} = 1395 - 515 = 880\\ \\tfrac{\\text{kJ}}{\\text{kg}} \\;\\Rightarrow\\; T_{4a} \\approx 853\\ \\text{K}',
+        note: 'Subtract the actual turbine work from the turbine-inlet enthalpy, then read T<sub>4a</sub> off the tables. (The notes wrote kJ/K here \u2014 it should be kJ/kg.)' },
+    ],
+    result: {
+      eq: 'r_{bw} \\approx 0.59, \\qquad \\eta_{th} \\approx 0.27, \\qquad T_{4a} \\approx 853\\ \\text{K}',
+      label: 'An honest machine: high back-work, modest thermal efficiency. The same &eta;<sub>c</sub>, &eta;<sub>T</sub> that scored each component now set the whole engine\u2019s numbers.',
+    },
+    closer:
+      'The station-by-station efficiencies stop being definitions and become <strong>numbers</strong> \u2014 which was the point of the whole chain.',
   },
 
   // ── NOZZLE — PHYSICAL ────────────────────────────────────────────────────────
