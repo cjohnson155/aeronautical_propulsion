@@ -726,7 +726,7 @@ function SectionSlide({ s }) {
   );
 }
 
-export default function Unit8ShockExpansion() {
+export default function NormalShocks() {
   useFonts();
   const [i, setI] = useState(0);
   const n = SLIDES.length;
