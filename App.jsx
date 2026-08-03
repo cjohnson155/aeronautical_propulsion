@@ -86,7 +86,7 @@ const units = [
     color: 'from-rose-700 to-purple-400',
   },
 ]
-]
+
 
 export default function App() {
   const [route, setRoute] = useState(readRoute)
