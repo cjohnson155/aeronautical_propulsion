@@ -6,6 +6,7 @@ import Unit4Deck from './Unit4/App.jsx'
 import Unit6Deck from './Unit6/App.jsx'
 import Unit7Deck from './Unit7/App.jsx'
 import Unit8Deck from './Unit8/App.jsx'
+import Unit9Deck from './Unit9/App.jsx'
 
 // ── Top-level course hub ─────────────────────────────────────────────────────
 // Landing page → pick a unit. Lightweight hash routing (no router dependency):
@@ -30,6 +31,7 @@ function readRoute() {
   if (h === 'unit6') return 'unit6'
   if (h === 'unit7') return 'unit7'
   if (h === 'unit8') return 'unit8'
+  if (h === 'unit9') return 'unit9'
   return 'home'
 }
 
@@ -76,6 +78,14 @@ const units = [
     subtitle: 'Shock formation · conservation across the shock · Rankine–Hugoniot · stagnation losses',
     color: 'from-sky-700 to-cyan-400',
   },
+  
+  {
+    id: 'unit8',
+    title: 'Unit 9 - Subsonic Inlets',
+    subtitle: 'capture area · diffuser performance · lip geometry · nacelle drag',
+    color: 'from-rose-700 to-purple-400',
+  },
+]
 ]
 
 export default function App() {
@@ -97,6 +107,7 @@ export default function App() {
   if (route === 'unit6') return <Unit6Deck onExit={goHome} />
   if (route === 'unit7') return <Unit7Deck onExit={goHome} />
   if (route === 'unit8') return <Unit8Deck onExit={goHome} />
+  if (route === 'unit9') return <Unit9Deck onExit={goHome} />
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6">
