@@ -79,12 +79,12 @@ const units = [
     color: 'from-sky-700 to-cyan-400',
   },
   
-  {
-    id: 'unit9',
-    title: 'Unit 9 - Subsonic Inlets',
-    subtitle: 'capture area · diffuser performance · lip geometry · nacelle drag',
-    color: 'from-rose-700 to-purple-400',
-  },
+ // {
+   // id: 'unit9',
+    //title: 'Unit 9 - Subsonic Inlets',
+    //subtitle: 'capture area · diffuser performance · lip geometry · nacelle drag',
+    //color: 'from-rose-700 to-purple-400',
+  //},
 ]
 
 
