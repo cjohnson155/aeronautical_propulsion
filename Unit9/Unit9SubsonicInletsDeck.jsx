@@ -10,7 +10,7 @@ export const meta = {
 
 export const slides = [
   { type: 'overview', sectionNumber: 'Unit 9 · Inlets', heading: 'Subsonic and Supersonic Inlets', intro: 'Both inlet types must deliver usable flow to the engine, but their geometry and dominant flow-control problem are different.', steps: 2 },
-  { type: 'stations', sectionNumber: 'Section 1 · Stations', heading: 'Station Numbering for This Unit', intro: 'Two different numbering habits collide in this material. Fix them now so the metrics on the next slides are unambiguous.', steps: 2 },
+  { type: 'stations', sectionNumber: 'Section 1 · Stations', heading: 'Station Numbering for This Unit', intro: 'One station scheme covers the whole unit: 0 free stream, 1 highlight, th throat, 2 fan face. Every metric on the following slides is written against it.', steps: 2 },
   { type: 'objectives', sectionNumber: 'Section 1 · 1.1', heading: 'What a Subsonic Inlet Must Do', intro: 'A practical inlet is judged by aerodynamic performance, installation effects, noise, and its ability to remain serviceable.', steps: 3 },
   { type: 'drivers', sectionNumber: 'Section 1 · 1.2', heading: 'What Governs Internal Performance?', intro: 'The internal flow follows diffuser physics. Area ratio alone is not enough: length, blockage, contour, and centerline shape determine whether the pressure rise is usable.', steps: 3 },
   { type: 'definitions', sectionNumber: 'Section 1 · 1.3', heading: 'Three Definitions to Keep Straight', intro: 'Distortion, the boundary layer, and the capture streamtube connect inlet geometry to what the fan or compressor actually receives.', steps: 3 },
@@ -19,7 +19,8 @@ export const slides = [
   { type: 'geometries', sectionNumber: 'Section 2 · 2.1', heading: 'Common Subsonic Diffuser Geometries', intro: 'Subsonic diffusion requires increasing area. Cross-section geometry and centerline curvature both affect the boundary layers.', steps: 4 },
   { type: 'recovery', sectionNumber: 'Section 2 · 2.2', heading: 'Ideal Static-Pressure Recovery vs. Area Ratio', intro: 'The ideal incompressible relation shows strong early gains and rapidly diminishing returns. It is a duct-geometry limit, not a total-pressure recovery.', steps: 3 },
   { type: 'gradient', sectionNumber: 'Section 2 · 2.3', heading: 'Why a Larger Area Ratio Can Trigger Separation', intro: 'For a fixed diffuser length, recovering more pressure means imposing a steeper adverse pressure gradient on the same boundary layer.', steps: 3 },
-  { type: 'stall', sectionNumber: 'Section 2 · 2.4', heading: 'Four Diffuser-Stall Regimes', intro: 'Regimes are a map in divergence angle 2θ and nondimensional length L/W₁ - not angle alone. Along a path of increasing 2θ, a local recirculation bubble grows into a fully developed stall and then jet flow.', steps: 4 },
+  { type: 'stall', sectionNumber: 'Section 2 · 2.4', heading: 'Four Diffuser-Stall Regimes', intro: 'Regimes are a map in divergence angle 2θ and nondimensional length L/W_th - not angle alone. Along a path of increasing 2θ, a local recirculation bubble grows into a fully developed stall and then jet flow.', steps: 4 },
+  { type: 'distortion', sectionNumber: 'Section 2 · 2.5', heading: 'What Separation Does at the Fan Face', intro: 'Stall inside the diffuser does not stay inside the diffuser. The low-momentum core convects to station 2 and becomes a total-pressure distortion the compressor has to swallow once per revolution.', steps: 3 },
   { type: 'capture', sectionNumber: 'Section 3 · 3.1', heading: 'The Capture Streamtube and External Diffusion', intro: 'The capture streamtube is bounded by the outermost streamlines that are ultimately ingested by the engine.', steps: 2 },
   { type: 'captureDerivation', sectionNumber: 'Section 3 · 3.2', heading: 'Capture-Area Relation: Derivation', intro: 'Start with continuity, then use isentropic density and temperature relations to express velocity and density in terms of Mach number.', steps: 4 },
   { type: 'captureResult', sectionNumber: 'Section 3 · 3.3', heading: 'Capture-Area Relation: Final Form', intro: 'For isentropic external diffusion, the area ratio is controlled by the free-stream and inlet-lip Mach numbers.', steps: 1 },
@@ -27,8 +28,9 @@ export const slides = [
   { type: 'lip', sectionNumber: 'Section 3 · 3.5', heading: 'Lip Contraction and Throat Mach Number', intro: 'The ratio of inlet-lip area to throat area controls how strongly subsonic flow accelerates around the convex inner lip.', steps: 2 },
   { type: 'external', sectionNumber: 'Section 4 · 4.1', heading: 'Flow Splits at the Highlight', intro: 'At the lip highlight, one branch goes over the nacelle and one follows the inner contour into the inlet.', steps: 2 },
   { type: 'spillageMechanism', sectionNumber: 'Section 4 · 4.2', heading: 'Why Spillage Happens: Demand vs. Capture Area', intro: 'A1 is fixed by geometry. A0 is not — it is whatever mass conservation requires once the engine\u2019s demanded flow is set. Spillage is what happens when those two stop matching.', steps: 2 },
-  { type: 'backpressure', sectionNumber: 'Section 4 · 4.3', heading: 'How Compressor Speed Sets the Back Pressure', intro: 'Rotor speed sets a corrected-flow demand at a fixed flow area. That fixes the Mach number and static pressure at the fan face — the boundary condition the entire diffuser responds to.', steps: 2 },
-  { type: 'forces', sectionNumber: 'Section 4 · 4.4', heading: 'Nacelle Pressure Forces and Lip Thrust', intro: 'The nonuniform pressure field around the lip produces an axial force that partially offsets additive drag. Getting the sign convention and the control surface right is most of the work.', steps: 2 },
+  { type: 'backpressure', sectionNumber: 'Section 4 · 4.3', heading: 'How Compressor Speed Sets the Back Pressure', intro: 'Rotor speed sets a corrected-flow demand at a fixed flow area. That fixes the Mach number and static pressure at the fan face — the boundary condition the entire diffuser responds to.', steps: 3 },
+  { type: 'operatingpoint', sectionNumber: 'Section 4 · 4.4', heading: 'Finding the Operating Point in CFD', intro: 'You cannot type the demanded mass flow into a subsonic solution and also set the pressure. You impose one, the flow delivers the other, and you iterate until the delivered value matches what the engine wants.', steps: 3 },
+  { type: 'forces', sectionNumber: 'Section 4 · 4.5', heading: 'Nacelle Pressure Forces and Lip Thrust', intro: 'The nonuniform pressure field around the lip produces an axial force that partially offsets additive drag. Getting the sign convention and the control surface right is most of the work.', steps: 2 },
   { type: 'summary', sectionNumber: 'Unit 9 · Summary', heading: 'Key Takeaways', intro: 'The useful design picture is a balance among pressure recovery, attachment, mass flow, and installed drag.', steps: 1 },
 ]
 
@@ -81,27 +83,52 @@ function ArrowDefs({ id = 'arrow' }) {
 
 function InletComparisonFigure({ revealed }) {
   return (
-    <svg viewBox="0 0 760 240" className="wide-svg" aria-label="Subsonic and supersonic inlet geometry comparison">
+    <svg viewBox="0 0 760 255" className="wide-svg" aria-label="Subsonic and supersonic inlet geometry comparison">
       <ArrowDefs id="cmp-arrow" />
       <text x="185" y="28" className="svg-title" textAnchor="middle">Subsonic</text>
-      <text x="575" y="28" className="svg-title" textAnchor="middle">Supersonic</text>
+      <text x="575" y="28" className="svg-title" textAnchor="middle">Supersonic — external compression</text>
 
       <g className={dimClass(revealed, 1)}>
-        <path d="M45 92 Q75 58 118 65 L320 42 L320 198 L118 175 Q75 182 45 148 Z" className="duct-fill" />
-        <path d="M45 92 Q75 58 118 65 L320 42 M45 148 Q75 182 118 175 L320 198" className="duct-line" />
-        <path d="M82 120 C145 120 225 111 302 86" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
-        <path d="M82 120 C145 120 225 129 302 154" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
-        <circle cx="49" cy="120" r="29" className="lip-round" />
-        <text x="185" y="222" className="svg-note" textAnchor="middle">rounded lip · increasing area</text>
+        {/* Internal flow path: highlight -> CONTRACTION to throat -> diffusion. */}
+        <path d="M72 76 C86 80 118 88 140 88 C210 88 270 74 320 64 L320 176 C270 166 210 152 140 152 C118 152 86 160 72 164 Z" className="duct-fill" />
+        <path d="M72 76 C86 80 118 88 140 88 C210 88 270 74 320 64" className="inner-line" />
+        <path d="M72 164 C86 160 118 152 140 152 C210 152 270 166 320 176" className="inner-line" />
+        {/* Outer cowl leaves the SAME highlight point and turns outward. */}
+        <path d="M72 76 C74 62 108 50 150 50 C230 50 285 52 320 54" className="nacelle-line" />
+        <path d="M72 164 C74 178 108 190 150 190 C230 190 285 188 320 186" className="nacelle-line" />
+        <circle cx="72" cy="76" r="6" className="lip-round" />
+        <circle cx="72" cy="164" r="6" className="lip-round" />
+        <line x1="140" y1="88" x2="140" y2="152" className="measure accent-stroke" />
+        <text x="140" y="106" className="svg-note accent-text" textAnchor="middle">throat</text>
+        {/* Captured streamlines enter from the free stream; one spills over the cowl. */}
+        <path d="M25 102 C48 102 62 96 78 92 C110 96 200 92 300 80" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
+        <path d="M25 138 C48 138 62 144 78 148 C110 144 200 148 300 160" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
+        <path d="M25 80 C48 80 58 74 70 66 C112 36 220 32 300 36" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
+        <text x="185" y="242" className="svg-note" textAnchor="middle">rounded lip · contracts to a throat · then diffuses</text>
       </g>
 
       <g className={dimClass(revealed, 2)}>
-        <path d="M430 72 L480 114 L714 98 M430 168 L480 126 L714 142" className="duct-line" />
-        <path d="M433 120 L480 114 L630 103" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
-        <path d="M433 120 L480 126 L630 137" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
-        <path d="M490 114 L513 126 L536 114 L559 126 L582 114" className="shock-line" />
-        <path d="M490 126 L513 114 L536 126 L559 114 L582 126" className="shock-line" />
-        <text x="575" y="222" className="svg-note" textAnchor="middle">sharp lip · variable area · shock train</text>
+        {/* External compression: two ramps ahead of the cowl, oblique shocks focused
+            on the lip (shock-on-lip), terminal normal shock just inside. */}
+        <path d="M628 112 C660 106 700 102 728 100 L728 156 L628 158 Z" className="duct-fill" />
+        <path d="M430 200 L545 182 L628 158 L728 156" className="duct-line" />
+        <path d="M628 112 C660 106 700 102 728 100" className="inner-line" />
+        <path d="M628 112 C634 96 660 88 700 86 L728 86" className="nacelle-line" />
+        <path d="M430 200 L628 112" className="shock-line" />
+        <path d="M545 182 L628 112" className="shock-line" />
+        <path d="M628 112 L668 84" className="shock-line" />
+        <path d="M636 116 L634 157" className="shock-line" />
+        <path d="M400 172 L493 172 L572 160 L628 142 L690 141 L724 140" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
+        <path d="M400 148 L547 148 L594 141 L628 130 L690 129 L724 128" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
+        <path d="M400 78 L620 78 L668 66 L724 62" className="flow-line" markerEnd="url(#cmp-arrow-small)" />
+        <circle cx="628" cy="112" r="5" className="mark warm-fill" />
+        <path d="M470 128 L518 158" className="callout-arrow" />
+        <text x="466" y="124" className="svg-note warm" textAnchor="end">oblique shocks</text>
+        <text x="600" y="100" className="svg-note warm" textAnchor="end">shock-on-lip</text>
+        <path d="M676 180 L640 160" className="callout-arrow" />
+        <text x="688" y="188" className="svg-note warm" textAnchor="middle">terminal normal shock</text>
+        <text x="480" y="216" className="svg-note" textAnchor="middle">compression ramps</text>
+        <text x="575" y="242" className="svg-note" textAnchor="middle">sharp lip · compression happens outside the cowl · subsonic diffuser aft of the throat</text>
       </g>
     </svg>
   )
@@ -130,12 +157,14 @@ function DiffuserIcon({ kind, label, active = true }) {
           <ellipse cx="190" cy="60" rx="10" ry="25" className="hub" />
           <ellipse cx="34" cy="60" rx="6" ry="10" className="hub" />
           <path d="M34 36 L190 17 M34 84 L190 103 M34 50 L190 35 M34 70 L190 85" className="duct-line" />
+          <line x1="40" y1="44" x2="176" y2="30" className="flow-line" markerEnd={'url(#d-' + kind + '-small)'} />
         </>}
         {kind === 'transition' && <>
           <rect x="18" y="32" width="32" height="56" rx="2" className="duct-fill" />
           <ellipse cx="190" cy="60" rx="22" ry="42" className="duct-fill" />
           <path d="M50 32 C96 20 133 24 190 18 M50 88 C96 100 133 96 190 102" className="duct-line" />
           <path d="M50 32 C112 54 132 46 190 18 M50 88 C112 66 132 74 190 102" className="soft-line" />
+          <line x1="40" y1="60" x2="176" y2="60" className="flow-line" markerEnd={'url(#d-' + kind + '-small)'} />
         </>}
       </svg>
       <div className="mini-label">{label}</div>
@@ -155,16 +184,19 @@ function GeometryParametersFigure() {
       <text x="225" y="18" className="svg-label" textAnchor="middle">n · axial length</text>
       <line x1="70" y1="67" x2="386" y2="22" className="measure warm" markerEnd="url(#geo-arrow-small)" />
       <text x="230" y="52" className="svg-label warm" textAnchor="middle">L · wall length</text>
-      <path d="M105 95 A45 45 0 0 0 103 68" className="angle" />
-      <text x="124" y="78" className="svg-label warm">φ<tspan baselineShift="sub" fontSize="9">w</tspan></text>
-      <text x="18" y="74" className="svg-note">V₁, M₁</text>
-      <text x="18" y="91" className="svg-note">p₁, T₁</text>
-      <text x="18" y="108" className="svg-note">A₁</text>
+      {/* φ_w is measured between the wall and a line parallel to the centerline,
+          with its vertex on the wall at the inlet station. */}
+      <line x1="60" y1="75" x2="175" y2="75" className="axis-dash" />
+      <path d="M150 75 A90 90 0 0 0 149 62" className="angle" />
+      <text x="156" y="70" className="svg-label warm">φ<tspan baselineShift="sub" fontSize="9">w</tspan></text>
+      <text x="18" y="74" className="svg-note">V<tspan baselineShift="sub" fontSize="9">th</tspan>, M<tspan baselineShift="sub" fontSize="9">th</tspan></text>
+      <text x="18" y="91" className="svg-note">p<tspan baselineShift="sub" fontSize="9">th</tspan>, T<tspan baselineShift="sub" fontSize="9">th</tspan></text>
+      <text x="18" y="108" className="svg-note">A<tspan baselineShift="sub" fontSize="9">th</tspan></text>
       <text x="410" y="64" className="svg-note">V₂, M₂</text>
       <text x="410" y="81" className="svg-note">p₂, T₂</text>
       <text x="410" y="98" className="svg-note">A₂</text>
-      <text x="480" y="128" className="svg-formula">AR = A₂/A₁</text>
-      <text x="18" y="125" className="svg-note">R₁ (inlet radius)</text>
+      <text x="480" y="128" className="svg-formula">AR = A₂/A<tspan baselineShift="sub" fontSize="9">th</tspan></text>
+      <text x="18" y="125" className="svg-note">R<tspan baselineShift="sub" fontSize="9">th</tspan> (throat radius)</text>
       <text x="480" y="155" className="svg-note" textAnchor="middle">geometry + centerline curvature</text>
     </svg>
   )
@@ -192,7 +224,7 @@ function RecoveryPlot({ revealed }) {
         <text x={fx(v)} y={y0 + h + 18} className="tick-label" textAnchor="middle">{v}</text>
       </g>)}
       <text x="14" y="35" className="svg-label">C<tspan baselineShift="sub" fontSize="9">PR,ideal</tspan></text>
-      <text x={x0 + w} y={y0 + h + 36} className="svg-label" textAnchor="end">Area ratio A₂/A₁</text>
+      <text x={x0 + w} y={y0 + h + 36} className="svg-label" textAnchor="end">Area ratio A₂/A<tspan baselineShift="sub" fontSize="9">th</tspan></text>
       <path d={path} className="chart-line" />
       <line x1={x0} y1={fy(1)} x2={x0 + w} y2={fy(1)} className="guide" />
       <g className={dimClass(revealed, 1)}>
@@ -221,11 +253,10 @@ function AreaRatioSketches({ revealed }) {
         <div key={ar} className={dimClass(revealed, ar)}>
           <svg viewBox="0 0 170 92" className="ratio-svg">
             <ArrowDefs id={'ar-' + ar} />
-            {ar === 1 ? <>
-              <path d="M20 28 L148 28 M20 64 L148 64" className="duct-line" />
-            </> : <>
-              <path d={'M20 37 L148 ' + (ar === 2 ? 18 : 7) + ' M20 55 L148 ' + (ar === 2 ? 74 : 85)} className="duct-line" />
-            </>}
+            {/* Common inlet half-height of 10 px; exit half-height = 10·AR so the
+                drawn area ratio matches the label. */}
+            <path d={'M20 36 L148 ' + (46 - 10 * ar) + ' M20 56 L148 ' + (46 + 10 * ar)} className="duct-line" />
+            <line x1="20" y1="36" x2="20" y2="56" className="measure" />
             <line x1="28" y1="46" x2="136" y2="46" className="flow-line" markerEnd={'url(#ar-' + ar + '-small)'} />
           </svg>
           <div className="ratio-label">AR = {ar}</div>
@@ -264,13 +295,27 @@ function PressureGradientPlot({ revealed }) {
   )
 }
 
+// Velocity profiles are generated from the Pohlhausen quartic family
+//   u/U = F(η) + (Λ/6)·G(η),   F = 2η − 2η³ + η⁴,   G = η(1−η)³
+// so the wall behaviour is exact rather than eyeballed:
+//   Λ = −12  ⇒  (∂u/∂y)_w = 0, the definition of incipient separation
+//   Λ < −12  ⇒  negative wall shear, i.e. reversed flow
+// Screen mapping: wall at y = 84, BL edge at y = 18, free-stream arrow = 60 px.
+const BL_WALL = 84, BL_EDGE = 18, BL_U = 60, BL_X0 = 22
+const blQuartic = (lam) => (e) => 2 * e - 2 * e ** 3 + e ** 4 + (lam / 6) * e * (1 - e) ** 3
+const blParabolic = (e) => 2 * e - e * e
+const blX = (f, e) => BL_X0 + BL_U * f(e)
+const blEta = (y) => (BL_WALL - y) / (BL_WALL - BL_EDGE)
+const blPath = (f) => Array.from({ length: 41 }, (_, i) => {
+  const e = i / 40
+  return (i ? 'L' : 'M') + blX(f, e).toFixed(1) + ' ' + (BL_WALL - (BL_WALL - BL_EDGE) * e).toFixed(1)
+}).join(' ')
+
 function BoundaryLayerStages({ revealed }) {
-  // y = 84 is the WALL. Smaller y = farther from the wall.
-  // Arrow length must therefore DECREASE as y increases (no-slip at the wall).
   const stages = [
-    { title: '1 · Healthy attached BL', profile: 'M22 82 Q34 24 82 18', ends: [60, 48, 38, 30], reverseAt: [] },
-    { title: '2 · Separation begins', profile: 'M22 82 Q24 42 82 22', ends: [58, 41, 30, 25], reverseAt: [] },
-    { title: '3 · Flow reversal', profile: 'M22 82 Q4 58 22 50 Q48 30 82 22', ends: [56, 40, 13, 15], reverseAt: [2, 3] },
+    { title: '1 · Healthy attached BL', f: blParabolic, ys: [28, 42, 56, 70], tau: '>' },
+    { title: '2 · Separation begins', f: blQuartic(-12), ys: [28, 42, 56, 70], tau: '=' },
+    { title: '3 · Flow reversal', f: blQuartic(-30), ys: [28, 42, 56, 70, 78], tau: '<' },
   ]
   return (
     <div className="bl-row">
@@ -278,12 +323,13 @@ function BoundaryLayerStages({ revealed }) {
         <svg viewBox="0 0 115 100" className="bl-svg">
           <ArrowDefs id={'bl-' + i} />
           <line x1="22" y1="12" x2="22" y2="84" className="axis-dash" />
-          <line x1="14" y1="84" x2="105" y2="84" className="wall" />
-          <path d={s.profile} className="profile-line" />
-          {[28, 42, 56, 70].map((y, j) => {
-            const rev = s.reverseAt.includes(j)
-            return <line key={y} x1="22" y1={y} x2={s.ends[j]} y2={y} className={rev ? 'reverse-arrow' : 'velocity-arrow'} markerEnd={'url(#bl-' + i + '-small)'} />
+          <line x1="8" y1="84" x2="105" y2="84" className="wall" />
+          <path d={blPath(s.f)} className="profile-line" />
+          {s.ys.map((y) => {
+            const x = blX(s.f, blEta(y))
+            return <line key={y} x1="22" y1={y} x2={x.toFixed(1)} y2={y} className={x < BL_X0 ? 'reverse-arrow' : 'velocity-arrow'} markerEnd={'url(#bl-' + i + '-small)'} />
           })}
+          <text x="6" y="96" className="tick-label">τ<tspan baselineShift="sub" fontSize="7">w</tspan> {s.tau} 0</text>
           <text x="105" y="96" className="tick-label" textAnchor="end">wall</text>
         </svg>
         <div className="mini-label">{s.title}</div>
@@ -292,39 +338,126 @@ function BoundaryLayerStages({ revealed }) {
   )
 }
 
+function FanFaceDistortionFigure({ revealed }) {
+  const R = 78, HUB = 24
+  // Sector helper: screen angles, y down. 90° is the bottom of the face.
+  const pt = (cx, cy, r, deg) => [cx + r * Math.cos(deg * Math.PI / 180), cy + r * Math.sin(deg * Math.PI / 180)]
+  const wedge = (cx, cy, r0, r1, a0, a1) => {
+    const [x0, y0] = pt(cx, cy, r0, a0), [x1, y1] = pt(cx, cy, r1, a0)
+    const [x2, y2] = pt(cx, cy, r1, a1), [x3, y3] = pt(cx, cy, r0, a1)
+    return `M${x0.toFixed(1)} ${y0.toFixed(1)} L${x1.toFixed(1)} ${y1.toFixed(1)} A${r1} ${r1} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)} L${x3.toFixed(1)} ${y3.toFixed(1)} A${r0} ${r0} 0 0 0 ${x0.toFixed(1)} ${y0.toFixed(1)} Z`
+  }
+  const [q1x, q1y] = pt(430, 140, R, 60)
+  const [q2x, q2y] = pt(430, 140, R, 120)
+  const [h1x, h1y] = pt(430, 140, HUB, 60)
+  const [h2x, h2y] = pt(430, 140, HUB, 120)
+  return (
+    <svg viewBox="0 0 660 300" className="wide-svg" aria-label="Fan-face total-pressure pattern, clean versus distorted">
+      <ArrowDefs id="dist-arrow" />
+      {/* Clean face */}
+      <circle cx="160" cy="140" r={R} className="face-clean" />
+      <circle cx="160" cy="140" r={R * 0.72} className="face-ring" />
+      <circle cx="160" cy="140" r={R * 0.46} className="face-ring" />
+      <circle cx="160" cy="140" r={HUB} className="face-hub" />
+      <text x="160" y="248" className="svg-title" textAnchor="middle">Attached diffuser</text>
+      <text x="160" y="266" className="svg-note accent-text" textAnchor="middle">p<tspan baselineShift="sub" fontSize="9">t2</tspan> uniform · DC(60) ≈ 0</text>
+
+      {/* Distorted face */}
+      <g className={dimClass(revealed, 1)}>
+        <circle cx="430" cy="140" r={R} className="face-clean" />
+        <path d={wedge(430, 140, HUB, R, 34, 146)} className="face-low" />
+        <path d={wedge(430, 140, R * 0.54, R, 48, 132)} className="face-low deep" />
+        <circle cx="430" cy="140" r={HUB} className="face-hub" />
+        <text x="430" y="248" className="svg-title" textAnchor="middle">Separated diffuser wall</text>
+        <text x="430" y="266" className="svg-note" textAnchor="middle">low-p<tspan baselineShift="sub" fontSize="9">t</tspan> patch convects to the face</text>
+      </g>
+
+      {/* Worst 60-degree sector used by DC(60) */}
+      <g className={dimClass(revealed, 2)}>
+        <line x1={h1x.toFixed(1)} y1={h1y.toFixed(1)} x2={q1x.toFixed(1)} y2={q1y.toFixed(1)} className="sector-line" />
+        <line x1={h2x.toFixed(1)} y1={h2y.toFixed(1)} x2={q2x.toFixed(1)} y2={q2y.toFixed(1)} className="sector-line" />
+        <path d={`M${q1x.toFixed(1)} ${q1y.toFixed(1)} A${R} ${R} 0 0 1 ${q2x.toFixed(1)} ${q2y.toFixed(1)}`} className="sector-line" />
+        <path d="M470 214 L520 196" className="callout-arrow" />
+        <text x="524" y="194" className="svg-note warm">worst 60° sector</text>
+      </g>
+
+      {/* Where it comes from */}
+      <path d="M256 140 L336 140" className="flow-line" markerEnd="url(#dist-arrow)" />
+      <text x="296" y="128" className="svg-note" textAnchor="middle">separation</text>
+      <text x="330" y="290" className="svg-note" textAnchor="middle">looking downstream at station 2 · hub in the centre</text>
+    </svg>
+  )
+}
+
+function DistortionSlide({ slide, revealed }) {
+  return <SlideFrame slide={slide}>
+    <div className="plot-layout balanced">
+      <Card title="Total-pressure pattern at station 2" tone={ACCENT} className="plot-card">
+        <FanFaceDistortionFigure revealed={revealed} />
+      </Card>
+      <div className="plot-side">
+        <Card title="How it is measured" tone={VIOLET} className={dimClass(revealed, 2)}>
+          <Equation accent>DC(60) = (p̄<sub>t2</sub> − p<sub>t,60,min</sub>) / q̄₂</Equation>
+          <p>The deficit in the <b>worst 60° sector</b>, normalised by mean dynamic head at the face. 60° is chosen because it is roughly the sector a rotor blade crosses before it can recover.</p>
+          <ul className="clean-list compact">
+            <li>Typical fan limit: <b>DC(60) ≲ 0.3–0.4</b></li>
+            <li>Standard rake layout: <b>SAE ARP1420</b>, 8 rakes × 5 rings</li>
+            <li>Radial and circumferential distortion are reported separately</li>
+          </ul>
+        </Card>
+        <Card title="Why the compressor cares" tone={RED} className={dimClass(revealed, 3)}>
+          <p>A blade entering the low-p<sub>t</sub> patch meets <b>reduced axial velocity at unchanged wheel speed</b>, so its incidence jumps. The blade row sees that swing <b>once per revolution</b>.</p>
+          <ul className="clean-list compact">
+            <li><b>Surge margin</b> falls — the whole map shifts down toward the surge line</li>
+            <li><b>Forced response / HCF</b> from once-per-rev excitation</li>
+            <li><b>Dynamic</b> distortion, not just the steady mean, sets the limit — a separated diffuser is unsteady by definition</li>
+          </ul>
+        </Card>
+      </div>
+    </div>
+    <div className="callout wide-callout">
+      <span className="eyebrow">The link back to 2.4</span>
+      This is why the stall regimes matter. A <b>transitory</b> stall bubble that reattaches inside the duct may never reach station 2; a <b>fully developed</b> stall does, and delivers its low-momentum core straight to the fan. Worst case is <b>takeoff and crosswind</b>, where the lip is already at high MFR — the same condition that drives the lip-separation case in Section 4.
+    </div>
+  </SlideFrame>
+}
+
 function StallSketch({ stage, revealed }) {
   const active = revealed >= stage
   const titles = ['No stall', 'Transitory stall', '2D fully developed stall', 'Jet flow']
   const notes = [
-    'Small φ · fully attached exit flow · steady internal flow',
-    'Larger φ · local detached patches reattach · internal unsteadiness',
-    'Still larger φ · stall patch reaches exit · fan sees swirling flow',
-    'Largest φ · a large stable vortex surrounds a central jet',
+    'Small 2θ · fully attached exit flow · steady internal flow',
+    'Larger 2θ · local detached patches reattach · internal unsteadiness',
+    'Still larger 2θ · stall patch reaches exit · fan sees swirling flow',
+    'Largest 2θ · a large stable vortex surrounds a central jet',
   ]
   return (
     <Card title={titles[stage - 1]} className={active ? 'stall-card reveal on' : 'stall-card reveal'} tone={[GREEN, GOLD, RED, VIOLET][stage - 1]}>
       <svg viewBox="0 0 300 150" className="stall-svg">
         <ArrowDefs id={'stall-' + stage} />
-        <path d="M24 64 L266 25 M24 86 L266 125" className="duct-line" />
-        {stage === 1 && [0, 1, 2, 3].map(i => <path key={i} d={'M34 ' + (70 + i * 4) + ' Q150 ' + (56 + i * 10) + ' 254 ' + (38 + i * 25)} className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />)}
+        {/* The regimes are defined by divergence angle, so the wall angle must
+            actually grow from panel to panel. Inlet width is held fixed. */}
+        <path d={'M24 64 L266 ' + (75 - [24, 38, 52, 66][stage - 1]) + ' M24 86 L266 ' + (75 + [24, 38, 52, 66][stage - 1])} className="duct-line" />
+        <line x1="24" y1="75" x2="266" y2="75" className="axis-dash" />
+        {stage === 1 && [0, 1, 2, 3].map(i => <path key={i} d={'M34 ' + (66 + i * 6) + ' Q150 ' + (70 + i * 6) + ' 254 ' + (57 + i * 12)} className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />)}
         {stage === 2 && <>
-          <path d="M34 70 Q150 52 254 40" className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />
-          <path d="M34 79 Q100 75 137 93 Q170 114 238 112" className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />
-          <path d="M128 94 C158 77 190 87 181 106 C169 126 135 119 128 94" className="vortex" />
-          <text x="154" y="136" className="svg-note warm" textAnchor="middle">stall bubble</text>
+          <path d="M34 68 Q150 56 254 44" className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />
+          <path d="M34 82 Q100 80 137 96 Q170 118 238 118" className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />
+          <path d="M128 98 C158 81 190 91 181 110 C169 130 135 123 128 98" className="vortex" />
+          <text x="154" y="142" className="svg-note warm" textAnchor="middle">stall bubble</text>
         </>}
         {stage === 3 && <>
-          <path d="M34 72 Q146 46 254 40" className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />
-          <path d="M34 78 Q110 66 254 64" className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />
-          {[0, 1, 2].map(i => <path key={i} d={'M105 ' + (92 + i * 8) + ' C150 ' + (68 + i * 7) + ' 220 ' + (80 + i * 4) + ' 242 ' + (108 + i * 3)} className="vortex" />)}
+          <path d="M34 70 Q146 44 254 34" className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />
+          <path d="M34 80 Q110 68 254 62" className="flow-line" markerEnd={'url(#stall-' + stage + '-small)'} />
+          {[0, 1, 2].map(i => <path key={i} d={'M105 ' + (96 + i * 8) + ' C150 ' + (72 + i * 7) + ' 220 ' + (84 + i * 4) + ' 242 ' + (112 + i * 3)} className="vortex" />)}
         </>}
         {stage === 4 && <>
-          <path d="M34 74 Q145 60 254 66" className="jet-line" markerEnd={'url(#stall-' + stage + ')'} />
-          <path d="M64 68 C108 30 224 38 241 74 C248 101 215 115 171 108" className="vortex" markerEnd={'url(#stall-' + stage + '-small)'} />
-          <path d="M65 84 C112 126 220 122 242 86" className="vortex" markerEnd={'url(#stall-' + stage + '-small)'} />
-          <text x="164" y="58" className="svg-note violet" textAnchor="middle">central jet</text>
+          <path d="M34 74 Q145 62 254 70" className="jet-line" markerEnd={'url(#stall-' + stage + ')'} />
+          <path d="M64 68 C108 26 224 34 241 72 C248 100 215 114 171 106" className="vortex" markerEnd={'url(#stall-' + stage + '-small)'} />
+          <path d="M65 84 C112 130 220 126 242 88" className="vortex" markerEnd={'url(#stall-' + stage + '-small)'} />
+          <text x="164" y="52" className="svg-note violet" textAnchor="middle">central jet</text>
         </>}
-        <text x="50" y="58" className="svg-label warm">φ</text>
+        <text x="44" y="62" className="svg-label warm">2θ</text>
       </svg>
       <p className="small-copy">{notes[stage - 1]}</p>
     </Card>
@@ -338,12 +471,14 @@ function SDuctFigure() {
       <path d="M28 40 C150 38 155 108 292 106 C385 104 400 84 492 82" className="duct-line thick" />
       <path d="M28 84 C150 86 155 152 292 154 C385 156 400 152 492 154" className="duct-line thick" />
       <path d="M28 62 C150 62 155 130 292 130 C385 130 400 118 484 118" className="axis-dash accent-stroke" markerEnd="url(#sduct-arrow)" />
+      <path d="M36 52 C150 50 158 120 292 118 C385 116 400 98 486 96" className="flow-line" markerEnd="url(#sduct-arrow-small)" />
+      <path d="M36 74 C150 76 158 142 292 142 C385 144 400 138 486 140" className="flow-line" markerEnd="url(#sduct-arrow-small)" />
       <ellipse cx="28" cy="62" rx="8" ry="22" className="duct-fill" />
       <ellipse cx="492" cy="118" rx="9" ry="36" className="fan" />
       <line x1="46" y1="41" x2="46" y2="83" className="measure accent-stroke" />
       <line x1="474" y1="83" x2="474" y2="153" className="measure positive" />
-      <text x="38" y="66" className="svg-note accent-text" textAnchor="end">A₁</text>
-      <text x="466" y="142" className="svg-note positive" textAnchor="end">A₂ &gt; A₁</text>
+      <text x="38" y="66" className="svg-note accent-text" textAnchor="end">A<tspan baselineShift="sub" fontSize="9">th</tspan></text>
+      <text x="466" y="142" className="svg-note positive" textAnchor="end">A₂ &gt; A<tspan baselineShift="sub" fontSize="9">th</tspan></text>
       <text x="262" y="20" className="svg-title" textAnchor="middle">diffusing S-duct: offset centerline + increasing area</text>
       <text x="176" y="100" className="svg-note accent-text">centerline</text>
     </svg>
@@ -356,36 +491,40 @@ function CaptureStreamtubeFigure({ revealed = 2 }) {
       <ArrowDefs id="cap-arrow" />
       <line x1="30" y1="160" x2="720" y2="160" className="axis-dash" />
       <g className={dimClass(revealed, 1)}>
-        {/* streamtube EXPANDS from A0 to A1: external diffusion, A0/A1 = 0.75 */}
-        <path d="M30 106 C120 106 190 100 252 88" className="capture-boundary" />
-        <path d="M30 214 C120 214 190 220 252 232" className="capture-boundary" />
-        {/* two separate lip curls - the duct centerline stays open */}
-        <path d="M252 88 Q226 96 248 104" className="lip-shape" />
-        <path d="M252 232 Q226 224 248 216" className="lip-shape" />
-        <path d="M252 88 C360 62 540 58 720 70" className="nacelle-line" />
-        <path d="M252 232 C360 258 540 262 720 250" className="nacelle-line" />
-        {/* internal duct: throat near x=340, then DIVERGES to the fan face */}
-        <path d="M248 104 C300 108 300 104 340 104 C460 100 560 95 650 90" className="inner-line" />
-        <path d="M248 216 C300 212 300 216 340 216 C460 220 560 225 650 230" className="inner-line" />
-        {[0, 1, 2].map(i => <path key={i} d={'M36 ' + (126 + i * 34) + ' C130 ' + (126 + i * 34) + ' 190 ' + (124 + i * 36) + ' 258 ' + (122 + i * 38) + ' C400 ' + (124 + i * 36) + ' 500 ' + (120 + i * 40) + ' 620 ' + (114 + i * 46)} className="flow-line" markerEnd="url(#cap-arrow-small)" />)}
-        <text x="100" y="76" className="svg-label accent-text">captured streamtube</text>
-        <text x="176" y="256" className="svg-note" textAnchor="middle">outermost streamlines eventually ingested</text>
+        {/* CRUISE: A0 < A1, so the captured streamtube EXPANDS on the way to the
+            highlight — that expansion IS the external diffusion. */}
+        <path d="M30 112 C120 112 190 100 252 88" className="capture-boundary" />
+        <path d="M30 208 C120 208 190 220 252 232" className="capture-boundary" />
+        {/* Highlight is the forwardmost point: inner and outer surfaces both start there. */}
+        <path d="M252 88 C254 70 300 58 372 58 C520 58 640 64 720 70" className="nacelle-line" />
+        <path d="M252 232 C254 250 300 262 372 262 C520 262 640 256 720 250" className="nacelle-line" />
+        {/* Internal path: monotonic contraction to the throat at x = 345, then diffusion. */}
+        <path d="M252 88 C272 94 320 105 345 105 C450 105 560 94 650 86" className="inner-line" />
+        <path d="M252 232 C272 226 320 215 345 215 C450 215 560 226 650 234" className="inner-line" />
+        <circle cx="252" cy="88" r="6" className="lip-round" />
+        <circle cx="252" cy="232" r="6" className="lip-round" />
+        {/* Streamlines hold a fixed fraction of the local half-height, so they
+            diverge with the streamtube, converge into the throat, then diverge again. */}
+        <path d="M36 124 C130 124 190 114 252 106 C300 110 320 119 345 119 C450 119 560 110 630 105" className="flow-line" markerEnd="url(#cap-arrow-small)" />
+        <path d="M36 143 C130 143 190 139 252 135 C300 137 320 141 345 141 C450 141 560 137 630 134" className="flow-line" markerEnd="url(#cap-arrow-small)" />
+        <path d="M36 177 C130 177 190 181 252 185 C300 183 320 179 345 179 C450 179 560 183 630 186" className="flow-line" markerEnd="url(#cap-arrow-small)" />
+        <path d="M36 196 C130 196 190 206 252 214 C300 210 320 201 345 201 C450 201 560 210 630 215" className="flow-line" markerEnd="url(#cap-arrow-small)" />
+        <text x="104" y="86" className="svg-label accent-text">captured streamtube</text>
+        <text x="150" y="268" className="svg-note" textAnchor="middle">outermost streamlines eventually ingested</text>
       </g>
       <g className={dimClass(revealed, 2)}>
-        <line x1="62" y1="106" x2="62" y2="214" className="measure accent-stroke" />
+        <line x1="62" y1="112" x2="62" y2="208" className="measure accent-stroke" />
         <line x1="252" y1="88" x2="252" y2="232" className="measure warm" />
-        <line x1="340" y1="104" x2="340" y2="216" className="measure" />
-        <line x1="650" y1="90" x2="650" y2="230" className="measure positive" />
+        <line x1="345" y1="105" x2="345" y2="215" className="measure" />
+        <line x1="650" y1="86" x2="650" y2="234" className="measure positive" />
         <text x="48" y="166" className="svg-formula accent-text" textAnchor="end">A₀</text>
-        <text x="262" y="140" className="svg-formula warm">A₁</text>
-        <text x="350" y="140" className="svg-formula">A<tspan baselineShift="sub" fontSize="10">th</tspan></text>
+        <text x="272" y="126" className="svg-formula warm">A₁</text>
+        <text x="345" y="96" className="svg-formula" textAnchor="middle">A<tspan baselineShift="sub" fontSize="10">th</tspan> · throat</text>
         <text x="664" y="166" className="svg-formula positive">A₂</text>
-        <circle cx="252" cy="88" r="5" className="mark warm-fill" />
-        <path d="M258 84 L300 62" className="callout-arrow" />
-        <text x="304" y="60" className="svg-note warm">highlight</text>
-        <text x="350" y="156" className="svg-note">throat</text>
-        <path d="M656 94 L686 108 L686 212 L656 226 Z" className="fan" />
-        <text x="672" y="196" className="svg-note">fan face</text>
+        <path d="M246 84 L200 62" className="callout-arrow" />
+        <text x="196" y="60" className="svg-note warm" textAnchor="end">highlight</text>
+        <path d="M656 90 L686 102 L686 218 L656 230 Z" className="fan" />
+        <text x="672" y="200" className="svg-note">fan face</text>
       </g>
       <text x="380" y="300" className="svg-note" textAnchor="middle">external diffusion → lip contraction → internal diffusion</text>
     </svg>
@@ -397,27 +536,31 @@ function LipFlowFigure({ revealed = 2 }) {
     <svg viewBox="0 0 650 300" className="wide-svg" aria-label="Flow accelerating around the inlet lip and through the throat">
       <ArrowDefs id="lip-arrow" />
       <line x1="24" y1="150" x2="515" y2="150" className="axis-dash" />
-      <path d="M92 92 Q135 50 192 58 L515 58" className="nacelle-line" />
-      <path d="M92 208 Q135 250 192 242 L515 242" className="nacelle-line" />
-      {/* two separate lip curls */}
-      <path d="M92 92 Q64 98 96 100" className="lip-shape" />
-      <path d="M92 208 Q64 202 96 200" className="lip-shape" />
-      {/* minimum area at x = 230 (throat), then diffusion toward the fan face */}
-      <path d="M96 100 C150 104 195 106 230 106 C320 106 420 99 515 92" className="inner-line" />
-      <path d="M96 200 C150 196 195 194 230 194 C320 194 420 201 515 208" className="inner-line" />
+      {/* Highlight at x = 92 is the forwardmost point; both surfaces start there. */}
+      <path d="M92 92 C94 74 140 60 200 60 L515 58" className="nacelle-line" />
+      <path d="M92 208 C94 226 140 240 200 240 L515 242" className="nacelle-line" />
+      {/* Contraction to the throat at x = 230 (A₁/A_th ≈ 1.3), then diffusion. */}
+      <path d="M92 92 C108 97 200 105 230 105 C320 105 430 98 515 92" className="inner-line" />
+      <path d="M92 208 C108 203 200 195 230 195 C320 195 430 202 515 208" className="inner-line" />
+      <circle cx="92" cy="92" r="6" className="lip-round" />
+      <circle cx="92" cy="208" r="6" className="lip-round" />
       <g className={dimClass(revealed, 1)}>
-        {[0, 1, 2, 3].map(i => <path key={i} d={'M24 ' + [118, 136, 164, 182][i] + ' C66 ' + [118, 136, 164, 182][i] + ' 82 ' + [116, 138, 162, 184][i] + ' 104 ' + [116, 138, 162, 184][i] + ' C200 ' + [120, 140, 160, 180][i] + ' 330 ' + [120, 140, 160, 180][i] + ' 420 ' + [120, 140, 160, 180][i] + ' C450 ' + [120, 140, 160, 180][i] + ' 468 ' + [112, 139, 161, 188][i] + ' 500 ' + [110, 138, 162, 190][i]} className="flow-line" markerEnd="url(#lip-arrow-small)" />)}
-        <text x="24" y="40" className="svg-note warm">flow accelerates around the convex inner lip</text>
-        <circle cx="92" cy="92" r="5" className="mark warm-fill" />
-        <path d="M96 89 L146 70" className="callout-arrow" />
-        <text x="150" y="68" className="svg-note warm">highlight</text>
+        <path d="M24 118 C60 118 76 113 92 109 C150 112 200 118 230 118 C320 118 430 113 500 110" className="flow-line" markerEnd="url(#lip-arrow-small)" />
+        <path d="M24 136 C60 136 76 135 92 133 C150 134 200 136 230 136 C320 136 430 134 500 133" className="flow-line" markerEnd="url(#lip-arrow-small)" />
+        <path d="M24 164 C60 164 76 165 92 167 C150 166 200 164 230 164 C320 164 430 166 500 167" className="flow-line" markerEnd="url(#lip-arrow-small)" />
+        <path d="M24 182 C60 182 76 187 92 191 C150 188 200 181 230 181 C320 181 430 187 500 190" className="flow-line" markerEnd="url(#lip-arrow-small)" />
+        <text x="24" y="40" className="svg-note warm">streamlines converge into the throat → acceleration; then spread → diffusion</text>
+        <path d="M112 102 L144 78" className="callout-arrow" />
+        <text x="148" y="76" className="svg-note warm">suction peak</text>
+        <path d="M92 96 L60 116" className="callout-arrow" />
+        <text x="56" y="128" className="svg-note warm" textAnchor="end">highlight</text>
       </g>
       <g className={dimClass(revealed, 2)}>
         <line x1="92" y1="92" x2="92" y2="208" className="measure warm" />
-        <line x1="230" y1="106" x2="230" y2="194" className="measure accent-stroke" />
-        <text x="76" y="86" className="svg-formula warm" textAnchor="end">A₁</text>
-        <text x="236" y="80" className="svg-formula accent-text">A<tspan baselineShift="sub" fontSize="10">th</tspan></text>
-        <text x="256" y="80" className="svg-note accent-text">throat = minimum area</text>
+        <line x1="230" y1="105" x2="230" y2="195" className="measure accent-stroke" />
+        <text x="84" y="224" className="svg-formula warm" textAnchor="end">A₁</text>
+        <text x="236" y="90" className="svg-formula accent-text">A<tspan baselineShift="sub" fontSize="10">th</tspan></text>
+        <text x="260" y="90" className="svg-note accent-text">throat = minimum area</text>
         <text x="300" y="266" className="svg-note positive" textAnchor="middle">desired M<tspan baselineShift="sub" fontSize="10">max</tspan> &lt; 1 · design mean M̄<tspan baselineShift="sub" fontSize="10">th</tspan> ≤ 0.75</text>
         <text x="300" y="288" className="svg-note" textAnchor="middle">A₁/A<tspan baselineShift="sub" fontSize="10">th</tspan> ≈ 1.3 is the lip-contraction ratio</text>
       </g>
@@ -445,6 +588,66 @@ function PlotAxes({ x0, y0, w, h, xTicks, yTicks, fx, fy, xLabel, yLabel }) {
     <text x={x0 + w} y={y0 + h + 39} className="svg-label" textAnchor="end">{xLabel}</text>
     <text x={14} y={y0 + 8} className="svg-label">{yLabel}</text>
   </>
+}
+
+// Fan-face flow function: for fixed A₂ the corrected mass flow is a single-valued,
+// monotonic function of the static-to-total pressure ratio at the face, up to M₂ = 1.
+const G_EXP = G / (G - 1)
+const machFromPratio = (x) => Math.sqrt((Math.pow(x, -1 / G_EXP) - 1) * 2 / (G - 1))
+const flowFn = (M) => M * Math.pow(1 + (G - 1) / 2 * M * M, -(G + 1) / (2 * (G - 1)))
+const mdotRatio = (x) => flowFn(machFromPratio(x)) / flowFn(1)
+
+function MassFlowIterationFigure({ revealed }) {
+  const x0 = 74, y0 = 18, w = 452, h = 224
+  const XMIN = 0.52, XMAX = 1.0
+  const fx = (x) => x0 + (x - XMIN) / (XMAX - XMIN) * w
+  const fy = (y) => y0 + h - y * h
+  const TARGET = 0.80
+  const curve = Array.from({ length: 97 }, (_, i) => {
+    const x = XMIN + i * (XMAX - XMIN) / 96
+    return (i ? 'L' : 'M') + fx(x).toFixed(1) + ' ' + fy(mdotRatio(x)).toFixed(1)
+  }).join(' ')
+  // Two bracketing guesses, then secant. This is the actual loop, run live.
+  const secant = (a, b) => b + (TARGET - mdotRatio(b)) * (a - b) / (mdotRatio(a) - mdotRatio(b))
+  const x1 = 0.93, x2 = 0.72
+  const x3 = secant(x1, x2), x4 = secant(x2, x3)
+  const its = [x1, x2, x3, x4]
+  return (
+    <svg viewBox="0 0 620 320" className="wide-svg" aria-label="Fan-face mass flow versus imposed back pressure, with secant iterates">
+      <ArrowDefs id="iter-arrow" />
+      <line x1={x0} y1={y0} x2={x0} y2={y0 + h} className="axis" />
+      <line x1={x0} y1={y0 + h} x2={x0 + w + 20} y2={y0 + h} className="axis" />
+      {[0.6, 0.7, 0.8, 0.9, 1.0].map(v => <g key={v}>
+        <line x1={fx(v)} y1={y0 + h} x2={fx(v)} y2={y0 + h + 5} className="tick" />
+        <text x={fx(v)} y={y0 + h + 19} className="tick-label" textAnchor="middle">{v.toFixed(1)}</text>
+      </g>)}
+      {[0, 0.25, 0.5, 0.75, 1.0].map(v => <g key={v}>
+        <line x1={x0 - 5} y1={fy(v)} x2={x0} y2={fy(v)} className="tick" />
+        <text x={x0 - 10} y={fy(v) + 4} className="tick-label" textAnchor="end">{v.toFixed(2)}</text>
+      </g>)}
+      <text x="10" y="32" className="svg-label">ṁ / ṁ<tspan baselineShift="sub" fontSize="9">choke</tspan></text>
+      <text x={x0 + w} y={y0 + h + 38} className="svg-label" textAnchor="end">imposed back pressure p₂ / p<tspan baselineShift="sub" fontSize="9">t2</tspan></text>
+      <path d={curve} className="chart-line" />
+      <text x={fx(0.535)} y={fy(0.45)} className="svg-note">lower p₂ → more flow ·</text>
+      <text x={fx(0.535)} y={fy(0.38)} className="svg-note">monotonic, so it inverts</text>
+
+      <g className={dimClass(revealed, 1)}>
+        <line x1={x0} y1={fy(TARGET)} x2={x0 + w} y2={fy(TARGET)} className="guide positive" />
+        <text x={x0 + 10} y={fy(TARGET) - 9} className="svg-note positive">target ṁ from the cycle deck</text>
+      </g>
+
+      <g className={dimClass(revealed, 2)}>
+        {its.map((x, i) => <g key={i}>
+          <line x1={fx(x)} y1={fy(0)} x2={fx(x)} y2={fy(mdotRatio(x))} className="guide warm" />
+          <circle cx={fx(x)} cy={fy(mdotRatio(x))} r="5" className="mark warm-fill" />
+          <text x={fx(x) + 10} y={fy(mdotRatio(x)) - 6} className="svg-note warm">{i + 1}</text>
+        </g>)}
+        <text x={fx(0.55)} y={fy(0.16)} className="svg-note warm">1, 2 bracket · 3, 4 are secant steps</text>
+      </g>
+
+      <text x="310" y="314" className="svg-note" textAnchor="middle">ṁ is an <tspan className="warm">output</tspan> of the run, not something you can impose alongside p₂</text>
+    </svg>
+  )
 }
 
 function MassFlowPlot({ revealed }) {
@@ -498,26 +701,33 @@ function ExternalFlowFigure({ revealed }) {
       <ArrowDefs id="ext-arrow" />
       <line x1="24" y1="252" x2="700" y2="252" className="axis-dash" />
       <text x="700" y="268" className="svg-note" textAnchor="end">centerline · upper half shown</text>
-      <path d="M250 95 Q292 48 362 56 L690 76" className="nacelle-line" />
-      <path d="M250 95 Q216 120 248 146" className="lip-shape" />
-      <path d="M248 146 C284 154 306 158 336 158 C460 155 574 138 690 124" className="inner-line" />
-      <circle cx="250" cy="95" r="6" className="mark warm-fill" />
-      <path d="M256 100 L296 110" className="callout-arrow" />
-      <text x="300" y="114" className="svg-note warm">highlight</text>
+      {/* Both surfaces spring from the highlight; inner surface contracts to a throat
+          at x = 340, then diffuses. Radius is measured from the centerline at y = 252. */}
+      <path d="M250 95 C252 74 300 54 380 54 C520 54 620 62 690 72" className="nacelle-line" />
+      <path d="M250 95 C262 103 315 114 340 114 C450 114 580 104 690 96" className="inner-line" />
+      <circle cx="250" cy="95" r="6" className="lip-round" />
+      <path d="M246 101 L206 118" className="callout-arrow" />
+      <text x="202" y="130" className="svg-note warm" textAnchor="end">highlight</text>
+      <line x1="340" y1="114" x2="340" y2="252" className="measure accent-stroke" />
+      <text x="348" y="136" className="svg-note accent-text">throat</text>
       <g className={dimClass(revealed, 1)}>
-        <path d="M28 128 C120 128 188 118 246 98" className="flow-line" markerEnd="url(#ext-arrow-small)" />
-        <path d="M256 90 C324 44 440 42 648 62" className="flow-line" markerEnd="url(#ext-arrow-small)" />
-        <path d="M28 186 C120 186 190 194 252 200 C400 204 540 202 656 198" className="flow-line" markerEnd="url(#ext-arrow-small)" />
-        <text x="62" y="112" className="svg-label accent-text">dividing streamline</text>
-        <text x="606" y="42" className="svg-label accent-text" textAnchor="middle">outer branch</text>
-        <text x="392" y="226" className="svg-note">inner branch follows the lip into the inlet</text>
+        <path d="M28 130 C120 130 190 116 246 98" className="flow-line" markerEnd="url(#ext-arrow-small)" />
+        <path d="M256 88 C320 44 440 40 660 56" className="flow-line" markerEnd="url(#ext-arrow-small)" />
+        <path d="M28 160 C120 160 190 150 248 134 C290 140 320 148 340 148 C450 148 580 140 660 136" className="flow-line" markerEnd="url(#ext-arrow-small)" />
+        <path d="M28 203 C120 203 190 197 248 189 C290 192 320 197 340 197 C450 197 580 192 660 190" className="flow-line" markerEnd="url(#ext-arrow-small)" />
+        <text x="34" y="120" className="svg-label accent-text">dividing streamline</text>
+        <text x="712" y="40" className="svg-label accent-text" textAnchor="end">outer branch</text>
+        <text x="380" y="228" className="svg-note" textAnchor="middle">inner branch: contracts into the throat, then spreads in the diffuser</text>
       </g>
       <g className={dimClass(revealed, 2)}>
-        <path d="M330 55 C362 20 448 18 480 63 C430 61 378 57 330 55 Z" className="sonic-bubble" />
-        <text x="404" y="48" className="svg-label warm" textAnchor="middle">sonic bubble</text>
-        <text x="510" y="90" className="svg-note warm">excess external acceleration</text>
-        <text x="510" y="109" className="svg-note warm">→ cowl shock, pressure drag</text>
-        <text x="510" y="128" className="svg-note warm">→ D<tspan baselineShift="sub" fontSize="9">nacelle</tspan> increases</text>
+        <path d="M330 60 C356 26 446 22 480 56 C430 58 378 60 330 60 Z" className="sonic-bubble" />
+        <path d="M470 24 L481 57" className="shock-line" />
+        <text x="396" y="46" className="svg-label warm" textAnchor="middle">sonic bubble</text>
+        <text x="486" y="24" className="svg-note warm">terminating shock</text>
+        <path d="M312 50 L236 40" className="callout-arrow" />
+        <text x="36" y="38" className="svg-note warm">excess external acceleration</text>
+        <text x="36" y="56" className="svg-note warm">→ cowl shock, pressure drag</text>
+        <text x="36" y="74" className="svg-note warm">→ D<tspan baselineShift="sub" fontSize="9">nacelle</tspan> increases</text>
       </g>
       <text x="360" y="292" className="svg-note" textAnchor="middle">external flow contributes nacelle drag; internal flow sets mass flow and distortion</text>
     </svg>
@@ -525,37 +735,43 @@ function ExternalFlowFigure({ revealed }) {
 }
 
 function NacellePressureFigure({ revealed }) {
-  const arrows = [
-    [64, 168, 64, 124], [102, 162, 96, 107], [142, 150, 126, 94], [184, 130, 161, 86],
-    [244, 112, 226, 88], [302, 112, 292, 92], [362, 120, 360, 100], [420, 129, 425, 108],
+  // Sign convention: every arrow is normal to the surface it sits on.
+  // p - p0 < 0 (suction) is drawn pointing AWAY from the wall;
+  // p - p0 > 0 (compression, at the stagnation point) points INTO the wall.
+  const suctionOuter = [
+    [204, 93, 191, 71], [240, 85, 236, 61], [300, 84, 300, 62],
+    [370, 87, 371, 68], [440, 93, 442, 77], [500, 98, 502, 85],
   ]
+  const suctionInner = [[196, 134, 196, 158], [240, 139, 240, 160], [300, 140, 300, 157]]
   return (
     <svg viewBox="0 0 620 290" className="wide-svg" aria-label="Nacelle pressure distribution and axial pressure force">
       <ArrowDefs id="force-arrow" />
-      <path d="M170 124 Q206 76 258 86 L520 103" className="nacelle-line" />
-      <path d="M170 124 Q148 147 164 169 Q184 188 174 218" className="lip-shape" />
-      <path d="M164 169 C270 158 405 160 520 168" className="inner-line" />
-      <text x="408" y="78" className="svg-note">outer cowl</text>
-      <text x="430" y="158" className="svg-note">inner cowl</text>
-      <path d="M50 170 C100 170 132 153 170 124" className="capture-boundary" />
-      <path d="M50 230 C100 230 132 214 174 218" className="capture-boundary" />
+      <line x1="40" y1="240" x2="596" y2="240" className="axis-dash" />
+      <text x="596" y="256" className="svg-note" textAnchor="end">centerline · upper half shown</text>
+      <path d="M170 124 C172 100 210 84 268 84 C380 84 460 92 520 100" className="nacelle-line" />
+      <path d="M170 124 C182 132 234 140 264 140 C380 140 460 132 520 126" className="inner-line" />
+      <circle cx="170" cy="124" r="6" className="lip-round" />
+      <text x="408" y="76" className="svg-note">outer cowl</text>
+      <text x="430" y="156" className="svg-note">inner cowl</text>
+      <path d="M40 170 C92 170 132 152 170 124" className="capture-boundary" />
       <g className={dimClass(revealed, 1)}>
-        {arrows.map((a, i) => <line key={i} x1={a[0]} y1={a[1]} x2={a[2]} y2={a[3]} className={i < 4 ? 'pressure-arrow warm-stroke' : 'pressure-arrow'} markerEnd="url(#force-arrow-small)" />)}
-        <text x="68" y="116" className="svg-note warm">p ≈ p₀ upstream</text>
-        <text x="174" y="246" className="svg-note warm">p<tspan baselineShift="sub" fontSize="9">max</tspan> at stagnation point</text>
-        <text x="300" y="208" className="svg-note accent-text">p<tspan baselineShift="sub" fontSize="9">min</tspan> near inner-lip acceleration</text>
-        <text x="492" y="92" className="svg-note">p → p₀ downstream</text>
+        {suctionOuter.map((a, i) => <line key={'o' + i} x1={a[0]} y1={a[1]} x2={a[2]} y2={a[3]} className="pressure-arrow" markerEnd="url(#force-arrow-small)" />)}
+        {suctionInner.map((a, i) => <line key={'i' + i} x1={a[0]} y1={a[1]} x2={a[2]} y2={a[3]} className="pressure-arrow" markerEnd="url(#force-arrow-small)" />)}
+        <line x1="126" y1="146" x2="162" y2="128" className="pressure-arrow warm-stroke" markerEnd="url(#force-arrow-small)" />
+        <text x="46" y="196" className="svg-note warm">p<tspan baselineShift="sub" fontSize="9">max</tspan> at the stagnation point: p − p₀ &gt; 0, arrow into the wall</text>
+        <text x="330" y="214" className="svg-note accent-text" textAnchor="middle">suction on both lip surfaces: p − p₀ &lt; 0, arrow off the wall</text>
+        <text x="500" y="116" className="svg-note" textAnchor="middle">p → p₀ downstream</text>
       </g>
       <g className={dimClass(revealed, 2)}>
-        <line x1="166" y1="85" x2="104" y2="38" className="resultant-arrow" markerEnd="url(#force-arrow)" />
-        <line x1="166" y1="85" x2="166" y2="28" className="side-arrow" markerEnd="url(#force-arrow)" />
-        <line x1="166" y1="85" x2="104" y2="85" className="lip-thrust-arrow" markerEnd="url(#force-arrow)" />
-        <text x="68" y="28" className="svg-note positive">resultant force</text>
-        <text x="176" y="26" className="svg-note accent-text">radial component</text>
-        <text x="176" y="40" className="svg-note">(cancels around the annulus)</text>
-        <text x="60" y="104" className="svg-note positive">lip “thrust”</text>
+        <line x1="170" y1="118" x2="118" y2="76" className="resultant-arrow" markerEnd="url(#force-arrow)" />
+        <line x1="170" y1="118" x2="170" y2="66" className="side-arrow" markerEnd="url(#force-arrow)" />
+        <line x1="170" y1="118" x2="112" y2="118" className="lip-thrust-arrow" markerEnd="url(#force-arrow)" />
+        <text x="112" y="62" className="svg-note positive" textAnchor="end">resultant force</text>
+        <text x="180" y="60" className="svg-note accent-text">radial component</text>
+        <text x="180" y="74" className="svg-note">(cancels around the annulus)</text>
+        <text x="106" y="112" className="svg-note positive" textAnchor="end">lip “thrust”</text>
       </g>
-      <text x="400" y="260" className="svg-note" textAnchor="middle">integrate (p - p₀) over the external cowl surface — this is lip suction, not additive drag</text>
+      <text x="400" y="278" className="svg-note" textAnchor="middle">integrate (p − p₀) over the external cowl surface — this is lip suction, not additive drag</text>
     </svg>
   )
 }
@@ -585,21 +801,25 @@ function HighDemandFigure() {
     <svg viewBox="0 0 380 220" className="wide-svg" aria-label="High engine demand: streamtube nearly fills the capture area">
       <ArrowDefs id="hd-arrow" />
       <line x1="40" y1="109" x2="352" y2="109" className="axis-dash" />
-      {/* streamtube is essentially parallel: A0 ~ A1 */}
-      <path d="M40 76 C110 76 155 76 188 78" className="capture-boundary" />
-      <path d="M40 142 C110 142 155 142 188 140" className="capture-boundary" />
-      <path d="M188 78 Q173 82 194 87" className="lip-shape" />
-      <path d="M188 140 Q173 136 194 131" className="lip-shape" />
-      <path d="M188 78 C250 58 310 56 352 58" className="nacelle-line" />
-      <path d="M188 140 C250 160 310 162 352 160" className="nacelle-line" />
-      <path d="M194 87 C230 88 250 87 270 87 C300 85 330 82 352 80" className="inner-line" />
-      <path d="M194 131 C230 130 250 131 270 131 C300 133 330 136 352 138" className="inner-line" />
-      {[0, 1, 2].map(i => <path key={i} d={'M46 ' + (89 + i * 20) + ' C110 ' + (89 + i * 20) + ' 150 ' + (91 + i * 18) + ' 196 ' + (94 + i * 15) + ' C260 ' + (94 + i * 15) + ' 300 ' + (92 + i * 17) + ' 340 ' + (90 + i * 19)} className="flow-line" markerEnd="url(#hd-arrow-small)" />)}
-      <line x1="60" y1="76" x2="60" y2="142" className="measure accent-stroke" />
+      {/* HIGH DEMAND: A0 > A1, so the streamtube CONTRACTS into the lip (MFR > 1). */}
+      <path d="M40 62 C110 62 155 68 188 78" className="capture-boundary" />
+      <path d="M40 156 C110 156 155 150 188 140" className="capture-boundary" />
+      <path d="M188 78 C190 64 220 56 258 56 L352 58" className="nacelle-line" />
+      <path d="M188 140 C190 154 220 162 258 162 L352 160" className="nacelle-line" />
+      <path d="M188 78 C198 81 235 85 250 85 C295 85 330 80 352 77" className="inner-line" />
+      <path d="M188 140 C198 137 235 133 250 133 C295 133 330 138 352 141" className="inner-line" />
+      <circle cx="188" cy="78" r="5" className="lip-round" />
+      <circle cx="188" cy="140" r="5" className="lip-round" />
+      <path d="M46 76 C110 76 155 82 188 87 C215 88 235 92 250 92 C295 92 320 88 340 87" className="flow-line" markerEnd="url(#hd-arrow-small)" />
+      <path d="M46 88 C110 88 155 92 188 95 C215 96 235 98 250 98 C295 98 320 96 340 95" className="flow-line" markerEnd="url(#hd-arrow-small)" />
+      <path d="M46 130 C110 130 155 126 188 123 C215 122 235 120 250 120 C295 120 320 122 340 123" className="flow-line" markerEnd="url(#hd-arrow-small)" />
+      <path d="M46 142 C110 142 155 136 188 131 C215 130 235 126 250 126 C295 126 320 130 340 131" className="flow-line" markerEnd="url(#hd-arrow-small)" />
+      <line x1="60" y1="62" x2="60" y2="156" className="measure accent-stroke" />
       <line x1="188" y1="78" x2="188" y2="140" className="measure warm" />
       <text x="50" y="113" className="svg-formula accent-text" textAnchor="end">A₀</text>
       <text x="200" y="113" className="svg-formula warm">A₁</text>
-      <text x="190" y="196" className="svg-note" textAnchor="middle">A₀ ≈ A₁ · high M₁ · little or no spillage</text>
+      <text x="190" y="190" className="svg-note" textAnchor="middle">A₀ &gt; A₁ · MFR &gt; 1 · streamtube contracts · no spillage</text>
+      <text x="190" y="208" className="svg-note warm" textAnchor="middle">static / takeoff — the lip-separation case</text>
     </svg>
   )
 }
@@ -609,28 +829,28 @@ function LowDemandFigure() {
     <svg viewBox="0 0 380 220" className="wide-svg" aria-label="Low engine demand: streamtube contracts well ahead of the lip and flow spills around it">
       <ArrowDefs id="ld-arrow" />
       <line x1="40" y1="109" x2="352" y2="109" className="axis-dash" />
-      {/* A0 < A1: the captured streamtube EXPANDS on its way to the highlight */}
-      <path d="M40 89 C110 89 152 84 188 78" className="capture-boundary" />
-      <path d="M40 129 C110 129 152 134 188 140" className="capture-boundary" />
-      <path d="M188 78 Q173 82 194 87" className="lip-shape" />
-      <path d="M188 140 Q173 136 194 131" className="lip-shape" />
-      <path d="M188 78 C250 58 310 56 352 58" className="nacelle-line" />
-      <path d="M188 140 C250 160 310 162 352 160" className="nacelle-line" />
-      <path d="M194 87 C230 88 250 87 270 87 C300 85 330 82 352 80" className="inner-line" />
-      <path d="M194 131 C230 130 250 131 270 131 C300 133 330 136 352 138" className="inner-line" />
+      {/* LOW DEMAND: A0 < A1, so the captured streamtube EXPANDS toward the highlight. */}
+      <path d="M40 92 C110 92 152 84 188 78" className="capture-boundary" />
+      <path d="M40 126 C110 126 152 134 188 140" className="capture-boundary" />
+      <path d="M188 78 C190 64 220 56 258 56 L352 58" className="nacelle-line" />
+      <path d="M188 140 C190 154 220 162 258 162 L352 160" className="nacelle-line" />
+      <path d="M188 78 C198 81 235 85 250 85 C295 85 330 80 352 77" className="inner-line" />
+      <path d="M188 140 C198 137 235 133 250 133 C295 133 330 138 352 141" className="inner-line" />
+      <circle cx="188" cy="78" r="5" className="lip-round" />
+      <circle cx="188" cy="140" r="5" className="lip-round" />
       {/* captured flow */}
-      <path d="M46 99 C110 99 152 95 198 94 C260 94 300 92 340 90" className="flow-line" markerEnd="url(#ld-arrow-small)" />
-      <path d="M46 119 C110 119 152 123 198 124 C260 124 300 126 340 128" className="flow-line" markerEnd="url(#ld-arrow-small)" />
+      <path d="M46 100 C110 100 152 97 188 93 C215 95 235 97 250 97 C295 97 320 94 340 93" className="flow-line" markerEnd="url(#ld-arrow-small)" />
+      <path d="M46 118 C110 118 152 121 188 125 C215 123 235 121 250 121 C295 121 320 124 340 125" className="flow-line" markerEnd="url(#ld-arrow-small)" />
       {/* spilled flow: outside the dividing streamline, over the cowl */}
-      <path d="M46 76 C110 76 152 70 188 66 C242 46 302 44 348 48" className="flow-line" markerEnd="url(#ld-arrow-small)" />
-      <path d="M46 142 C110 142 152 148 188 152 C242 172 302 174 348 170" className="flow-line" markerEnd="url(#ld-arrow-small)" />
-      <circle cx="188" cy="78" r="4.5" className="mark warm-fill" />
-      <text x="190" y="38" className="svg-note warm" textAnchor="middle">spilled flow goes outside the cowl</text>
-      <line x1="58" y1="89" x2="58" y2="129" className="measure accent-stroke" />
+      <path d="M46 82 C110 82 152 74 186 66 C240 46 300 44 348 48" className="flow-line" markerEnd="url(#ld-arrow-small)" />
+      <path d="M46 136 C110 136 152 144 186 152 C240 172 300 174 348 170" className="flow-line" markerEnd="url(#ld-arrow-small)" />
+      <text x="190" y="34" className="svg-note warm" textAnchor="middle">spilled flow goes outside the cowl</text>
+      <line x1="58" y1="92" x2="58" y2="126" className="measure accent-stroke" />
       <line x1="188" y1="78" x2="188" y2="140" className="measure warm" />
       <text x="48" y="113" className="svg-formula accent-text" textAnchor="end">A₀</text>
       <text x="200" y="113" className="svg-formula warm">A₁</text>
-      <text x="190" y="196" className="svg-note" textAnchor="middle">A₀ &lt; A₁ · low M₁ · streamtube expands · spillage drag rises</text>
+      <text x="190" y="190" className="svg-note" textAnchor="middle">A₀ &lt; A₁ · MFR &lt; 1 · streamtube expands · flow spills</text>
+      <text x="190" y="208" className="svg-note warm" textAnchor="middle">cruise / low N — spillage drag rises</text>
     </svg>
   )
 }
@@ -669,15 +889,15 @@ function StationMapFigure({ revealed }) {
     <svg viewBox="0 0 760 290" className="wide-svg" aria-label="Station numbering from free stream to the fan face">
       <ArrowDefs id="stn-arrow" />
       <line x1="40" y1="130" x2="700" y2="130" className="axis-dash" />
-      <path d="M40 92 C120 92 180 88 240 78" className="capture-boundary" />
-      <path d="M40 168 C120 168 180 172 240 182" className="capture-boundary" />
-      <path d="M240 78 Q216 86 238 92" className="lip-shape" />
-      <path d="M240 182 Q216 174 238 168" className="lip-shape" />
-      <path d="M240 78 C350 56 520 52 700 62" className="nacelle-line" />
-      <path d="M240 182 C350 204 520 208 700 198" className="nacelle-line" />
-      <path d="M238 92 C290 96 300 94 330 94 C450 90 560 86 640 84" className="inner-line" />
-      <path d="M238 168 C290 164 300 166 330 166 C450 170 560 174 640 176" className="inner-line" />
-      <path d="M646 88 L674 100 L674 160 L646 172 Z" className="fan" />
+      <path d="M40 92 C120 92 180 86 240 78" className="capture-boundary" />
+      <path d="M40 168 C120 168 180 174 240 182" className="capture-boundary" />
+      <path d="M240 78 C242 60 290 50 360 50 C520 50 620 56 700 62" className="nacelle-line" />
+      <path d="M240 182 C242 200 290 210 360 210 C520 210 620 204 700 198" className="nacelle-line" />
+      <path d="M240 78 C256 84 305 90 330 90 C440 90 560 82 640 79" className="inner-line" />
+      <path d="M240 182 C256 176 305 170 330 170 C440 170 560 178 640 181" className="inner-line" />
+      <circle cx="240" cy="78" r="6" className="lip-round" />
+      <circle cx="240" cy="182" r="6" className="lip-round" />
+      <path d="M646 83 L674 95 L674 165 L646 177 Z" className="fan" />
       {stations.map(s => <g key={s.tag} className={dimClass(revealed, 1)}>
         <line x1={s.x} y1="52" x2={s.x} y2="206" className="guide" />
         <text x={s.x} y="46" className={'svg-formula ' + s.tone} textAnchor="middle">{s.tag}</text>
@@ -689,7 +909,7 @@ function StationMapFigure({ revealed }) {
         <line x1="330" y1="280" x2="640" y2="280" className="measure violet" markerStart="url(#stn-arrow-small)" markerEnd="url(#stn-arrow-small)" />
         <text x="485" y="274" className="svg-note violet" textAnchor="middle">C_PR · internal diffuser only, th → 2</text>
       </g>
-      <text x="380" y="16" className="svg-note" textAnchor="middle">§2 numbers a generic diffuser 1 → 2; from §3 on, station 1 is the highlight</text>
+      <text x="380" y="16" className="svg-note" textAnchor="middle">0 free stream · 1 highlight · th throat · 2 fan face — unchanged for the whole unit</text>
     </svg>
   )
 }
@@ -731,14 +951,14 @@ function OverviewSlide({ slide, revealed }) {
       <Card title="Subsonic inlet" tone={ACCENT} className={dimClass(revealed, 1)}>
         <ul className="clean-list compact">
           <li><b>Rounded, blunt lip</b></li>
-          <li>Increasing flow area</li>
+          <li>Contracts to a throat, then diffuses to the fan face</li>
           <li>Dominant issue: boundary-layer separation</li>
         </ul>
       </Card>
       <Card title="Supersonic inlet" tone={GOLD} className={dimClass(revealed, 2)}>
         <ul className="clean-list compact">
           <li><b>Sharp lip</b></li>
-          <li>Converging–diverging duct with a variable throat</li>
+          <li>External compression: ramps ahead of the cowl, terminal normal shock at the lip</li>
           <li>Dominant issue: shock–boundary-layer interaction, unstart, buzz</li>
         </ul>
       </Card>
@@ -789,7 +1009,7 @@ function StationsSlide({ slide, revealed }) {
   return <SlideFrame slide={slide}>
     <Card title="Station map for the whole unit" tone={ACCENT}><StationMapFigure revealed={revealed} /></Card>
     <div className="callout strip-callout">
-      <b>Watch the collision:</b> Section 2 studies a generic diffuser and calls its inlet and exit <b>1</b> and <b>2</b>. From Section 3 onward, <b>1</b> means the inlet-lip highlight. When both are in play, name the internal diffuser <b>th → 2</b> and reserve <b>0 → 1</b> for external diffusion.
+      <b>Two diffusers, one scheme:</b> external diffusion runs <b>0 → 1</b> (free stream to highlight); internal diffusion runs <b>th → 2</b> (throat to fan face). Section 2 studies that internal diffuser, so its &ldquo;inlet&rdquo; is station <b>th</b> and its &ldquo;exit&rdquo; is station <b>2</b> — the same station 2 the cycle deck consumes. Station <b>1</b> always means the highlight.
     </div>
   </SlideFrame>
 }
@@ -833,11 +1053,11 @@ function DriversSlide({ slide, revealed }) {
     <div className="driver-layout">
       <Card title="Diffuser-performance map" tone={ACCENT} className={dimClass(revealed, 1)}>
         <Equation accent>
-          C<sub>PR</sub> = f(AR, n/R₁, β, centerline shape)
+          C<sub>PR</sub> = f(AR, n/R<sub>th</sub>, β, centerline shape)
         </Equation>
         <div className="variable-grid">
           <span><b>AR</b><small>area ratio</small></span>
-          <span><b>n/R₁</b><small>axial length ÷ inlet radius R₁</small></span>
+          <span><b>n/R<sub>th</sub></b><small>axial length ÷ throat radius R<sub>th</sub></small></span>
           <span><b>β</b><small>inlet blockage</small></span>
           <span><b>shape</b><small>offset/curvature</small></span>
         </div>
@@ -908,10 +1128,10 @@ function MetricsSlide({ slide, revealed }) {
       </Card>
       <Card title="Static-pressure recovery coefficient" tone={GREEN} className={dimClass(revealed, 2)}>
         <p>Measures how effectively the diffuser converts kinetic energy into static pressure.</p>
-        <Equation accent>C<sub>PR</sub> = Δp /(ρ₁V₁²/2) = (p₂ - p₁)/q₁</Equation>
-        <p className="micro-copy"><b>q₁ is dynamic pressure - not heat.</b></p>
+        <Equation accent>C<sub>PR</sub> = Δp /(ρ<sub>th</sub>V<sub>th</sub>²/2) = (p₂ - p<sub>th</sub>)/q<sub>th</sub></Equation>
+        <p className="micro-copy"><b>q<sub>th</sub> is dynamic pressure - not heat.</b></p>
         <Equation>C<sub>PR,ideal</sub> = 1 - 1/AR²</Equation>
-        <p className="micro-copy">AR = exit area / inlet area · <b>incompressible</b> ideal</p>
+        <p className="micro-copy">AR = A₂/A<sub>th</sub>, fan-face area ÷ throat area · <b>incompressible</b> ideal</p>
         <p className="small-copy"><b>Static, not total.</b> C<sub>PR</sub> is not the inlet total-pressure recovery π<sub>d</sub> = p<sub>t2</sub>/p<sub>t0</sub>. See 1.5.</p>
       </Card>
       <Card title="What “stall” means here" tone={RED} className={dimClass(revealed, 3)}>
@@ -933,7 +1153,7 @@ function GeometriesSlide({ slide, revealed }) {
       <DiffuserIcon kind="annular" label="Annular" active={revealed >= 3} />
       <DiffuserIcon kind="transition" label="Rectangular → circular transition" active={revealed >= 4} />
     </div>
-    <Card className="parameter-card" title="Geometry parameters preserved from the notes" tone={GOLD}>
+    <Card className="parameter-card" title="Diffuser geometry parameters" tone={GOLD}>
       <GeometryParametersFigure />
     </Card>
   </SlideFrame>
@@ -961,7 +1181,7 @@ function GradientSlide({ slide, revealed }) {
     <div className="gradient-layout">
       <Card title="Pressure rise over the same length L" tone={ACCENT}>
         <PressureGradientPlot revealed={revealed} />
-        <Equation>dp/dx ≈ (p₂ - p₁)/(x₂ - x₁) = Δp/L</Equation>
+        <Equation>dp/dx ≈ (p₂ - p<sub>th</sub>)/(x₂ - x<sub>th</sub>) = Δp/L</Equation>
       </Card>
       <Card title="Boundary-layer response" tone={RED}>
         <BoundaryLayerStages revealed={revealed} />
@@ -976,7 +1196,7 @@ function StallSlide({ slide, revealed }) {
     <div className="stall-grid">
       {[1, 2, 3, 4].map(stage => <StallSketch key={stage} stage={stage} revealed={revealed} />)}
     </div>
-    <div className="callout strip-callout"><b>Physical picture:</b> fluid in the separated region becomes trapped and recirculates while the outer flow passes over it. <b>Read the regimes off the (2θ, L/W₁) map:</b> a long, gently divergent duct and a short, steeply divergent one can share the same AR and land in completely different regimes - which is exactly the point of 1.2.</div>
+    <div className="callout strip-callout"><b>Physical picture:</b> fluid in the separated region becomes trapped and recirculates while the outer flow passes over it. <b>Read the regimes off the (2θ, L/W<sub>th</sub>) map:</b> a long, gently divergent duct and a short, steeply divergent one can share the same AR and land in completely different regimes - which is exactly the point of 1.2.</div>
   </SlideFrame>
 }
 
@@ -1121,10 +1341,46 @@ function BackpressureSlide({ slide, revealed }) {
           <Equation accent>ṁ√T<sub>t2</sub> / (A₂ p<sub>t2</sub>) = f(M₂)</Equation>
           <p>A₂ is fixed by the compressor face. Rotor speed N sets the corrected-flow demand on the left side — that pins M₂, and isentropically p₂/p<sub>t2</sub> = f(M₂) then pins the static pressure right at the face.</p>
         </Card>
+        <Card title="p₂ and ṁ are the same statement" tone={VIOLET} className={dimClass(revealed, 3)}>
+          <p>f(M₂) climbs monotonically from 0 at M₂ = 0 to its maximum at M₂ = 1, so for a fixed A₂ the map <b>p₂ ⟷ ṁ is one-to-one</b>. Naming the fan-face static pressure and naming the demanded mass flow are the <i>same</i> boundary condition written two ways — you get to impose one of them, never both.</p>
+          <p className="small-copy">Above M₂ = 1 the map stops: the face is choked, ṁ is capped by A₂p<sub>t2</sub>/√T<sub>t2</sub>, and dropping p₂ further changes nothing upstream.</p>
+        </Card>
         <Card title="Two pressure events, two locations" tone={GOLD} className={dimClass(revealed, 2)}>
           <p><b>Compare operating points, not stations.</b> Raising N lowers p₂ at the fan face <i>relative to a lower power setting</i> — that is the stronger suction that pulls in a larger streamtube. It does <b>not</b> mean pressure falls along the duct: from throat to fan face the inlet is a diffuser and static pressure <b>rises</b>. Pressure then rises again, stage by stage, through the rotor and stator rows downstream of station 2. Subsonic (elliptic) flow is what lets the fan-face pressure act as the boundary condition the whole diffuser, and the free-stream streamtube, must satisfy.</p>
         </Card>
       </div>
+    </div>
+  </SlideFrame>
+}
+
+function OperatingPointSlide({ slide, revealed }) {
+  return <SlideFrame slide={slide}>
+    <div className="plot-layout balanced">
+      <Card title="Delivered mass flow vs. imposed back pressure" tone={ACCENT} className="plot-card">
+        <MassFlowIterationFigure revealed={revealed} />
+      </Card>
+      <div className="plot-side">
+        <Card title="Why ṁ cannot be an input here" tone={VIOLET} className={dimClass(revealed, 1)}>
+          <p>Subsonic flow is <b>elliptic</b>: disturbances travel upstream at (a − u) &gt; 0, so the fan-face static pressure is felt all the way out to the free-stream streamtube. That is the whole mechanism of Section 4.2 — <b>p₂ is what sizes A₀</b>.</p>
+          <p>So the solver takes p₂ and returns ṁ. Prescribing both over-determines the problem; the pair would have to satisfy the flow function already, and if your guess does not, the solver either refuses to converge or quietly bends the flow field until it does.</p>
+        </Card>
+        <Card title="The loop" tone={GREEN} className={dimClass(revealed, 2)}>
+          <ol className="clean-list compact">
+            <li><b>Target.</b> Take ṁ from the cycle deck at the flight condition, and convert it to <b>MFR = A₀/A₁</b> — that is what the lip actually feels.</li>
+            <li><b>First guess.</b> Invert ṁ√T<sub>t2</sub>/(A₂p<sub>t2</sub>) = f(M₂) by hand for M₂, then p₂ = p<sub>t2</sub>[1 + (γ−1)M₂²/2]<sup>−γ/(γ−1)</sup>, with p<sub>t2</sub> ≈ π<sub>d</sub>p<sub>t0</sub>.</li>
+            <li><b>Run and measure.</b> Converge, then <i>integrate</i> ṁ on the fan-face plane. Check the mass imbalance first — a 2% imbalance makes the measurement meaningless.</li>
+            <li><b>Secant.</b> ṁ(p₂) is smooth and monotonic, so two runs give a chord and the next guess. <b>Three or four runs</b> lands inside 1%.</li>
+          </ol>
+        </Card>
+        <Card title="Two traps" tone={RED} className={dimClass(revealed, 3)}>
+          <p><b>The first guess is always high.</b> Step 2 is isentropic; the real duct loses total pressure, so the run delivers less ṁ than the hand calc promised. That gap is not an error — it <i>is</i> π<sub>d</sub>.</p>
+          <p><b>A mass-flow-outlet hides the physics.</b> It imposes ṁ and lets p₂ float, which is fine for a healthy attached case. Demand a flow the geometry cannot pass — a choked throat, or a lip that has separated — and you get a converged-looking, physically meaningless answer instead of the flat-topped curve that was trying to tell you something.</p>
+        </Card>
+      </div>
+    </div>
+    <div className="callout wide-callout">
+      <span className="eyebrow">Sanity check before you trust a run</span>
+      Confirm three things together: <b>mass imbalance</b> near zero, the <b>monitored ṁ</b> flat over the last few hundred iterations, and the resulting <b>MFR in the range you expected</b> (≈0.7 at cruise, &gt;1 at static). If the throat Mach has crept past about 0.8, you are near the choking knee and the ṁ–p₂ curve is about to go flat — stop reducing p₂ and re-examine the throat area instead.
     </div>
   </SlideFrame>
 }
@@ -1156,7 +1412,7 @@ function SummarySlide({ slide, revealed }) {
   const points = [
     ['Geometry matters', 'Short, long, fat, and narrow diffusers can have different C_PR because the adverse pressure gradient - not area ratio alone - controls attachment.'],
     ['Three metrics, three jobs', 'C_PR grades the duct (0.5-0.8). Pi_d grades the loss (0.97-0.995) and feeds the cycle. Eta_d grades that loss against the ram rise available at M0. Never quote one for another.'],
-    ['Know the stall regimes', 'Separation is dangerous because it creates low-energy distortion and unsteady swirling flow at the fan or compressor face. Regimes live on a (2-theta, L/W1) map.'],
+    ['Know the stall regimes', 'Separation is dangerous because it creates low-energy distortion and unsteady swirling flow at the fan or compressor face. Regimes live on a (2-theta, L/W_th) map.'],
     ['Get the drag bookkeeping right', 'Additive drag acts on the pre-entry streamtube; lip suction acts on the external cowl. Spillage drag is the difference, not either one alone.'],
     ['Protect the throat', 'Lip geometry and contraction set the throat velocity profile; keep mean throat Mach around or below 0.75 and avoid local sonic flow.'],
     ['Demand sets capture, not the reverse', 'Rotor speed sets corrected flow, which sets M1 at the fixed A1, which sets A0/A1. Spillage is the symptom of low demand, never a choice.'],
@@ -1182,6 +1438,7 @@ function SlideRouter({ slide, revealed }) {
     case 'recovery': return <RecoverySlide slide={slide} revealed={revealed} />
     case 'gradient': return <GradientSlide slide={slide} revealed={revealed} />
     case 'stall': return <StallSlide slide={slide} revealed={revealed} />
+    case 'distortion': return <DistortionSlide slide={slide} revealed={revealed} />
     case 'capture': return <CaptureSlide slide={slide} revealed={revealed} />
     case 'captureDerivation': return <CaptureDerivationSlide slide={slide} revealed={revealed} />
     case 'captureResult': return <CaptureResultSlide slide={slide} revealed={revealed} />
@@ -1190,6 +1447,7 @@ function SlideRouter({ slide, revealed }) {
     case 'external': return <ExternalSlide slide={slide} revealed={revealed} />
     case 'spillageMechanism': return <SpillageMechanismSlide slide={slide} revealed={revealed} />
     case 'backpressure': return <BackpressureSlide slide={slide} revealed={revealed} />
+    case 'operatingpoint': return <OperatingPointSlide slide={slide} revealed={revealed} />
     case 'forces': return <ForcesSlide slide={slide} revealed={revealed} />
     case 'summary': return <SummarySlide slide={slide} revealed={revealed} />
     default: return null
@@ -1322,6 +1580,7 @@ html,body,#root{height:100%;margin:0}
 .accent-text{fill:var(--accent)!important}.warm{color:var(--accent2);fill:var(--accent2)!important}.positive{color:var(--pos);fill:var(--pos)!important}.violet{color:var(--violet);fill:var(--violet)!important}
 .duct-fill{fill:rgba(94,200,216,.055);stroke:var(--rule);stroke-width:1}.duct-line,.nacelle-line,.inner-line,.lip-shape{fill:none;stroke:var(--ink);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}.duct-line.thick{stroke-width:3}.nacelle-line{stroke-width:2.4}.inner-line{stroke:var(--muted);stroke-width:2}.lip-shape{stroke:var(--accent2);stroke-width:3}
 .flow-line{fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round}.soft-line{fill:none;stroke:var(--muted);stroke-width:1.2}.shock-line{fill:none;stroke:var(--accent2);stroke-width:2.2}.lip-round{fill:var(--panel);stroke:var(--accent);stroke-width:3}
+.face-clean{fill:rgba(94,200,216,.12);stroke:var(--accent);stroke-width:2}.face-ring{fill:none;stroke:var(--rule);stroke-width:1}.face-hub{fill:var(--panel2);stroke:var(--muted);stroke-width:1.3}.face-low{fill:rgba(226,104,92,.30);stroke:var(--bad);stroke-width:1.4}.face-low.deep{fill:rgba(226,104,92,.34);stroke:none}.sector-line{fill:none;stroke:var(--accent2);stroke-width:1.4;stroke-dasharray:5 4}
 .hub{fill:var(--panel2);stroke:var(--muted);stroke-width:1.3}.fan{fill:rgba(94,200,216,.15);stroke:var(--accent);stroke-width:1.5}.axis,.tick,.wall{stroke:var(--muted);stroke-width:1.3}.wall{stroke-width:2.3}.axis-dash{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:5 5}.accent-stroke{stroke:var(--accent)!important}.measure{stroke:var(--muted);stroke-width:1.2;fill:none}.angle{fill:none;stroke:var(--accent2);stroke-width:1.4}.tick-label{font:10px var(--body);fill:var(--muted)}.grid-line{stroke:var(--rule);stroke-width:.7;opacity:.55}
 .chart-line{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round}.warm-stroke{stroke:var(--accent2)!important}.violet-stroke{stroke:var(--violet)!important}.positive-stroke{stroke:var(--pos)!important}.guide{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:5 5}.mark{stroke:var(--bg);stroke-width:1}.warm-fill{fill:var(--accent2)}.positive-fill{fill:var(--pos)}.callout-arrow{fill:none;stroke:var(--muted);stroke-width:1.2}.profile-line{fill:none;stroke:var(--ink);stroke-width:1.8}.velocity-arrow{stroke:var(--accent);stroke-width:1.3}.reverse-arrow{stroke:var(--bad);stroke-width:1.4}.boundary-edge{fill:none;stroke:var(--accent2);stroke-width:1.3;stroke-dasharray:4 4}
 .capture-boundary{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:8 5}.highlight-stroke{fill:none;stroke:var(--accent2);stroke-width:3}.vortex{fill:none;stroke:var(--bad);stroke-width:1.6}.jet-line{fill:none;stroke:var(--violet);stroke-width:4}.sonic-bubble{fill:rgba(240,169,59,.18);stroke:var(--accent2);stroke-width:2;stroke-dasharray:5 3}
